@@ -1,0 +1,837 @@
+{
+  "dataset": {
+    "rows": 7043,
+    "churned": 1869,
+    "churn_rate": 0.2653698707936959,
+    "avg_monthly_charges": 64.76169246059918,
+    "avg_tenure": 32.37114865824223,
+    "source_url": "https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv",
+    "sha256": "16320c9c1ec72448db59aa0a26a0b95401046bef5d02fd3aeb906448e3055e91",
+    "cleaning": {
+      "zero_tenure_total_charges_filled": 11,
+      "rows_dropped": 0,
+      "duplicate_customer_ids": 0,
+      "rule": "Blank TotalCharges is zero only when tenure is zero; all other missing values are rejected."
+    }
+  },
+  "splits": {
+    "train": 4225,
+    "validation": 1409,
+    "test": 1409
+  },
+  "model": {
+    "name": "Logistic regression",
+    "threshold": 0.49934350911717607,
+    "selection_metric": "Validation average precision",
+    "explanation_units": "log-odds"
+  },
+  "test_metrics": {
+    "accuracy": 0.7835344215755855,
+    "precision": 0.6074766355140186,
+    "recall": 0.5213903743315508,
+    "f1": 0.5611510791366906,
+    "roc_auc": 0.8324730682786947,
+    "average_precision": 0.6242117062478064,
+    "brier": 0.14148841097269582,
+    "confusion_matrix": [
+      [
+        909,
+        126
+      ],
+      [
+        179,
+        195
+      ]
+    ],
+    "threshold": 0.49934350911717607
+  },
+  "models": [
+    {
+      "name": "Dummy baseline",
+      "validation": {
+        "accuracy": 0.7345635202271115,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.5,
+        "average_precision": 0.2654364797728886,
+        "brier": 0.19497996730765565,
+        "confusion_matrix": [
+          [
+            1035,
+            0
+          ],
+          [
+            374,
+            0
+          ]
+        ],
+        "threshold": 0.5
+      },
+      "parameters": {
+        "constant": null,
+        "random_state": null,
+        "strategy": "prior"
+      },
+      "test": {
+        "accuracy": 0.7345635202271115,
+        "precision": 0.0,
+        "recall": 0.0,
+        "f1": 0.0,
+        "roc_auc": 0.5,
+        "average_precision": 0.2654364797728886,
+        "brier": 0.19497996730765565,
+        "confusion_matrix": [
+          [
+            1035,
+            0
+          ],
+          [
+            374,
+            0
+          ]
+        ],
+        "threshold": 0.5
+      }
+    },
+    {
+      "name": "Logistic regression",
+      "validation": {
+        "accuracy": 0.8261178140525195,
+        "precision": 0.6972477064220184,
+        "recall": 0.6096256684491979,
+        "f1": 0.6504992867332382,
+        "roc_auc": 0.8597948797437287,
+        "average_precision": 0.6765887354201519,
+        "brier": 0.13046515855645158,
+        "confusion_matrix": [
+          [
+            936,
+            99
+          ],
+          [
+            146,
+            228
+          ]
+        ],
+        "threshold": 0.49934350911717607
+      },
+      "parameters": {
+        "C": 1.0,
+        "class_weight": null,
+        "dual": false,
+        "fit_intercept": true,
+        "intercept_scaling": 1,
+        "l1_ratio": 0.0,
+        "max_iter": 2000,
+        "n_jobs": null,
+        "penalty": "deprecated",
+        "random_state": 42,
+        "solver": "lbfgs",
+        "tol": 0.0001,
+        "verbose": 0,
+        "warm_start": false
+      },
+      "test": {
+        "accuracy": 0.7835344215755855,
+        "precision": 0.6074766355140186,
+        "recall": 0.5213903743315508,
+        "f1": 0.5611510791366906,
+        "roc_auc": 0.8324730682786947,
+        "average_precision": 0.6242117062478064,
+        "brier": 0.14148841097269582,
+        "confusion_matrix": [
+          [
+            909,
+            126
+          ],
+          [
+            179,
+            195
+          ]
+        ],
+        "threshold": 0.49934350911717607
+      }
+    },
+    {
+      "name": "Random forest",
+      "validation": {
+        "accuracy": 0.7785663591199432,
+        "precision": 0.5593869731800766,
+        "recall": 0.7807486631016043,
+        "f1": 0.6517857142857143,
+        "roc_auc": 0.8584295641840398,
+        "average_precision": 0.676530339064083,
+        "brier": 0.1313445752870374,
+        "confusion_matrix": [
+          [
+            805,
+            230
+          ],
+          [
+            82,
+            292
+          ]
+        ],
+        "threshold": 0.3225142947921619
+      },
+      "parameters": {
+        "bootstrap": true,
+        "ccp_alpha": 0.0,
+        "class_weight": null,
+        "criterion": "gini",
+        "max_depth": 8,
+        "max_features": "sqrt",
+        "max_leaf_nodes": null,
+        "max_samples": null,
+        "min_impurity_decrease": 0.0,
+        "min_samples_leaf": 5,
+        "min_samples_split": 2,
+        "min_weight_fraction_leaf": 0.0,
+        "monotonic_cst": null,
+        "n_estimators": 180,
+        "n_jobs": 2,
+        "oob_score": false,
+        "random_state": 42,
+        "verbose": 0,
+        "warm_start": false
+      },
+      "test": {
+        "accuracy": 0.7551454932576295,
+        "precision": 0.5271028037383177,
+        "recall": 0.7540106951871658,
+        "f1": 0.6204620462046204,
+        "roc_auc": 0.8303598646309643,
+        "average_precision": 0.632892970822857,
+        "brier": 0.14081704045884313,
+        "confusion_matrix": [
+          [
+            782,
+            253
+          ],
+          [
+            92,
+            282
+          ]
+        ],
+        "threshold": 0.3225142947921619
+      }
+    },
+    {
+      "name": "XGBoost",
+      "validation": {
+        "accuracy": 0.7885024840312278,
+        "precision": 0.5785123966942148,
+        "recall": 0.7486631016042781,
+        "f1": 0.6526806526806527,
+        "roc_auc": 0.8563331524968353,
+        "average_precision": 0.6762981146483579,
+        "brier": 0.13097253441810608,
+        "confusion_matrix": [
+          [
+            831,
+            204
+          ],
+          [
+            94,
+            280
+          ]
+        ],
+        "threshold": 0.34089499711990356
+      },
+      "parameters": {
+        "objective": "binary:logistic",
+        "base_score": null,
+        "booster": null,
+        "callbacks": null,
+        "colsample_bylevel": null,
+        "colsample_bynode": null,
+        "colsample_bytree": 0.9,
+        "device": null,
+        "early_stopping_rounds": null,
+        "enable_categorical": true,
+        "eval_metric": "logloss",
+        "feature_types": null,
+        "feature_weights": null,
+        "gamma": null,
+        "grow_policy": null,
+        "importance_type": null,
+        "interaction_constraints": null,
+        "learning_rate": 0.05,
+        "max_bin": null,
+        "max_cat_threshold": null,
+        "max_cat_to_onehot": null,
+        "max_delta_step": null,
+        "max_depth": 3,
+        "max_leaves": null,
+        "min_child_weight": null,
+        "missing": "NaN (missing-value sentinel)",
+        "monotone_constraints": null,
+        "multi_strategy": null,
+        "n_estimators": 240,
+        "n_jobs": 2,
+        "num_parallel_tree": null,
+        "random_state": 42,
+        "reg_alpha": null,
+        "reg_lambda": 2,
+        "sampling_method": null,
+        "scale_pos_weight": null,
+        "subsample": 0.9,
+        "tree_method": null,
+        "validate_parameters": null,
+        "verbosity": null
+      },
+      "test": {
+        "accuracy": 0.7622427253371186,
+        "precision": 0.539553752535497,
+        "recall": 0.7112299465240641,
+        "f1": 0.6136101499423299,
+        "roc_auc": 0.8308752486501847,
+        "average_precision": 0.6291733267910355,
+        "brier": 0.14137877523899078,
+        "confusion_matrix": [
+          [
+            808,
+            227
+          ],
+          [
+            108,
+            266
+          ]
+        ],
+        "threshold": 0.34089499711990356
+      }
+    }
+  ],
+  "segments": [
+    {
+      "name": "Contract",
+      "values": [
+        {
+          "label": "Month-to-month",
+          "count": 3875,
+          "churn_rate": 0.4270967741935484
+        },
+        {
+          "label": "One year",
+          "count": 1473,
+          "churn_rate": 0.11269517990495587
+        },
+        {
+          "label": "Two year",
+          "count": 1695,
+          "churn_rate": 0.02831858407079646
+        }
+      ]
+    },
+    {
+      "name": "InternetService",
+      "values": [
+        {
+          "label": "DSL",
+          "count": 2421,
+          "churn_rate": 0.1895910780669145
+        },
+        {
+          "label": "Fiber optic",
+          "count": 3096,
+          "churn_rate": 0.4189276485788114
+        },
+        {
+          "label": "No",
+          "count": 1526,
+          "churn_rate": 0.07404980340760157
+        }
+      ]
+    },
+    {
+      "name": "PaymentMethod",
+      "values": [
+        {
+          "label": "Bank transfer (automatic)",
+          "count": 1544,
+          "churn_rate": 0.16709844559585493
+        },
+        {
+          "label": "Credit card (automatic)",
+          "count": 1522,
+          "churn_rate": 0.15243101182654403
+        },
+        {
+          "label": "Electronic check",
+          "count": 2365,
+          "churn_rate": 0.4528541226215645
+        },
+        {
+          "label": "Mailed check",
+          "count": 1612,
+          "churn_rate": 0.19106699751861042
+        }
+      ]
+    }
+  ],
+  "charts": [
+    {
+      "name": "ROC curve",
+      "url": "/plots/roc_curve.png"
+    },
+    {
+      "name": "Precision\u2013recall curve",
+      "url": "/plots/precision_recall.png"
+    },
+    {
+      "name": "Calibration curve",
+      "url": "/plots/calibration.png"
+    },
+    {
+      "name": "Confusion matrix",
+      "url": "/plots/confusion_matrix.png"
+    },
+    {
+      "name": "Global SHAP importance",
+      "url": "/plots/global_importance.png"
+    },
+    {
+      "name": "Validation threshold selection",
+      "url": "/plots/threshold_selection.png"
+    }
+  ],
+  "global_importance": [
+    {
+      "feature": "tenure",
+      "importance": 1.1448462344295056
+    },
+    {
+      "feature": "Contract",
+      "importance": 0.5108880596238388
+    },
+    {
+      "feature": "TotalCharges",
+      "importance": 0.4940140936644469
+    },
+    {
+      "feature": "InternetService",
+      "importance": 0.2522496759435734
+    },
+    {
+      "feature": "TechSupport",
+      "importance": 0.19155302194394996
+    },
+    {
+      "feature": "PaperlessBilling",
+      "importance": 0.18644682902522525
+    },
+    {
+      "feature": "OnlineSecurity",
+      "importance": 0.18567083805924342
+    },
+    {
+      "feature": "PaymentMethod",
+      "importance": 0.179272130967841
+    },
+    {
+      "feature": "MonthlyCharges",
+      "importance": 0.13870192266525966
+    },
+    {
+      "feature": "MultipleLines",
+      "importance": 0.13131869217498418
+    },
+    {
+      "feature": "Dependents",
+      "importance": 0.1221650427261105
+    },
+    {
+      "feature": "OnlineBackup",
+      "importance": 0.09849386911566746
+    },
+    {
+      "feature": "StreamingMovies",
+      "importance": 0.07753010331117967
+    },
+    {
+      "feature": "StreamingTV",
+      "importance": 0.051219873391184036
+    },
+    {
+      "feature": "PhoneService",
+      "importance": 0.04740113738365393
+    },
+    {
+      "feature": "DeviceProtection",
+      "importance": 0.02981702282099043
+    },
+    {
+      "feature": "Partner",
+      "importance": 0.004035211265187609
+    }
+  ],
+  "test_confidence_intervals": {
+    "method": "Paired held-out row bootstrap, 300 resamples, percentile 95% interval; fixed fitted model and threshold.",
+    "seed": 42,
+    "resamples": 300,
+    "metrics": {
+      "roc_auc": [
+        0.8125226986546491,
+        0.8513231361882103
+      ],
+      "average_precision": [
+        0.5740945635419792,
+        0.673607882445637
+      ],
+      "recall": [
+        0.46861080506807273,
+        0.5730590374497059
+      ],
+      "f1": [
+        0.5184356092164388,
+        0.6062154477641069
+      ]
+    }
+  },
+  "training": {
+    "started_at_utc": "2026-11-15T23:02:17.032230+00:00",
+    "completed_at_utc": "2026-11-15T23:02:29.026786+00:00",
+    "elapsed_seconds": 11.994176500011235,
+    "random_seed": 42,
+    "python": "3.12.13",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "packages": {
+      "pandas": "2.3.3",
+      "numpy": "2.5.5",
+      "scikit-learn": "1.9.1",
+      "shap": "0.54.1",
+      "xgboost": "3.4.1",
+      "joblib": "1.6.0",
+      "matplotlib": "3.11.2"
+    },
+    "code_sha256": {
+      "src/churn/schema.py": "865f6d16a5eb1874119c50e6af2147fa53e8cb5bc22ed49115f66708662f4e01",
+      "src/churn/training.py": "dc4863c5811c9db69a8c9e08c5d0bd01a0ae5db84849a3eb60e89d324059d632",
+      "src/churn/inference.py": "0fd5eb8dd8e77db4572e864582bb3bec25f4a268e337ba41ccc35ab554b01f67",
+      "scripts/train.py": "1e5e9e5d45677e13de41286f3c5772439845bb4d04553d2aae3198ab36bdab7c",
+      "scripts/download_data.py": "97e8701c4863dd49782fcb597705b108d0bdbcd2683184e8a4a4d02edff8f6b1"
+    },
+    "command": "uv run python scripts/train.py",
+    "refit_after_selection": false,
+    "threshold_selection": "Maximum validation F1, ties choose highest threshold. Dummy uses 0.5.",
+    "global_importance_method": "Mean absolute grouped SHAP over 200 deterministic validation rows; units=log-odds",
+    "global_importance_customer_ids": [
+      "0147-ESWWR",
+      "8775-ERLNB",
+      "3345-PBBFH",
+      "9128-CPXKI",
+      "7926-IJOOU",
+      "6583-QGCSI",
+      "4067-HLYQI",
+      "3768-VHXQO",
+      "2589-AYCRP",
+      "5698-BQJOH",
+      "1432-FPAXX",
+      "7495-OOKFY",
+      "1545-JFUML",
+      "5906-BFOZT",
+      "5027-YOCXN",
+      "2207-RYYRL",
+      "1069-XAIEM",
+      "4237-CLSMM",
+      "6242-SGYTS",
+      "3900-AQPHZ",
+      "1624-WOIWJ",
+      "8111-SLLHI",
+      "1041-RXHRA",
+      "9026-RNUJS",
+      "1240-KNSEZ",
+      "3716-BDVDB",
+      "8993-IZEUX",
+      "4526-EXKKN",
+      "2452-KDRRH",
+      "9992-UJOEL",
+      "6877-LGWXO",
+      "9795-SHUHB",
+      "5229-PRWKT",
+      "8266-VBFQL",
+      "9298-WGMRW",
+      "4983-CLMLV",
+      "4396-KLSEH",
+      "2805-EDJPQ",
+      "3334-CTHOL",
+      "1536-YHDOE",
+      "6900-PXRMS",
+      "6733-LRIZX",
+      "4468-KAZHE",
+      "3181-MIZBN",
+      "7718-RXDGG",
+      "4115-UMJFQ",
+      "4501-VCPFK",
+      "5181-OABFK",
+      "1980-KXVPM",
+      "8780-IXSTS",
+      "0742-MOABM",
+      "7434-SHXLS",
+      "6769-DYBQN",
+      "8734-FNWVH",
+      "3794-NFNCH",
+      "7803-XOCCZ",
+      "6029-CSMJE",
+      "7054-ENNGU",
+      "1401-FTHFQ",
+      "4903-UYAVB",
+      "8111-BKVDS",
+      "0164-XAIRP",
+      "2770-NSVDG",
+      "6728-VOIFY",
+      "4229-CZMLL",
+      "6257-RJOHI",
+      "7486-KSRVI",
+      "0123-CRBRT",
+      "6418-PIQSP",
+      "3549-ZTMNH",
+      "4480-MBMLB",
+      "4717-GHADL",
+      "5196-SGOAK",
+      "2040-OBMLJ",
+      "5702-KVQRD",
+      "3966-HRMZA",
+      "6461-PPAXN",
+      "3148-BLQJT",
+      "3244-DCJWY",
+      "8785-EPNCG",
+      "0913-XWSCN",
+      "2181-UAESM",
+      "5382-SOYZL",
+      "0761-AETCS",
+      "5334-AFQJB",
+      "0032-PGELS",
+      "6234-RAAPL",
+      "4608-LCIMN",
+      "3472-OAOOR",
+      "0048-PIHNL",
+      "6630-UJZMY",
+      "2754-VDLTR",
+      "3506-OVLKD",
+      "7298-IZWLY",
+      "8739-WWKDU",
+      "9367-WXLCH",
+      "0423-UDIJQ",
+      "0807-ZABDG",
+      "4299-OPXEJ",
+      "6650-BWFRT",
+      "0440-QEXBZ",
+      "6608-QQLVK",
+      "2984-RGEYA",
+      "2486-WYVVE",
+      "0581-MDMPW",
+      "3009-JWMPU",
+      "2108-XWMPY",
+      "5073-WXOYN",
+      "2824-DXNKN",
+      "6007-TCTST",
+      "2478-EEWWM",
+      "9867-NNXLC",
+      "6164-HXUGH",
+      "6712-OAWRH",
+      "8262-COGGB",
+      "1226-IENZN",
+      "7404-JLKQG",
+      "7779-LGOVN",
+      "9206-GVPEQ",
+      "0320-JDNQG",
+      "8058-DMYRU",
+      "7306-YDSOI",
+      "8626-PTQGE",
+      "7409-KIUTL",
+      "2607-FBDFF",
+      "8547-NSBBO",
+      "9369-XFEHK",
+      "0107-WESLM",
+      "6910-HADCM",
+      "1293-BSEUN",
+      "5366-IJEQJ",
+      "8532-UEFWH",
+      "6919-ELBGL",
+      "5514-YQENT",
+      "7030-NJVDP",
+      "9412-ARGBX",
+      "5696-CEIQJ",
+      "5832-XKAES",
+      "8325-QRPZR",
+      "6278-FEPBZ",
+      "2811-POVEX",
+      "1261-FWTTE",
+      "8474-UMLNT",
+      "0841-NULXI",
+      "1682-VCOIO",
+      "5440-VHLUL",
+      "2279-AXJJK",
+      "0523-VNGTF",
+      "4079-VTGLK",
+      "5277-ZLOOR",
+      "4003-FUSHP",
+      "4121-AGSIN",
+      "0562-FGDCR",
+      "1455-ESIQH",
+      "9844-FELAJ",
+      "2129-ALKBS",
+      "9367-OIUXP",
+      "3836-FZSDJ",
+      "2250-IVBWA",
+      "8739-QOTTN",
+      "5198-EFNBM",
+      "2619-WFQWU",
+      "8780-RSYYU",
+      "5357-TZHPP",
+      "4231-LZUYM",
+      "5804-JMYIO",
+      "4785-QRJHC",
+      "0899-LIIBW",
+      "7207-RMRDB",
+      "8777-PVYGU",
+      "6328-ZPBGN",
+      "5146-YYFRZ",
+      "2428-ZMCTB",
+      "4693-VWVBO",
+      "2525-GVKQU",
+      "0853-TWRVK",
+      "3442-ZHHCC",
+      "8869-TORSS",
+      "6551-ZCOTS",
+      "8402-EIVQS",
+      "3671-SHRSP",
+      "8949-JTMAY",
+      "9824-BEMCV",
+      "8718-PTMEZ",
+      "7445-WMRBW",
+      "0680-DFNNY",
+      "5423-BHIXO",
+      "7928-VJYAB",
+      "2220-IAHLS",
+      "0258-NOKBL",
+      "9474-PHLYD",
+      "4226-KKDON",
+      "7603-USHJS",
+      "4646-QZXTF",
+      "5998-VVEJY",
+      "6418-HNFED",
+      "5473-KHBPS",
+      "0420-BWTPW",
+      "5204-HMGYF",
+      "9025-ZRPVR"
+    ],
+    "shap_background_customer_ids": [
+      "0479-HMSWA",
+      "6257-DTAYD",
+      "0505-SPOOW",
+      "2957-JIRMN",
+      "4923-ADWXJ",
+      "2228-BZDEE",
+      "7025-IWFHT",
+      "1474-JUWSM",
+      "8920-NAVAY",
+      "6960-HVYXR",
+      "9975-GPKZU",
+      "4056-QHXHZ",
+      "8058-JMEQO",
+      "9577-WJVCQ",
+      "7831-QGOXH",
+      "6691-CCIHA",
+      "9208-OLGAQ",
+      "3280-NMUVX",
+      "4826-XTSOH",
+      "9600-NAXZN",
+      "3550-SAHFP",
+      "1760-CAZHT",
+      "6115-ZTBFQ",
+      "3546-GHEAE",
+      "9426-SXNHE",
+      "9189-JWSHV",
+      "6437-UDQJM",
+      "3488-PGMQJ",
+      "4328-VUFWD",
+      "9229-RQABD",
+      "6207-WIOLX",
+      "5569-OUICF",
+      "9269-CQOOL",
+      "1150-FTQGN",
+      "3451-VAWLI",
+      "4576-CSAJH",
+      "2868-MZAGQ",
+      "0969-RGKCU",
+      "1342-JPNKI",
+      "6161-ERDGD",
+      "2657-ALMWY",
+      "4174-LPGTI",
+      "4510-HIMLV",
+      "6152-ONASV",
+      "7560-QRBXH",
+      "5977-CKHON",
+      "3453-RTHJQ",
+      "2200-DSAAL",
+      "0611-DFXKO",
+      "0319-QZTCO",
+      "0362-ZBZWJ",
+      "7880-XSOJX",
+      "5846-NEQVZ",
+      "4522-XRWWI",
+      "9840-EFJQB",
+      "7268-IGMFD",
+      "7293-LSCDV",
+      "4987-GQWPO",
+      "4911-BANWH",
+      "5960-WPXQM",
+      "7328-ZJAJO",
+      "2114-MGINA",
+      "7905-NJMXS",
+      "7661-CPURM",
+      "1297-VQDRP",
+      "8679-JOEVF",
+      "2519-TWKFS",
+      "9447-YPTBX",
+      "6465-GSRCL",
+      "5837-LXSDN",
+      "7233-DRTRF",
+      "1925-TIBLE",
+      "4760-XOHVN",
+      "8399-YNDCH",
+      "8561-NMTBD",
+      "6769-DCQLI",
+      "9845-QOMAD",
+      "7615-ESMYF",
+      "6921-OZMFH",
+      "7663-ZTEGJ",
+      "1089-HDMKP",
+      "6618-RYATB",
+      "2080-GKCWQ",
+      "4826-TZEVA",
+      "4291-SHSBH",
+      "6770-UAYGJ",
+      "4881-GQJTW",
+      "7396-VJUZB",
+      "9753-OYLBX",
+      "0730-BGQGF",
+      "0564-JJHGS",
+      "8313-NDOIA",
+      "3803-KMQFW",
+      "1757-TCATG",
+      "1177-XZBJL",
+      "0196-JTUQI",
+      "0742-NXBGR",
+      "4521-YEEHE",
+      "8372-JUXUI",
+      "5153-LXKDT"
+    ],
+    "excluded_predictors": [
+      "customerID",
+      "Churn",
+      "gender",
+      "SeniorCitizen"
+    ],
+    "limitations": [
+      "Fictional benchmark; no external or temporal validation.",
+      "Last-month churn label is not a verified future forecast.",
+      "SHAP associations are not causal effects; suggestions are rule-based prompts.",
+      "Dropping demographic predictors does not establish fairness.",
+      "Probability calibration is measured, not guaranteed. No business savings or campaign uplift estimated."
+    ]
+  }
+}

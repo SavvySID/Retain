@@ -1,0 +1,4 @@
+# Stable bytes preserve recorded source/artifact hashes across Windows checkouts.
+* text=auto eol=lf
+*.png binary
+*.joblib binary
