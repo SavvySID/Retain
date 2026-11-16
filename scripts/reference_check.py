@@ -1,7 +1,8 @@
-"""Capture the real website and compare its geometry with the saved UI reference."""
+"""Capture V3 reference/website evidence and check basic UI finish requirements."""
 
 import argparse
 import json
+import re
 from pathlib import Path
 
 from playwright.sync_api import expect, sync_playwright
@@ -9,56 +10,85 @@ from playwright.sync_api import expect, sync_playwright
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def rgb(value: str) -> tuple[float, ...]:
+    """Read opaque Chromium RGB output; refuse unsupported/transparent samples."""
+    channels = tuple(float(item) for item in re.findall(r"[\d.]+", value))
+    if not value.startswith("rgb") or len(channels) not in (3, 4):
+        raise ValueError(f"Unsupported computed color: {value}")
+    if len(channels) == 4 and channels[3] != 1:
+        raise ValueError(f"Contrast sample must have an opaque background: {value}")
+    return channels[:3]
+
+
+def contrast(foreground: tuple[float, ...], background: tuple[float, ...]) -> float:
+    """Calculate WCAG relative-luminance contrast for two opaque RGB colors."""
+    def luminance(color: tuple[float, ...]) -> float:
+        """Convert sRGB components to linear-light luminance."""
+        linear = [v / 12.92 if v <= 0.04045 else ((v + 0.055) / 1.055) ** 2.4
+                  for v in (channel / 255 for channel in color)]
+        return sum(weight * channel for weight, channel in zip((0.2126, 0.7152, 0.0722), linear))
+    values = sorted((luminance(foreground), luminance(background)))
+    return (values[1] + 0.05) / (values[0] + 0.05)
+
+
 def compare_reference(base_url: str) -> dict:
-    """Measure reference-led layout targets; never synthesize screenshot content."""
-    output = ROOT / "artifacts/references"
-    reference = json.loads((output / "shadcn-measurements.json").read_text())
-    selectors = {"sidebar": ".sidebar", "workspace": ".shell", "header": ".topbar",
-                 "card": ".kpi-card", "value": ".kpi-value"}
+    """Capture actual pages, hierarchy/contrast and viewport fit; do not invent a similarity score."""
+    assert contrast((0, 0, 0), (255, 255, 255)) == 21
+    assert contrast((42, 42, 42), (42, 42, 42)) == 1
+    output = ROOT / "artifacts/references/v3"
+    output.mkdir(parents=True, exist_ok=True)
+    results: dict = {"base_url": base_url, "references": ["https://attio.com/",
+                    "https://www.vitally.io/features/reporting"], "pages": []}
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch()
         page = browser.new_page(viewport={"width": 1440, "height": 1000})
-        page.goto(f"{base_url}/overview", wait_until="networkidle")
-        expect(page.locator("#model-status")).to_have_text("Model ready")
-        expect(page.locator("#cohort-chart svg")).to_be_visible()
-        page.evaluate("document.fonts.ready")
-        measured = {}
-        for name, selector in selectors.items():
-            measured[name] = page.locator(selector).first.evaluate("""el => {
-                const r=el.getBoundingClientRect(), s=getComputedStyle(el);
-                return {x:r.x,y:r.y,width:r.width,height:r.height,fontSize:parseFloat(s.fontSize),
-                        fontFamily:s.fontFamily,borderRadius:s.borderRadius};
+        for name, path in (("home", "/"), ("overview", "/overview")):
+            page.goto(f"{base_url}{path}", wait_until="networkidle")
+            if name == "home":
+                expect(page.locator("#home-hero")).to_be_visible()
+                expect(page.locator("#home-cohort-chart svg")).to_be_visible()
+                expect(page.locator("#home-factors .home-factor").first).to_be_attached()
+            else:
+                expect(page.locator("#model-status")).to_have_text("Model ready")
+            page.evaluate("() => document.fonts.ready")
+            data = page.evaluate("""() => {
+              const body=getComputedStyle(document.body), h=document.querySelector('h1');
+              const heading=getComputedStyle(h), button=document.querySelector('.button-primary');
+              const action=getComputedStyle(button);
+              return {bodyColor:body.color,bodyBackground:body.backgroundColor,font:body.fontFamily,
+                headingSize:parseFloat(heading.fontSize),buttonColor:action.color,
+                buttonBackground:action.backgroundColor,width:innerWidth,documentWidth:document.documentElement.scrollWidth,
+                fonts:[...document.fonts].map(f=>({family:f.family,status:f.status}))};
             }""")
-        measured["fonts"] = page.evaluate("[...document.fonts].map(f=>({family:f.family,status:f.status}))")
-        page.screenshot(path=str(output / "retain-dashboard-v2.png"))
+            data["text_contrast"] = contrast(rgb(data["bodyColor"]), rgb(data["bodyBackground"]))
+            data["button_contrast"] = contrast(rgb(data["buttonColor"]), rgb(data["buttonBackground"]))
+            assert data["text_contrast"] >= 4.5, data
+            assert data["button_contrast"] >= 4.5, data
+            assert data["documentWidth"] <= data["width"], data
+            assert any(font["family"] == "Geist" and font["status"] == "loaded" for font in data["fonts"])
+            if name == "home":
+                assert data["headingSize"] >= 48, data
+            page.screenshot(path=str(output / f"retain-{name}-desktop.png"))
+            page.screenshot(path=str(output / f"retain-{name}-full.png"), full_page=True)
+            results["pages"].append({"page": name, "viewport": "1440x1000", **data})
+        for name, path in (("home", "/"), ("overview", "/overview")):
+            page.set_viewport_size({"width": 390, "height": 844})
+            page.goto(f"{base_url}{path}", wait_until="networkidle")
+            assert page.evaluate("() => document.documentElement.scrollWidth <= innerWidth")
+            page.screenshot(path=str(output / f"retain-{name}-mobile.png"), full_page=True)
         browser.close()
-    targets = [
-        ("Sidebar width", reference['[data-slot="sidebar-container"]']["width"], measured["sidebar"]["width"]),
-        ("Workspace left", reference['[data-slot="sidebar-inset"]']["x"], measured["workspace"]["x"]),
-        ("Workspace top", reference['[data-slot="sidebar-inset"]']["y"], measured["workspace"]["y"]),
-        ("Header height", reference["header"]["height"], measured["header"]["height"]),
-        ("First card left", reference['[data-slot="card"]']["x"], measured["card"]["x"]),
-        ("First card top", reference['[data-slot="card"]']["y"], measured["card"]["y"]),
-        ("Card height", reference['[data-slot="card"]']["height"], measured["card"]["height"]),
-        ("Card width", reference['[data-slot="card"]']["width"], measured["card"]["width"]),
-        ("KPI font size", 30, measured["value"]["fontSize"]),
-    ]
-    checks = [{"element": name, "reference_px": expected, "actual_px": actual,
-               "within_one_pixel": abs(expected - actual) <= 1} for name, expected, actual in targets]
-    result = {"reference_url": "https://ui.shadcn.com/view/new-york-v4/dashboard-01",
-              "viewport": {"width": 1440, "height": 1000}, "measurements": measured, "checks": checks}
-    (output / "match-results.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
+    (output / "finish-results.json").write_text(json.dumps(results, indent=2), encoding="utf-8")
     (output / "comparison.html").write_text('''<!doctype html><html lang="en"><meta charset="utf-8">
-<title>Reference and actual Retain website</title><style>body{margin:0;font:14px system-ui;background:#eee}
-main{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px}img{width:100%;display:block}
-h1{font-size:18px;margin:16px}h2{font-size:14px;margin:0;padding:12px;background:white}</style>
-<h1>Actual browser captures at the same 1440 × 1000 viewport</h1><main>
-<section><h2>Official shadcn dashboard-01 reference</h2><img src="shadcn-dashboard-01.png" alt="Official reference"></section>
-<section><h2>Retain implementation — actual model and dataset values</h2><img src="retain-dashboard-v2.png" alt="Actual Retain website"></section>
+<title>Related references and actual Retain V3</title><style>body{margin:0;font:14px system-ui;background:#f4f5f1}
+main{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:16px}img{width:100%;display:block}
+h1{font-size:20px;margin:20px}h2{font-size:14px;padding:12px;background:white;margin:0}</style>
+<h1>Related product references and actual Retain captures at 1440 x 1000</h1><main>
+<section><h2>Attio: editorial hero and product-first presentation</h2><img src="attio-home-desktop.png" alt="Attio reference"></section>
+<section><h2>Retain V3: own brand and actual local model data</h2><img src="retain-home-desktop.png" alt="Actual Retain home"></section>
+<section><h2>Vitally reporting: account investigation workflow reference</h2><img src="vitally-reporting-desktop.png" alt="Vitally reference"></section>
+<section><h2>Retain analyst workspace</h2><img src="retain-overview-desktop.png" alt="Actual Retain overview"></section>
 </main></html>''', encoding="utf-8")
-    assert all(item["within_one_pixel"] for item in checks), checks
-    assert any(font["family"] == "Geist" and font["status"] == "loaded" for font in measured["fonts"])
-    return result
+    return results
 
 
 if __name__ == "__main__":

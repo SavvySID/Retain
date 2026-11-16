@@ -1,0 +1,155 @@
+{
+  "url": "https://attio.com/",
+  "metrics": {
+    "body": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 17835.78125,
+      "font": "inter, \"inter Fallback\"",
+      "size": "16px",
+      "weight": "500",
+      "lineHeight": "22px",
+      "letterSpacing": "-0.16px",
+      "color": "lab(10.7201 -0.0959039 -1.54182)",
+      "background": "lab(99.9987 0.0337958 0.000309944)"
+    },
+    "h1": {
+      "x": 287.78125,
+      "y": 282,
+      "width": 864.421875,
+      "height": 76.25,
+      "font": "interDisplay, \"interDisplay Fallback\"",
+      "size": "69.33px",
+      "weight": "600",
+      "lineHeight": "65.8635px",
+      "letterSpacing": "-1.653px",
+      "color": "lab(10.7201 -0.0959039 -1.54182)",
+      "background": "rgba(0, 0, 0, 0)"
+    },
+    "h2": {
+      "x": 82.90625,
+      "y": 1805.640625,
+      "width": 896,
+      "height": 132,
+      "font": "interDisplay, \"interDisplay Fallback\"",
+      "size": "40px",
+      "weight": "500",
+      "lineHeight": "44px",
+      "letterSpacing": "-0.4px",
+      "color": "lab(10.7201 -0.0959039 -1.54182)",
+      "background": "rgba(0, 0, 0, 0)"
+    },
+    "header": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 116,
+      "font": "inter, \"inter Fallback\"",
+      "size": "16px",
+      "weight": "500",
+      "lineHeight": "22px",
+      "letterSpacing": "-0.16px",
+      "color": "lab(10.7201 -0.0959039 -1.54182)",
+      "background": "oklab(0.999997 0.0000899732 0.000023365 / 0.95)"
+    },
+    "nav": {
+      "x": 24,
+      "y": 48,
+      "width": 1392,
+      "height": 67,
+      "font": "inter, \"inter Fallback\"",
+      "size": "16px",
+      "weight": "500",
+      "lineHeight": "22px",
+      "letterSpacing": "-0.16px",
+      "color": "lab(10.7201 -0.0959039 -1.54182)",
+      "background": "rgba(0, 0, 0, 0)"
+    }
+  },
+  "visible_headings": [
+    "Welcome to agentic revenue.",
+    "The intelligent system that never sleeps. Picks up leads at 2am. Catches renewals before they slip. Hands you the answer before you ask.",
+    "Live from day one. Connect your inbox and calendar. Attio learns your business and builds itself around it, before your first agent even gets to work.",
+    "Universal Context\u2122",
+    "All of the signals, none of the noise. Ready to act on.",
+    "SDK. API. MCP.Build anything on Attio.",
+    "Run at any scale. Production-grade for your team and agents.",
+    "Trusted by 30,000+ customers. From first agent to enterprise scale.",
+    "Better as you grow. New features every week to keep pace with you.",
+    "Agentic revenue runs on Attio.",
+    "Platform",
+    "Company",
+    "Import from",
+    "Attio for",
+    "Apps",
+    "Resources"
+  ],
+  "mobile_controls": [
+    {
+      "text": "",
+      "aria": "Dismiss banner",
+      "expanded": null
+    },
+    {
+      "text": "",
+      "aria": "Open menu",
+      "expanded": "false"
+    },
+    {
+      "text": "Send me a demo",
+      "aria": null,
+      "expanded": null
+    },
+    {
+      "text": "",
+      "aria": "Context",
+      "expanded": null
+    },
+    {
+      "text": "",
+      "aria": "Agents + automations",
+      "expanded": null
+    },
+    {
+      "text": "",
+      "aria": "Ecosystem",
+      "expanded": null
+    },
+    {
+      "text": "",
+      "aria": null,
+      "expanded": null
+    },
+    {
+      "text": "",
+      "aria": null,
+      "expanded": null
+    },
+    {
+      "text": "",
+      "aria": null,
+      "expanded": null
+    },
+    {
+      "text": "",
+      "aria": null,
+      "expanded": null
+    },
+    {
+      "text": "Subscribe",
+      "aria": null,
+      "expanded": null
+    },
+    {
+      "text": "Send me a demo",
+      "aria": null,
+      "expanded": null
+    },
+    {
+      "text": "Cookie settings",
+      "aria": null,
+      "expanded": null
+    }
+  ]
+}

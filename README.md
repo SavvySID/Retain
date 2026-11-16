@@ -2,7 +2,7 @@
 
 A local college project that scores telecom customer accounts, explains individual predictions with SHAP, and reports reproducible held-out evaluation. The Flask dashboard supports customer search, an editable prediction form, CSV scoring and a model lab. It uses IBM's sample dataset and requires no cloud account or paid API.
 
-The full website has a product home, overview, customer analysis, batch scoring, model lab and an in-site guide. Each has a refreshable URL. The interface follows the rendered [official shadcn dashboard-01](https://ui.shadcn.com/view/new-york-v4/dashboard-01) reference, adapted to actual telecom data rather than copied demo statistics.
+The full website has a product home, overview, customer analysis, batch scoring, model lab and an in-site guide. Each has a refreshable URL. The current branded UI draws on [related-product research](docs/UI_RESEARCH_V3.md), with a larger hero, actual-data product preview, workflows, FAQs and consistent analyst pages.
 
 The output estimates the sample's historical churn label. It is not a proven next-month forecast or evidence that a retention suggestion will work.
 
@@ -112,7 +112,7 @@ The candidate models are a dummy baseline, logistic regression, random forest an
 
 ## Attribution and limits
 
-For the reference research and screenshots, see [UI research revision 2](docs/UI_REFERENCE_RESEARCH_V2.md). [Deployment instructions](docs/DEPLOYMENT.md) cover the tested `serve.py` entry point, HOST/PORT configuration, Linux Docker build, health checks and later hosting. No cloud publication is required for localhost use.
+For current references and screenshots, see [UI research revision 3](docs/UI_RESEARCH_V3.md). The [previous dashboard research](docs/UI_REFERENCE_RESEARCH_V2.md) remains historical. [Deployment instructions](docs/DEPLOYMENT.md) cover `serve.py`, HOST/PORT, Docker and later hosting. No cloud publication is required for localhost use.
 
 [UI match evidence](docs/UI_MATCH.md) links the actual side-by-side reference comparison. Run `uv run python scripts/reference_check.py` while the server is running to regenerate the capture and measured checks.
 

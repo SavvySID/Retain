@@ -1,44 +1,32 @@
-# Reference-to-website comparison
+# Current UI direction and rendered evidence
 
-Primary reference: [official shadcn/ui dashboard-01](https://ui.shadcn.com/view/new-york-v4/dashboard-01). The [additional research](UI_REFERENCE_RESEARCH_V2.md) compares 12 reference families and records why this one fits the analyst workflow. Screenshots are actual browser captures, not generated mockups.
+Revision 3 responds to the request for a stronger product home/hero and fixes across the entire UI. It supersedes the earlier neutral-dashboard geometry. The [V2 record](UI_MATCH_V2.md) is historical; its nine geometry checks are not a claim about this redesign.
 
-## View the evidence
+## References and decisions
 
-- [Side-by-side comparison board](../artifacts/references/comparison.html)
-- [Official reference at 1440 × 1000](../artifacts/references/shadcn-dashboard-01.png)
-- [Actual Retain website at the same viewport](../artifacts/references/retain-dashboard-v2.png)
-- [Machine-readable measured comparison](../artifacts/references/match-results.json)
-- [Source measurements](../artifacts/references/shadcn-measurements.json)
+[Related-product research](UI_RESEARCH_V3.md) records desktop/mobile captures of Attio, Vitally, ChurnZero and Planhat, including five rendered public pages. Attio informs the editorial hero and substantial product preview. Vitally reporting informs account-health and investigation flows. These patterns are adapted to Retain's own warm paper, navy and restrained teal palette, existing Geist font and local research workflow.
 
-Run `uv run python scripts/reference_check.py` with the local server running to regenerate the implementation capture and checks. It reads the saved official reference measurements and asserts the layout tolerances plus actual Geist font loading.
+No reference branding, screenshots, customer identities, commercial claims or invented metrics are website content. The home preview uses actual held-out customer, score, cohort values and signed explanation factors. SHAP remains an association-based explanation rather than a causal claim.
 
-## Measured match
+## Current captures and checks
 
-| Element | Reference | Actual |
-|---|---:|---:|
-| Sidebar width | 288 px | 288 px |
-| Workspace left / top | 288 / 8 px | 288 / 8 px |
-| Header height | 48 px | 48 px |
-| First card left / top | 312 / 80 px | 313 / 81 px |
-| Card width / height | 262 / 204 px | 261.5 / 204 px |
-| KPI font size | 30 px | 30 px |
+Run `uv run python scripts/reference_check.py` with the app running. It captures home/overview at desktop/mobile sizes, checks core text/button contrast and viewport fit, verifies the local font, and creates a comparison board. It does not invent a screenshot-similarity score.
 
-All nine checked quantities are within one CSS pixel at this viewport. The one-pixel content offset comes from the implementation's explicit workspace border. These checks measure selected geometry, not a numerical pixel-similarity score for the whole screenshot.
+- [Reference/current comparison board](../artifacts/references/v3/comparison.html)
+- [Actual home at desktop size](../artifacts/references/v3/retain-home-desktop.png)
+- [Actual home, full page](../artifacts/references/v3/retain-home-full.png)
+- [Actual home on mobile](../artifacts/references/v3/retain-home-mobile.png)
+- [Actual overview](../artifacts/references/v3/retain-overview-desktop.png)
+- [Measurements and contrast calculations](../artifacts/references/v3/finish-results.json)
 
-The implementation uses the same light rail, inset white workspace, compact header, four summary cards, wide analytical panel, neutral palette, black primary control and compact bordered customer table. Geist is served locally with its original OFL license and [verified provenance](FONT_PROVENANCE.md).
+The complete workflow checks remain in `scripts/browser_check.py`: real navigation, predictions, CSV scoring, cohort interactions, delayed responses, failures and responsive layouts. See [VERIFICATION.md](VERIFICATION.md) for executed results and limits.
 
-## Intentional content differences
+## Design intent
 
-- Retain replaces the reference company/profile and unrelated admin documents. No fake user identity, visitors, notifications or improvement percentages are displayed.
-- Summary values come from the actual IBM sample and saved model run. Chart controls filter real contract groups instead of invented date ranges.
-- The reference's visitor timeline becomes observed churn and mean model probability across actual held-out tenure groups. Tenure is not a calendar date. Counts, null rates, tooltips and an accessible table make the chart inspectable.
-- SHAP, model evidence, batch validation and data limitations remain available. Additional explanatory content can change lower-page heights; the page is not claimed to be a literal copy of unrelated demo content.
-- Secondary text is slightly darker than the initial reference-inspired gray to remain readable over the pale card gradient. Executed contrast calculation: `#737373` on `#f0f0f0` was 4.1608:1; the chosen `#6b6b6b` is 4.6763:1. This spot check is not a complete accessibility audit.
+- A useful home page with a clear hero, live demonstration, truthful evidence, workflow, features, FAQs and direct next action.
+- One palette, spacing system, button language and hierarchy across analyst pages and guide.
+- Quiet readable data work: observations, predictions and edited scenarios stay distinct; controls, forms, tables and explanations stay functional.
+- Local assets and the existing backend; no framework, account system or plugin without a concrete need.
+- Useful loading/error/empty states, contrast, keyboard navigation, mobile drawer behavior and reduced-motion support.
 
-## Website behavior
-
-Home, overview, analysis, batch, model lab and guide use real URLs and direct refresh works. Existing root hash links redirect to the appropriate workspace. The desktop rail collapses; the mobile drawer manages inert content, focus trapping, Escape and backdrop closing. Phone chart labels become sparser to avoid overlap. All values and predictions continue to use the same backend and fitted model.
-
-See [VERIFICATION.md](VERIFICATION.md) and [WEBSITE_REVIEW.md](WEBSITE_REVIEW.md) for executed tests and limits. No cloud publication or production accessibility/load certification is implied.
-
-The recorded browser results are retained for both [native localhost](../artifacts/references/native-browser-results.json) and the [Linux website container](../artifacts/references/container-browser-results.json).
+Visual review and these checks support the local college project. They do not certify full accessibility, public hosting security, production load capacity or performance on new telecom data.

@@ -1,0 +1,236 @@
+[
+  {
+    "name": "vitally-reporting",
+    "requested_url": "https://www.vitally.io/features/reporting",
+    "url": "https://www.vitally.io/features/reporting",
+    "status": 200,
+    "title": "Customer Success Dashboards & Reporting Software | Vitally",
+    "headings": [
+      "Productivity",
+      "Vitally AI",
+      "Collaboration",
+      "Blueprints",
+      "Visibility",
+      "Integrations",
+      "Why Vitally",
+      "Demo Center",
+      "Vitally Academy",
+      "Help Center",
+      "CSMs",
+      "CS Leaders",
+      "CS Operations",
+      "Account Managers",
+      "Health Scores",
+      "Reporting",
+      "NPS",
+      "Project Management",
+      "Customer Surveys",
+      "Note Taking",
+      "Automation",
+      "All Features \u2192",
+      "Customer Stories",
+      "Inspiration Gallery",
+      "Latest Resources",
+      "Blog",
+      "Events",
+      "Vitally Labs",
+      "Research",
+      "Media",
+      "Expert Directory",
+      "The Customer Success AI Prompt Book",
+      "Vitally Features",
+      "Customer Success Dashboards & Reporting Software",
+      "Visualize Every Customer Trend & Outcome"
+    ],
+    "metrics": {
+      "body": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 5814.265625,
+        "font": "Inter, sans-serif",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "25.6px",
+        "letterSpacing": "normal",
+        "color": "rgb(9, 28, 30)",
+        "background": "rgb(9, 28, 30)"
+      },
+      "h1": {
+        "x": 64,
+        "y": 220,
+        "width": 556,
+        "height": 260,
+        "font": "\"Agrandir Wide\", Arial, sans-serif",
+        "size": "52px",
+        "weight": "300",
+        "lineHeight": "65px",
+        "letterSpacing": "normal",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "h2": {
+        "x": 65,
+        "y": 171,
+        "width": 178.53125,
+        "height": 28,
+        "font": "\"Agrandir Grand\", sans-serif",
+        "size": "10px",
+        "weight": "900",
+        "lineHeight": "13px",
+        "letterSpacing": "1px",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgb(9, 28, 30)"
+      },
+      "nav": {
+        "x": 223.75,
+        "y": 64,
+        "width": 587.96875,
+        "height": 36.796875,
+        "font": "Inter, sans-serif",
+        "size": "16px",
+        "weight": "500",
+        "lineHeight": "25.6px",
+        "letterSpacing": "normal",
+        "color": "rgb(9, 28, 30)",
+        "background": "rgba(0, 0, 0, 0)"
+      }
+    },
+    "mobile_buttons": [
+      "",
+      "Your Privacy Choices"
+    ]
+  },
+  {
+    "name": "churnzero-home",
+    "requested_url": "https://churnzero.com/",
+    "url": "https://churnzero.com/",
+    "status": 200,
+    "title": "Customer Success Software for Customer Growth - ChurnZero",
+    "headings": [
+      "Your AI platform and partner for customer growth.",
+      "Change is hard. You don\u2019t have to face it alone.",
+      "Introducing Call Coaching.",
+      "Ask Kit: Your AI Assistant.",
+      "The future of customer growth.",
+      "Meet the monsters that cause customer churn.",
+      "You need Agentic AI for your team.",
+      "What still matters: Trust.",
+      "Your partner in growth.Build with ChurnZero."
+    ],
+    "metrics": {
+      "body": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 8108.234375,
+        "font": "Barlow, Helvetica, Arial, Lucida, sans-serif",
+        "size": "16px",
+        "weight": "500",
+        "lineHeight": "27.2px",
+        "letterSpacing": "normal",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgb(255, 255, 255)"
+      },
+      "h1": {
+        "x": 72,
+        "y": 253,
+        "width": 907.1875,
+        "height": 144.40625,
+        "font": "Gelasio, Georgia, \"Times New Roman\", serif",
+        "size": "56px",
+        "weight": "500",
+        "lineHeight": "67.2px",
+        "letterSpacing": "-0.02px",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "h2": {
+        "x": 266.40625,
+        "y": 1274.109375,
+        "width": 907.1875,
+        "height": 59.40625,
+        "font": "Lora, Helvetica, Arial, Lucida, sans-serif",
+        "size": "38px",
+        "weight": "500",
+        "lineHeight": "49.4px",
+        "letterSpacing": "normal",
+        "color": "rgb(43, 20, 95)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "nav": {
+        "x": 532.15625,
+        "y": 43.890625,
+        "width": 468.34375,
+        "height": 30,
+        "font": "Barlow, Helvetica, Arial, Lucida, sans-serif",
+        "size": "16px",
+        "weight": "500",
+        "lineHeight": "27.2px",
+        "letterSpacing": "normal",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)"
+      }
+    },
+    "mobile_buttons": [
+      "  Close this consent banner    "
+    ]
+  },
+  {
+    "name": "planhat-home",
+    "requested_url": "https://www.planhat.com/",
+    "url": "https://www.planhat.com/",
+    "status": 200,
+    "title": "Planhat | A new generation of CRM",
+    "headings": [
+      "A new generation of CRM",
+      "Pi, the world\u2019s first multiplayer customer agent",
+      "One Commercial Brain.",
+      "One operating system.All your commercial work."
+    ],
+    "metrics": {
+      "body": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 8733.609375,
+        "font": "sans-serif",
+        "size": "12px",
+        "weight": "400",
+        "lineHeight": "normal",
+        "letterSpacing": "normal",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgb(255, 255, 255)"
+      },
+      "h1": {
+        "x": 120,
+        "y": 930,
+        "width": 1200,
+        "height": 30,
+        "font": "\"ABC Diatype Regular\", \"ABC Diatype Regular Placeholder\", sans-serif",
+        "size": "16px",
+        "weight": "400",
+        "lineHeight": "24px",
+        "letterSpacing": "-0.32px",
+        "color": "rgb(255, 255, 255)",
+        "background": "rgba(0, 0, 0, 0)"
+      },
+      "h2": {
+        "x": 120,
+        "y": 1564,
+        "width": 870,
+        "height": 105.59375,
+        "font": "\"Geigy LL Duplex Var Variable Reg\", \"Geigy LL Duplex Var Variable Reg Placeholder\", sans-serif",
+        "size": "48px",
+        "weight": "400",
+        "lineHeight": "52.8px",
+        "letterSpacing": "-2.16px",
+        "color": "rgb(0, 0, 0)",
+        "background": "rgba(0, 0, 0, 0)"
+      }
+    },
+    "mobile_buttons": [
+      "Subscribe to our newsletter"
+    ]
+  }
+]

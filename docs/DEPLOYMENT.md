@@ -71,10 +71,15 @@ Executed during this revision:
 
 No hosted deployment, TLS endpoint, private-user authentication or public concurrency/load test was performed. The complete website/browser checks are separate from these server/container checks. The final website source should be rebuilt into an image after its last UI change before publication.
 
-### Final website image check
+### Historical V2 website image check
 
 After the screen rebuild and final chart fixes, `docker build --progress=plain -t retain-churn:website .` succeeded again. The tested image was `sha256:c3f7468ffe6a2b44b3522960a36f8c58cb93e86cfc0522def96e51b57c1892f3`, with a measured size of 1,263,005,040 bytes. It was run as the temporary `retain-churn-website-check` container, bound only to `127.0.0.1:8080`.
 
 The container reached `healthy` and `id -u` returned `10001`. The complete `scripts/browser_check.py --url http://127.0.0.1:8080` run passed all 11 workflow groups with zero unexpected console errors. This exercised the actual home/guide, direct routes, model/SHAP inference, cohort filters and failure recovery, CSV downloads, responsive pages and keyboard checks against Linux-built model artifacts. Host model files were not overwritten with container artifacts.
 
 The final browser record is `artifacts/browser/results.json`; the native localhost record was retained under `artifacts/browser-native/`. Test containers are stopped/removed after verification. The locally built image remains available for a later `docker run`; use the deployment steps above to build a new image when source changes.
+
+
+### Current V3 UI rebuild attempt
+
+The hero/home and shared UI were redesigned after the V2 image above. Native localhost passed 54 Python tests and 13 actual browser workflow groups. The current rebuild was not completed: after restarting a build to include final UI source, public registry token retrieval failed with a TLS handshake timeout. A retry found the Docker Desktop Linux engine unavailable (`dockerDesktopLinuxEngine` pipe missing). The old image does not contain this redesign. Run the documented build and container checks when Docker and registry access are available; no current V3 container or public deployment is claimed. See [VERIFICATION.md](VERIFICATION.md).

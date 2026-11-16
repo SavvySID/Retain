@@ -1,0 +1,49 @@
+{
+  "base_url": "http://127.0.0.1:5050",
+  "references": [
+    "https://attio.com/",
+    "https://www.vitally.io/features/reporting"
+  ],
+  "pages": [
+    {
+      "page": "home",
+      "viewport": "1440x1000",
+      "bodyColor": "rgb(20, 45, 55)",
+      "bodyBackground": "rgb(248, 249, 245)",
+      "font": "Geist, Arial, sans-serif",
+      "headingSize": 74,
+      "buttonColor": "rgb(255, 255, 255)",
+      "buttonBackground": "rgb(8, 127, 112)",
+      "width": 1440,
+      "documentWidth": 1440,
+      "fonts": [
+        {
+          "family": "Geist",
+          "status": "loaded"
+        }
+      ],
+      "text_contrast": 13.600315559160322,
+      "button_contrast": 4.906491677013904
+    },
+    {
+      "page": "overview",
+      "viewport": "1440x1000",
+      "bodyColor": "rgb(20, 45, 55)",
+      "bodyBackground": "rgb(246, 247, 243)",
+      "font": "Geist, Arial, sans-serif",
+      "headingSize": 16,
+      "buttonColor": "rgb(255, 255, 255)",
+      "buttonBackground": "rgb(8, 127, 112)",
+      "width": 1440,
+      "documentWidth": 1440,
+      "fonts": [
+        {
+          "family": "Geist",
+          "status": "loaded"
+        }
+      ],
+      "text_contrast": 13.365430855611752,
+      "button_contrast": 4.906491677013904
+    }
+  ]
+}

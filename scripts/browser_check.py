@@ -55,8 +55,20 @@ def check_dashboard(base_url: str) -> dict[str, Any]:
           window.__predictionDelays = [];
           window.__cohortDelays = [];
           window.__failNextCohort = false;
+          window.__customerDelay = 0;
+          window.__failNextCustomer = false;
           window.fetch = async (...args) => {
             const url = String(args[0]);
+            if (url.includes('/api/customers/')) {
+              const delay = window.__customerDelay;
+              const fail = window.__failNextCustomer;
+              window.__customerDelay = 0;
+              window.__failNextCustomer = false;
+              const response = await originalFetch(...args);
+              if (delay) await new Promise(resolve => setTimeout(resolve, delay));
+              if (fail) throw new Error('Deliberate customer lookup transport failure');
+              return response;
+            }
             if (url.includes('/api/cohorts') && window.__failNextCohort) {
               window.__failNextCohort = false;
               throw new Error('Deliberate browser regression transport failure');
@@ -73,6 +85,62 @@ def check_dashboard(base_url: str) -> dict[str, Any]:
         page.goto(f"{base_url}/", wait_until="networkidle")
         expect(page.locator("#home-hero")).to_be_visible()
         assert page.locator("a[href='/overview']").count() > 0
+        home_summary = page.request.get(f"{base_url}/api/summary").json()
+        expect(page.locator("#home-customers")).to_have_text(f"{home_summary['dataset']['rows']:,}")
+        expect(page.locator("#home-cohort-chart svg")).to_be_visible()
+        page.locator("#home-contract-filter").select_option("Two year")
+        home_cohort = page.request.get(f"{base_url}/api/cohorts?contract=Two%20year").json()
+        expect(page.locator("#home-cohort-count")).to_have_text(f"{home_cohort['count']:,}")
+        page.locator("#home-contract-filter").select_option("")
+        page.locator("#home-demo-controls button[data-demo='explanation']").click()
+        expect(page.locator("#home-factors .home-factor").first).to_be_visible()
+        home_id = page.locator("#home-customer-id").inner_text()
+        home_customer = page.request.get(f"{base_url}/api/customers/{home_id}").json()
+        home_prediction = page.request.post(f"{base_url}/api/predict", data=home_customer["features"]).json()
+        expect(page.locator("#home-probability")).to_have_text(f"{home_prediction['probability'] * 100:.1f}%")
+        expected_factors = {item["feature"]: item["contribution"] for item in home_prediction["explanation"]["contributions"]}
+        for factor in page.locator("#home-factors .home-factor").all():
+            feature = factor.get_attribute("data-feature")
+            assert abs(float(factor.get_attribute("data-contribution")) - expected_factors[feature]) < 1e-9
+        page.evaluate("window.__predictionDelays = [600]")
+        page.locator("#home-next-customer").click()
+        expect(page.locator("#home-probability")).to_have_text("—")
+        expect(page.locator("#home-factors .home-factor")).to_have_count(0)
+        expect(page.locator("#home-next-customer")).to_be_enabled()
+        next_home_id = page.locator("#home-customer-id").inner_text()
+        assert next_home_id != home_id
+        page.locator("#home-analysis-link").click()
+        expect(page.locator("#profile-label")).to_have_text(next_home_id)
+        expect(page.locator(".score-number")).to_be_visible()
+        navigate(page, "overview")
+        other_row = page.locator("#customer-rows tr").filter(has_not=page.get_by_text(next_home_id, exact=True)).first
+        other_id = other_row.locator(".customer-id").inner_text()
+        other_row.locator(".inspect-button").click()
+        expect(page.locator("#profile-label")).to_have_text(other_id)
+        page.go_back()
+        page.go_back()
+        expect(page.locator("#profile-label")).to_have_text(next_home_id)
+        expect(page.locator(".score-number")).to_be_visible()
+        page.evaluate("""id => {
+          window.__customerDelay = 700;
+          window.__failNextCustomer = true;
+          history.pushState({}, '', '/analysis?customer=' + encodeURIComponent(id));
+          dispatchEvent(new PopStateEvent('popstate'));
+        }""", other_id)
+        expect(page.locator("#profile-label")).to_have_text("Loading customer…")
+        expect(page.locator(".score-number")).to_have_count(0)
+        navigate(page, "overview")
+        page.locator("#customer-rows .inspect-button").first.click()
+        expect(page.locator(".score-number")).to_be_visible()
+        page.wait_for_timeout(800)
+        expect(page.locator("#prediction-error")).to_be_hidden()
+        checks.append("customer deep-link history reconciles records and ignores obsolete lookup failures")
+        page.goto(f"{base_url}/", wait_until="networkidle")
+        faq = page.locator("#home-faq details").first
+        faq.locator("summary").click()
+        expect(faq).to_have_attribute("open", "")
+        faq.locator("summary").click()
+        checks.append("home live cohort/explanation parity, next-customer state, deep link and native FAQ")
         assert_no_overflow(page)
         page.screenshot(path=str(output / "home-desktop.png"), full_page=True)
         page.goto(f"{base_url}/guide", wait_until="networkidle")

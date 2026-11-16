@@ -1,7 +1,7 @@
 "use strict";
 
 // API values remain numeric until display; customer-provided strings use textContent.
-const state = { summary: null, fields: [], page: 1, pageSize: 8, total: 0, customers: [], selected: null, scenario: false, request: 0, exampleIndex: 0, revision: 0, predictionRequest: 0, cohortRequest: 0, cohortData: null };
+const state = { summary: null, fields: [], page: 1, pageSize: 8, total: 0, customers: [], selected: null, scenario: false, request: 0, exampleIndex: 0, exampleRequest: 0, revision: 0, predictionRequest: 0, cohortRequest: 0, cohortData: null };
 const $ = (selector) => document.querySelector(selector);
 const number = new Intl.NumberFormat("en-US");
 const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 });
@@ -54,16 +54,17 @@ function setView() {
   });
   $("#breadcrumb-current").textContent = titles[view];
   document.title = `${titles[view]} · Retain`;
-  if (view === "analysis" && state.fields.length && !state.selected) loadExample();
+  const customerId = new URLSearchParams(location.search).get("customer");
+  if (view === "analysis" && state.fields.length && (!state.selected || (customerId && (customerId !== state.selected.customer_id || state.scenario)))) loadExample(customerId);
 }
 
-function navigate(view) {
-  if (location.pathname !== `/${view}` || location.hash) history.pushState({}, "", `/${view}`);
+function navigate(view, customerId = null) {
+  const target = `/${view}${customerId ? `?customer=${encodeURIComponent(customerId)}` : ""}`;
+  if (`${location.pathname}${location.search}${location.hash}` !== target) history.pushState({}, "", target);
   setView();
   closeDrawer();
   $("#main").focus({ preventScroll: true });
   window.scrollTo({ top: 0 });
-  $("#main").focus({ preventScroll: true });
 }
 
 function renderOverview() {
@@ -188,6 +189,7 @@ function updateServiceConsistency() {
 function markScenario() {
   state.revision += 1;
   state.scenario = true;
+  if (location.search) history.replaceState({}, "", "/analysis");
   $("#profile-label").textContent = "User scenario";
   clear($("#analysis-source")).append(element("span", "source-icon", "◈"), element("span", "", "User scenario · Inputs have been edited. Run a fresh prediction to evaluate these values; no observed outcome is available."));
   updateServiceConsistency();
@@ -196,16 +198,31 @@ function markScenario() {
   clear($("#prediction-result")).append(stale);
 }
 
-async function loadExample() {
-  const button = $("#load-example"); button.disabled = true;
+async function loadExample(customerId = null) {
+  const button = $("#load-example");
+  if (button.disabled && !customerId) return;
+  button.disabled = true;
+  const request = ++state.exampleRequest;
+  const revision = state.revision;
+  const route = `${location.pathname}${location.search}`;
+  const isCurrent = () => request === state.exampleRequest && revision === state.revision && route === `${location.pathname}${location.search}` && location.pathname === "/analysis";
+  $("#prediction-error").hidden = true;
+  $("#profile-label").textContent = "Loading customer…";
+  clear($("#analysis-source")).append(element("span", "", "Loading the requested held-out record."));
+  clear($("#prediction-result")).append(append(element("article", "card explanation-empty"), element("h2", "", "Loading customer…"), element("p", "", "The score and explanation will appear after this record has been evaluated.")));
   try {
-    const data = await (await api(`/api/customers?page=1&page_size=100`)).json();
-    if (!data.items.length) throw new Error("No held-out examples are available.");
-    const customer = data.items[state.exampleIndex % data.items.length];
-    state.exampleIndex += 1;
+    const index = state.exampleIndex++;
+    let customer;
+    if (customerId) customer = await (await api(`/api/customers/${encodeURIComponent(customerId)}`)).json();
+    else {
+      const data = await (await api(`/api/customers?page=1&page_size=100`)).json();
+      if (!data.items.length) throw new Error("No held-out examples are available.");
+      customer = data.items[index % data.items.length];
+    }
+    if (!isCurrent()) return;
     await openCustomer(customer);
-  } catch (error) { showPredictionError(error.message); }
-  finally { button.disabled = false; }
+  } catch (error) { if (isCurrent()) showPredictionError(error.message); }
+  finally { if (request === state.exampleRequest) button.disabled = false; }
 }
 
 async function openCustomer(customer) {
@@ -216,7 +233,7 @@ async function openCustomer(customer) {
   updateServiceConsistency();
   $("#profile-label").textContent = customer.customer_id;
   clear($("#analysis-source")).append(element("span", "source-icon", "◈"), element("span", "", `Held-out customer ${customer.customer_id} · Actual source record · Observed outcome: ${customer.actual_churn ? "departed" : "stayed"}. Editing creates a user scenario.`));
-  if (location.pathname !== "/analysis") navigate("analysis");
+  navigate("analysis", customer.customer_id);
   await predict();
 }
 
@@ -463,19 +480,19 @@ function renderCohort(data) {
   const y = (value) => bottom - value * (bottom - top);
   const svg = svgElement("svg", { viewBox: `0 0 ${width} ${height}`, role: "group", "aria-label": "Held-out observed churn and mean model probability by tenure group in months. Not a chronological forecast." });
   const defs = svgElement("defs");
-  [["observed-fill", "#525252", ".43"], ["predicted-fill", "#a3a3a3", ".2"]].forEach(([id, color, opacity]) => {
+  [["observed-fill", "#087f70", ".26"], ["predicted-fill", "#668991", ".09"]].forEach(([id, color, opacity]) => {
     const gradient = svgElement("linearGradient", { id, x1: "0", y1: "0", x2: "0", y2: "1" });
     gradient.append(svgElement("stop", { offset: "0%", "stop-color": color, "stop-opacity": opacity }), svgElement("stop", { offset: "100%", "stop-color": color, "stop-opacity": ".02" }));
     defs.append(gradient);
   });
   svg.append(defs);
   [0, .25, .5, .75, 1].forEach((value) => {
-    svg.append(svgElement("line", { x1: left, x2: right, y1: y(value), y2: y(value), stroke: "#f0f0f0", "stroke-width": 1 }));
+    svg.append(svgElement("line", { x1: left, x2: right, y1: y(value), y2: y(value), stroke: "#eaf0eb", "stroke-width": 1 }));
     const label = svgElement("text", { x: left - 7, y: y(value) + 4, "text-anchor": "end" });
     label.textContent = `${value * 100}%`; svg.append(label);
   });
   // Missing cohorts split the path; a missing rate is never drawn as a zero.
-  [["mean_probability", "predicted-fill", "#8c8c8c", "4 3"], ["churn_rate", "observed-fill", "#333333", ""]].forEach(([key, fill, stroke, dash]) => {
+  [["mean_probability", "predicted-fill", "#668991", "4 3"], ["churn_rate", "observed-fill", "#087f70", ""]].forEach(([key, fill, stroke, dash]) => {
     const segments = []; let points = [];
     data.bins.forEach((bin, index) => {
       if (Number.isFinite(bin[key])) points.push([x(index), y(bin[key])]);
@@ -531,7 +548,7 @@ function bindEvents() {
   ["#contract-filter", "#risk-filter"].forEach((selector) => $(selector).addEventListener("change", () => { state.page = 1; loadCustomers(); }));
   $("#previous-page").addEventListener("click", () => { if (state.page > 1) { state.page -= 1; loadCustomers(); } });
   $("#next-page").addEventListener("click", () => { if (state.page * state.pageSize < state.total) { state.page += 1; loadCustomers(); } });
-  $("#load-example").addEventListener("click", loadExample);
+  $("#load-example").addEventListener("click", () => loadExample());
   $("#prediction-form").addEventListener("submit", (event) => { event.preventDefault(); predict(); });
   $("#batch-form").addEventListener("submit", scoreBatch);
   $("#batch-file").addEventListener("change", () => { $("#selected-file").textContent = $("#batch-file").files[0]?.name || "No file selected"; $("#batch-message").hidden = true; });

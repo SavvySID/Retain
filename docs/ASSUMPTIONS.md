@@ -24,3 +24,10 @@
 - Home, overview, analysis, batch, model lab and guide get refreshable URLs; retain legacy hash links where practical.
 - No dated events exist in the benchmark. The reference visitor chart becomes measured held-out churn/probability by tenure cohort, with sample counts and contract filters. It is not an individual or temporal forecast.
 - Preserve the existing Flask/Python model; UI work does not justify changing measured results or adding another framework.
+
+## UI polish revision 3
+
+- The user requests a stronger home/hero and site-wide UI fixes. Related customer-success/analytics products now inform a branded presentation; the old exact shadcn geometry is retained as historical V2 evidence, not a binding target for this redesign.
+- Warm off-white, navy and restrained teal, the local Geist font, a live actual-data product preview, purposeful sections and FAQs are reasonable design choices made without further questions.
+- Additional plugins are permitted but optional. Keep the existing stack when it can deliver the experience without new dependencies.
+- Research examples may inform layout and interaction; they do not supply Retain's model results, customer identities, business benefits or operational capabilities.
