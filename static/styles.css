@@ -7,12 +7,12 @@
 }
 
 :root {
-  --background: #f6f7f3;
+  --background: #f6f6f6;
   --surface: #fff;
-  --ink: #142d37;
-  --muted: #5b6d73;
-  --border: #dde5df;
-  --primary: #087f70;
+  --ink: #171717;
+  --muted: #6a6a6a;
+  --border: #e3e3e3;
+  --primary: #171717;
   --radius: 14px;
   --sidebar-width: 256px;
   --font: "Geist", Arial, sans-serif;
@@ -60,7 +60,7 @@ a:hover {
 }
 
 button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible, [tabindex]:focus-visible {
-  outline: 2px solid #52666d;
+  outline: 2px solid #626262;
   outline-offset: 3px;
 }
 
@@ -188,7 +188,7 @@ h3 {
 }
 
 .button:hover {
-  background: #f1f5f1;
+  background: #f4f4f4;
   text-decoration: none;
 }
 
@@ -199,7 +199,7 @@ h3 {
 }
 
 .button-primary:hover {
-  background: #066c60;
+  background: #262626;
 }
 
 .button-small {
@@ -235,7 +235,7 @@ h3 {
 }
 
 .icon-button:hover {
-  background: #eaf1ed;
+  background: #efefef;
   text-decoration: none;
 }
 
@@ -266,8 +266,8 @@ h3 {
 }
 
 .nav-link:hover, .nav-link.active {
-  background: #e4eee7;
-  color: #076f62;
+  background: #ebebeb;
+  color: #262626;
   text-decoration: none;
 }
 
@@ -294,7 +294,7 @@ h3 {
   height: 32px;
   display: grid;
   place-items: center;
-  background: #dde5df;
+  background: #e3e3e3;
   border-radius: 8px;
   font-weight: 600;
   font-size: 13px;
@@ -368,11 +368,11 @@ h3 {
   height: 6px;
   width: 6px;
   border-radius: 50%;
-  background: #60747a;
+  background: #707070;
 }
 
 .status-chip.unavailable {
-  color: #9a2929;
+  color: #414141;
 }
 
 main {
@@ -456,7 +456,7 @@ main {
   padding: 2px 7px;
   font-size: 12px;
   font-weight: 400;
-  color: #52666d;
+  color: #626262;
   white-space: nowrap;
 }
 
@@ -573,7 +573,7 @@ main {
 }
 
 .segmented-control button[aria-pressed="true"] {
-  background: #eff4ef;
+  background: #f3f3f3;
   font-weight: 500;
 }
 
@@ -660,12 +660,12 @@ main {
 
 .legend-line {
   width: 18px;
-  border-top: 2px solid #087f70;
+  border-top: 2px solid #171717;
   display: inline-block;
 }
 
 .legend-line.predicted {
-  border-color: #668991;
+  border-color: #8c8c8c;
   border-top-style: dashed;
 }
 
@@ -786,7 +786,7 @@ table {
 th {
   font-size: 13px;
   font-weight: 500;
-  background: #f1f5f1;
+  background: #f4f4f4;
   color: var(--ink);
   padding: 11px 14px;
   border-bottom: 1px solid var(--border);
@@ -804,7 +804,7 @@ tr:last-child td {
 }
 
 tbody tr:hover {
-  background: #f6f7f3;
+  background: #f6f6f6;
 }
 
 .customer-id {
@@ -820,7 +820,7 @@ tbody tr:hover {
 .risk-meter {
   width: 42px;
   height: 4px;
-  background: #dde5df;
+  background: #e3e3e3;
   border-radius: 2px;
   overflow: hidden;
 }
@@ -828,11 +828,11 @@ tbody tr:hover {
 .risk-meter span {
   display: block;
   height: 100%;
-  background: #52666d;
+  background: #626262;
 }
 
 .risk-low .risk-meter span {
-  background: #91aaa5;
+  background: #a4a4a4;
 }
 
 .outcome {
@@ -840,7 +840,7 @@ tbody tr:hover {
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 2px 7px;
-  color: #52666d;
+  color: #626262;
   background: white;
 }
 
@@ -850,13 +850,13 @@ tbody tr:hover {
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #60747a;
+  background: #707070;
   margin-right: 5px;
   vertical-align: 1px;
 }
 
 .outcome.departed::before {
-  background: #142d37;
+  background: #171717;
 }
 
 .inspect-button {
@@ -917,7 +917,7 @@ tbody tr:hover {
 
 .page-heading .eyebrow {
   display: block;
-  color: #087f70;
+  color: #171717;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 1.2px;
@@ -937,8 +937,8 @@ tbody tr:hover {
   margin-bottom: 24px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: #f6f7f3;
-  color: #52666d;
+  background: #f6f6f6;
+  color: #626262;
   font-size: 13px;
 }
 
@@ -992,12 +992,12 @@ tbody tr:hover {
   width: 100%;
   min-height: 40px;
   font-weight: 400;
-  background: #fcfdfb;
+  background: #fdfdfd;
 }
 
 .field select:disabled {
-  background: #f1f5f1;
-  color: #60747a;
+  background: #f4f4f4;
+  color: #707070;
 }
 
 .form-actions {
@@ -1029,7 +1029,7 @@ tbody tr:hover {
 .empty-symbol {
   display: block;
   font-size: 38px;
-  color: #566e64;
+  color: #686868;
   margin-bottom: 16px;
 }
 
@@ -1050,10 +1050,10 @@ tbody tr:hover {
 }
 
 .risk-pill {
-  color: #087264;
-  background: #e9f3ee;
+  color: #262626;
+  background: #f1f1f1;
   padding: 3px 8px;
-  border: 1px solid #d5e8dd;
+  border: 1px solid #e3e3e3;
   border-radius: 6px;
   font-size: 11px;
 }
@@ -1088,25 +1088,25 @@ tbody tr:hover {
   position: relative;
   height: 8px;
   border-radius: 4px;
-  background: #eaf1ed;
+  background: #efefef;
   margin-bottom: 14px;
 }
 
 .score-fill {
   height: 100%;
   border-radius: 4px;
-  background: #398f81;
+  background: #7c7c7c;
 }
 
 .score-fill.high {
-  background: #526d76;
+  background: #686868;
 }
 
 .score-threshold {
   position: absolute;
   top: -4px;
   height: 16px;
-  border-left: 2px solid #142d37;
+  border-left: 2px solid #171717;
 }
 
 .score-details {
@@ -1129,13 +1129,13 @@ tbody tr:hover {
   display: inline-block;
   width: 6px;
   height: 6px;
-  background: #b36d5a;
+  background: #525252;
   border-radius: 50%;
   margin-right: 5px;
 }
 
 .factor-legend i.negative {
-  background: #168477;
+  background: #a3a3a3;
 }
 
 .factor-row {
@@ -1166,26 +1166,26 @@ tbody tr:hover {
   height: 8px;
   border-radius: 2px;
   left: 50%;
-  background: #ba7b69;
+  background: #525252;
 }
 
 .factor-bar.negative {
   left: auto;
   right: 50%;
-  background: #299587;
+  background: #a3a3a3;
 }
 
 .factor-value {
   text-align: right;
   font-variant-numeric: tabular-nums;
-  color: #52666d;
+  color: #626262;
 }
 
 .explanation-reconciliation {
   padding: 12px;
-  background: #f1f5f1;
+  background: #f4f4f4;
   border-radius: 6px;
-  color: #52666d;
+  color: #626262;
   font-size: 11px;
   line-height: 20px;
   overflow-wrap: anywhere;
@@ -1193,7 +1193,7 @@ tbody tr:hover {
 
 .suggestions {
   font-size: 13px;
-  color: #52666d;
+  color: #626262;
   padding-left: 18px;
   margin: 20px 0 0;
 }
@@ -1211,9 +1211,9 @@ tbody tr:hover {
 }
 
 .alert-error {
-  background: #fef4f4;
-  border-color: #e8cbcb;
-  color: #9a2929;
+  background: #f6f6f6;
+  border-color: #d1d1d1;
+  color: #414141;
 }
 
 .upload-zone {
@@ -1224,7 +1224,7 @@ tbody tr:hover {
   gap: 9px;
   border: 1px dashed #b3b3b3;
   border-radius: 10px;
-  background: #f6f7f3;
+  background: #f6f6f6;
   padding: 32px 16px;
   margin: 24px 0;
   text-align: center;
@@ -1247,7 +1247,7 @@ tbody tr:hover {
   border-radius: 10px;
   font-size: 26px;
   background: white;
-  color: #52666d;
+  color: #626262;
   margin-bottom: 8px;
 }
 
@@ -1291,7 +1291,7 @@ tbody tr:hover {
 }
 
 .batch-message {
-  background: #f1f5f1;
+  background: #f4f4f4;
   border: 1px solid var(--border);
   border-radius: 7px;
   padding: 12px;
@@ -1301,9 +1301,9 @@ tbody tr:hover {
 }
 
 .batch-message.error {
-  background: #fff4f4;
-  color: #9a2929;
-  border-color: #e8cbcb;
+  background: #f6f6f6;
+  color: #414141;
+  border-color: #d1d1d1;
 }
 
 .schema-columns {
@@ -1317,7 +1317,7 @@ tbody tr:hover {
   padding: 5px 8px;
   border: 1px solid var(--border);
   border-radius: 5px;
-  background: #f6f7f3;
+  background: #f6f6f6;
 }
 
 .protocol-grid {
@@ -1338,12 +1338,12 @@ tbody tr:hover {
 }
 
 .comparison-winner {
-  background: #f6f7f3;
+  background: #f6f6f6;
 }
 
 .winner-label {
   display: inline-block;
-  background: #eaf1ed;
+  background: #efefef;
   border-radius: 4px;
   padding: 2px 5px;
   font-size: 9px;
@@ -1370,7 +1370,7 @@ tbody tr:hover {
   padding: 20px 8px;
   text-align: center;
   border-radius: 6px;
-  background: #f1f5f1;
+  background: #f4f4f4;
 }
 
 .matrix-cell.correct {
@@ -1395,13 +1395,13 @@ tbody tr:hover {
 
 .importance-track {
   height: 7px;
-  background: #eaf1ed;
+  background: #efefef;
   border-radius: 3px;
 }
 
 .importance-fill {
   height: 100%;
-  background: #3d8e80;
+  background: #7c7c7c;
   border-radius: 3px;
 }
 
@@ -1435,14 +1435,14 @@ tbody tr:hover {
 .segment-track {
   height: 14px;
   border-radius: 3px;
-  background: #eaf1ed;
+  background: #efefef;
   overflow: hidden;
 }
 
 .segment-fill {
   height: 100%;
   border-radius: 3px;
-  background: #388d7e;
+  background: #7a7a7a;
 }
 
 .segment-number {
@@ -1519,7 +1519,7 @@ tbody tr:hover {
 }
 
 .provenance-card pre {
-  background: #f1f5f1;
+  background: #f4f4f4;
   border-radius: 6px;
   padding: 16px;
   max-height: 360px;
@@ -1856,7 +1856,7 @@ tbody tr:hover {
 }
 
 .site-page {
-  background: #f8f9f5;
+  background: #f8f8f8;
 }
 
 .site-header {
@@ -1885,7 +1885,7 @@ tbody tr:hover {
   align-items: center;
   gap: 28px;
   font-size: 13px;
-  color: #435d64;
+  color: #585858;
 }
 
 .site-nav a:not(.button):hover {
@@ -1908,7 +1908,7 @@ tbody tr:hover {
 
 .section-label {
   display: block;
-  color: #08796b;
+  color: #262626;
   font-size: 10px;
   letter-spacing: 1.5px;
   font-weight: 600;
@@ -1927,11 +1927,11 @@ tbody tr:hover {
   font-size: 10px;
   font-weight: 550;
   letter-spacing: 1.3px;
-  color: #47666a;
+  color: #606060;
   padding: 6px 12px;
-  border: 1px solid #d9e6dd;
+  border: 1px solid #e3e3e3;
   border-radius: 20px;
-  background: #f1f6ef;
+  background: #f4f4f4;
   margin-bottom: 24px;
 }
 
@@ -1954,7 +1954,7 @@ tbody tr:hover {
 }
 
 .home-hero > p {
-  color: #526c73;
+  color: #676767;
   font-size: 16px;
   line-height: 26px;
   margin: 24px auto 0;
@@ -1980,8 +1980,8 @@ tbody tr:hover {
 
 .button-secondary {
   background: #fff;
-  border-color: #d8e2dc;
-  color: #24414b;
+  border-color: #dfdfdf;
+  color: #3c3c3c;
 }
 
 .hero-footnote {
@@ -1992,13 +1992,13 @@ tbody tr:hover {
   gap: 12px;
   margin-top: 21px;
   font-size: 10px;
-  color: #566e64;
+  color: #686868;
 }
 
 .hero-footnote i {
   width: 3px;
   height: 3px;
-  background: #9fb6aa;
+  background: #b0b0b0;
   border-radius: 50%;
 }
 
@@ -2008,10 +2008,10 @@ tbody tr:hover {
 }
 
 .product-demo-frame {
-  border: 1px solid #ccdcd2;
+  border: 1px solid #d8d8d8;
   border-radius: 14px;
   background: #fff;
-  box-shadow: 0 14px 40px #183c2c08, 0 2px 5px #183c2c04;
+  box-shadow: 0 14px 40px #33333308, 0 2px 5px #33333304;
   overflow: hidden;
 }
 
@@ -2021,8 +2021,8 @@ tbody tr:hover {
   gap: 26px;
   height: 48px;
   padding: 0 24px;
-  border-bottom: 1px solid #e1e9e3;
-  background: #fbfcfa;
+  border-bottom: 1px solid #e7e7e7;
+  background: #fcfcfc;
 }
 
 .demo-brand {
@@ -2048,18 +2048,18 @@ tbody tr:hover {
 
 .demo-breadcrumb {
   font-size: 10px;
-  color: #566e64;
+  color: #686868;
 }
 
 .demo-breadcrumb > span {
   padding: 0 10px;
-  color: #566e64;
+  color: #686868;
 }
 
 .demo-data-label {
   margin-left: auto;
   font-size: 9px;
-  color: #566e64;
+  color: #686868;
   display: flex;
   align-items: center;
   gap: 6px;
@@ -2068,13 +2068,13 @@ tbody tr:hover {
 .demo-data-label > i {
   height: 5px;
   width: 5px;
-  background: #398c73;
+  background: #797979;
   border-radius: 50%;
 }
 
 .demo-body {
   padding: 27px;
-  background: #fcfdfb;
+  background: #fdfdfd;
 }
 
 .demo-intro {
@@ -2101,8 +2101,8 @@ tbody tr:hover {
 .demo-controls {
   display: inline-flex;
   padding: 3px;
-  border: 1px solid #e0e8e1;
-  background: #f0f4ef;
+  border: 1px solid #e6e6e6;
+  background: #f3f3f3;
   border-radius: 7px;
   gap: 2px;
   flex-shrink: 0;
@@ -2113,19 +2113,19 @@ tbody tr:hover {
   border-radius: 5px;
   background: transparent;
   padding: 7px 11px;
-  color: #54716e;
+  color: #6b6b6b;
   font-size: 10px;
   font-weight: 500;
 }
 
 .demo-controls button[aria-pressed="true"] {
   background: #fff;
-  color: #16453c;
-  box-shadow: 0 1px 4px #1c4b3320;
+  color: #3a3a3a;
+  box-shadow: 0 1px 4px #3f3f3f20;
 }
 
 .demo-controls button:hover {
-  color: #075c50;
+  color: #494949;
 }
 
 .demo-panel {
@@ -2138,7 +2138,7 @@ tbody tr:hover {
 .demo-chart-card {
   min-width: 0;
   padding: 22px;
-  border: 1px solid #dfe8e0;
+  border: 1px solid #e6e6e6;
   background: #fff;
   border-radius: 9px;
 }
@@ -2157,7 +2157,7 @@ tbody tr:hover {
 
 .demo-card-heading p {
   font-size: 10px;
-  color: #566e64;
+  color: #686868;
   margin-top: 4px;
 }
 
@@ -2166,7 +2166,7 @@ tbody tr:hover {
   align-items: center;
   gap: 7px;
   font-size: 9px;
-  color: #566e64;
+  color: #686868;
 }
 
 .demo-filter select {
@@ -2192,25 +2192,25 @@ tbody tr:hover {
 
 .home-cohort-chart text {
   font: 10px var(--font);
-  fill: #6b8382;
+  fill: #7e7e7e;
 }
 
 .demo-chart-card .chart-legend {
   font-size: 9px;
-  color: #566e64;
+  color: #686868;
   gap: 16px;
 }
 
 .demo-chart-note {
   font-size: 9px;
-  color: #566e64;
+  color: #686868;
   margin-top: 12px;
 }
 
 .demo-chart-data {
   font-size: 9px;
   margin-top: 9px;
-  color: #526e65;
+  color: #676767;
 }
 
 .demo-chart-data summary {
@@ -2232,15 +2232,15 @@ tbody tr:hover {
   display: flex;
   flex-direction: column;
   padding: 25px;
-  border: 1px solid #d9e7dd;
-  background: #edf5ed;
+  border: 1px solid #e3e3e3;
+  background: #f3f3f3;
   border-radius: 9px;
 }
 
 .context-symbol {
   font-size: 26px;
   line-height: 1;
-  color: #566e64;
+  color: #686868;
   margin-bottom: 23px;
 }
 
@@ -2259,13 +2259,13 @@ tbody tr:hover {
 
 .demo-context > p {
   font-size: 11px;
-  color: #566e64;
+  color: #686868;
   line-height: 19px;
   margin-top: 15px;
 }
 
 .demo-population {
-  border-top: 1px solid #d1e2d2;
+  border-top: 1px solid #dddddd;
   padding-top: 20px;
   margin-top: auto;
   padding-bottom: 21px;
@@ -2281,19 +2281,19 @@ tbody tr:hover {
 }
 
 .demo-population > span {
-  color: #566e64;
+  color: #686868;
   font-size: 10px;
 }
 
 .demo-context .text-link {
   font-size: 10px;
-  color: #16705d;
+  color: #5b5b5b;
   font-weight: 500;
 }
 
 .demo-status {
   font-size: 9px;
-  color: #566e64;
+  color: #686868;
   margin-top: 16px;
 }
 
@@ -2304,11 +2304,11 @@ tbody tr:hover {
   gap: 12px;
   padding: 16px 4px 0;
   font-size: 10px;
-  color: #566e64;
+  color: #686868;
 }
 
 .demo-caption a {
-  color: #365e50;
+  color: #545454;
 }
 
 .demo-explanation {
@@ -2316,7 +2316,7 @@ tbody tr:hover {
 }
 
 .demo-customer-card, .demo-factor-card {
-  border: 1px solid #dfe8e0;
+  border: 1px solid #e6e6e6;
   background: #fff;
   border-radius: 9px;
   padding: 24px;
@@ -2324,7 +2324,7 @@ tbody tr:hover {
 }
 
 .demo-customer-card {
-  background: #f5f9f1;
+  background: #f8f8f8;
 }
 
 .demo-card-heading .section-label {
@@ -2340,7 +2340,7 @@ tbody tr:hover {
 .demo-customer-card h3 {
   margin-top: 20px;
   font-size: 13px;
-  color: #4d6f63;
+  color: #676767;
   letter-spacing: .2px;
 }
 
@@ -2350,19 +2350,19 @@ tbody tr:hover {
   font-weight: 550;
   letter-spacing: -2px;
   margin-top: 9px;
-  color: #184f43;
+  color: #424242;
 }
 
 .demo-score-label {
   font-size: 10px;
-  color: #566e64;
+  color: #686868;
   margin-top: 4px;
 }
 
 .preview-track {
   height: 6px;
   border-radius: 4px;
-  background: #dce8d7;
+  background: #e4e4e4;
   overflow: hidden;
   margin: 19px 0 12px;
 }
@@ -2371,34 +2371,34 @@ tbody tr:hover {
   display: block;
   height: 100%;
   width: 0;
-  background: #418d77;
+  background: #7b7b7b;
   border-radius: 4px;
 }
 
 .demo-customer-note {
   font-size: 10px;
-  color: #566e64;
+  color: #686868;
 }
 
 .demo-account-facts {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 12px;
-  border-top: 1px solid #dfe9da;
+  border-top: 1px solid #e6e6e6;
   margin: 20px 0 0;
   padding-top: 18px;
 }
 
 .demo-account-facts dt {
   font-size: 9px;
-  color: #566e64;
+  color: #686868;
   margin-bottom: 4px;
 }
 
 .demo-account-facts dd {
   font-size: 11px;
   margin: 0;
-  color: #365e4e;
+  color: #545454;
   font-weight: 500;
 }
 
@@ -2418,7 +2418,7 @@ tbody tr:hover {
 
 .demo-customer-actions > a {
   font-size: 10px;
-  color: #16705d;
+  color: #5b5b5b;
 }
 
 .demo-factor-card h3 {
@@ -2444,13 +2444,13 @@ tbody tr:hover {
 .home-factor-label small {
   display: block;
   font-size: 9px;
-  color: #566e64;
+  color: #686868;
   margin-top: 2px;
 }
 
 .home-factor-value {
   font-size: 10px;
-  color: #5f706c;
+  color: #6c6c6c;
   font-variant-numeric: tabular-nums;
   text-align: right;
 }
@@ -2458,28 +2458,28 @@ tbody tr:hover {
 .demo-factor-note, .demo-causality {
   font-size: 9px;
   line-height: 17px;
-  color: #566e64;
+  color: #686868;
 }
 
 .demo-reconciliation {
   padding: 11px;
-  background: #f3f6f1;
+  background: #f5f5f5;
   font-size: 9px;
   line-height: 17px;
   border-radius: 5px;
-  color: #577165;
+  color: #6b6b6b;
   margin: 13px 0 9px;
   overflow-wrap: anywhere;
 }
 
 .demo-loading {
   font-size: 12px;
-  color: #566e64;
+  color: #686868;
   padding: 30px 0;
 }
 
 .demo-error {
-  color: #a24736 !important;
+  color: #595959 !important;
 }
 
 .home-proof {
@@ -2520,7 +2520,7 @@ tbody tr:hover {
 
 .proof-metric > span {
   font-size: 10px;
-  color: #566e64;
+  color: #686868;
   display: block;
   margin-top: 5px;
 }
@@ -2544,7 +2544,7 @@ tbody tr:hover {
 }
 
 .section-intro p {
-  color: #566e64;
+  color: #686868;
   font-size: 14px;
   line-height: 24px;
   margin-top: 19px;
@@ -2559,7 +2559,7 @@ tbody tr:hover {
 }
 
 .story-card {
-  border: 1px solid #dce6dc;
+  border: 1px solid #e3e3e3;
   background: #fff;
   border-radius: 12px;
   padding: 30px;
@@ -2568,7 +2568,7 @@ tbody tr:hover {
 
 .feature-number {
   font-size: 9px;
-  color: #566e64;
+  color: #686868;
   letter-spacing: 1.1px;
   font-weight: 500;
 }
@@ -2584,7 +2584,7 @@ tbody tr:hover {
 .story-card p {
   font-size: 12px;
   line-height: 21px;
-  color: #566e64;
+  color: #686868;
   margin-top: 13px;
   max-width: 370px;
 }
@@ -2593,7 +2593,7 @@ tbody tr:hover {
   display: inline-flex;
   gap: 18px;
   font-size: 11px;
-  color: #107761;
+  color: #606060;
   margin-top: 23px;
   font-weight: 500;
 }
@@ -2614,7 +2614,7 @@ tbody tr:hover {
 }
 
 .story-explain {
-  background: #edf4e9;
+  background: #f2f2f2;
   padding: 35px;
   display: flex;
   flex-direction: column;
@@ -2633,16 +2633,16 @@ tbody tr:hover {
   align-items: center;
   padding: 25px 20px 15px;
   margin-top: auto;
-  color: #3e6852;
+  color: #5d5d5d;
 }
 
 .diagram-profile {
   text-align: center;
   background: #fff;
-  border: 1px solid #d1dfcc;
+  border: 1px solid #dbdbdb;
   border-radius: 8px;
   padding: 16px 25px;
-  box-shadow: 0 3px 9px #1b50290a;
+  box-shadow: 0 3px 9px #4242420a;
   width: 210px;
   max-width: 100%;
 }
@@ -2650,7 +2650,7 @@ tbody tr:hover {
 .diagram-profile > span {
   display: block;
   font-size: 20px;
-  color: #566e64;
+  color: #686868;
 }
 
 .diagram-profile strong {
@@ -2663,14 +2663,14 @@ tbody tr:hover {
 .diagram-profile small {
   display: block;
   font-size: 9px;
-  color: #566e64;
+  color: #686868;
   margin-top: 4px;
 }
 
 .diagram-connector {
   height: 29px;
   width: 1px;
-  background: #aac5aa;
+  background: #bdbdbd;
 }
 
 .diagram-model {
@@ -2678,8 +2678,8 @@ tbody tr:hover {
   gap: 9px;
   align-items: center;
   justify-content: center;
-  border: 1px solid #c1d5bd;
-  background: #dcead5;
+  border: 1px solid #cfcfcf;
+  background: #e6e6e6;
   border-radius: 7px;
   padding: 10px 22px;
 }
@@ -2701,7 +2701,7 @@ tbody tr:hover {
   width: 51%;
   height: 30px;
   margin-top: 12px;
-  border: 1px solid #aac5aa;
+  border: 1px solid #bdbdbd;
   border-bottom: 0;
   border-radius: 5px 5px 0 0;
   position: relative;
@@ -2713,7 +2713,7 @@ tbody tr:hover {
   left: 50%;
   top: -13px;
   height: 12px;
-  border-left: 1px solid #aac5aa;
+  border-left: 1px solid #bdbdbd;
 }
 
 .diagram-outputs {
@@ -2725,7 +2725,7 @@ tbody tr:hover {
 
 .diagram-outputs span {
   background: #fff;
-  border: 1px solid #d1dfcc;
+  border: 1px solid #dbdbdb;
   border-radius: 6px;
   padding: 10px 12px;
   font-size: 9px;
@@ -2740,17 +2740,17 @@ tbody tr:hover {
 }
 
 .file-flow span:not(:nth-child(2)) {
-  border: 1px solid #dde5d7;
+  border: 1px solid #e2e2e2;
   padding: 10px 12px;
-  background: #f7f9f3;
+  background: #f8f8f8;
   border-radius: 6px;
   font-size: 10px;
-  color: #607557;
+  color: #6e6e6e;
   font-family: monospace;
 }
 
 .file-flow span:nth-child(2) {
-  color: #566e64;
+  color: #686868;
 }
 
 .workflow-section {
@@ -2768,7 +2768,7 @@ tbody tr:hover {
 }
 
 .workflow-intro > p {
-  color: #566e64;
+  color: #686868;
   font-size: 13px;
   line-height: 23px;
   max-width: 370px;
@@ -2793,7 +2793,7 @@ tbody tr:hover {
   display: flex;
   align-items: flex-start;
   gap: 19px;
-  border-bottom: 1px solid #e0e8dd;
+  border-bottom: 1px solid #e6e6e6;
   padding-bottom: 25px;
 }
 
@@ -2807,12 +2807,12 @@ tbody tr:hover {
   height: 32px;
   display: grid;
   place-items: center;
-  border: 1px solid #d7e3d2;
-  color: #467c5f;
+  border: 1px solid #dfdfdf;
+  color: #6e6e6e;
   border-radius: 8px;
   font-size: 10px;
   flex-shrink: 0;
-  background: #f0f5eb;
+  background: #f3f3f3;
 }
 
 .workflow-steps h3 {
@@ -2821,7 +2821,7 @@ tbody tr:hover {
 }
 
 .workflow-steps p {
-  color: #566e64;
+  color: #686868;
   font-size: 12px;
   line-height: 21px;
   margin-top: 8px;
@@ -2831,15 +2831,15 @@ tbody tr:hover {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   gap: 90px;
-  background: #142d37;
-  color: #f2f7ef;
+  background: #171717;
+  color: #f5f5f5;
   border-radius: 14px;
   padding: 47px;
   margin: 16px 10px 0;
 }
 
 .home-evidence .section-label {
-  color: #a5c8b6;
+  color: #bfbfbf;
   font-size: 9px;
 }
 
@@ -2852,7 +2852,7 @@ tbody tr:hover {
 }
 
 .home-evidence p {
-  color: #afc6c2;
+  color: #c1c1c1;
   font-size: 12px;
   line-height: 22px;
   max-width: 390px;
@@ -2860,15 +2860,15 @@ tbody tr:hover {
 }
 
 .button-light {
-  background: #f2f7ef;
-  border-color: #f2f7ef;
-  color: #1d433c;
+  background: #f5f5f5;
+  border-color: #f5f5f5;
+  color: #3a3a3a;
   font-size: 11px;
   margin-top: 24px;
 }
 
 .button-light:hover {
-  background: #e3efe2;
+  background: #ececec;
 }
 
 .evidence-details {
@@ -2876,7 +2876,7 @@ tbody tr:hover {
 }
 
 .evidence-details > div {
-  border-bottom: 1px solid #35505a;
+  border-bottom: 1px solid #4b4b4b;
   padding: 15px 0;
 }
 
@@ -2889,7 +2889,7 @@ tbody tr:hover {
 }
 
 .evidence-details dt {
-  color: #9ab8b7;
+  color: #b2b2b2;
   font-size: 10px;
   margin-bottom: 5px;
 }
@@ -2897,7 +2897,7 @@ tbody tr:hover {
 .evidence-details dd {
   margin: 0;
   font-size: 12px;
-  color: #e2efe5;
+  color: #ececec;
 }
 
 .faq-section {
@@ -2920,14 +2920,14 @@ tbody tr:hover {
 .faq-section .section-intro > a {
   display: inline-block;
   margin-top: 22px;
-  color: #16745e;
+  color: #5e5e5e;
   font-size: 11px;
   font-weight: 500;
 }
 
 .faq-list details {
   padding: 19px 0;
-  border-bottom: 1px solid #dfe7db;
+  border-bottom: 1px solid #e4e4e4;
 }
 
 .faq-list details:first-child {
@@ -2953,7 +2953,7 @@ tbody tr:hover {
 .faq-list summary::after {
   content: "+";
   font-size: 18px;
-  color: #566e64;
+  color: #686868;
   font-weight: 400;
   line-height: 20px;
 }
@@ -2963,7 +2963,7 @@ tbody tr:hover {
 }
 
 .faq-list p {
-  color: #566e64;
+  color: #686868;
   font-size: 12px;
   line-height: 22px;
   margin-top: 15px;
@@ -2971,7 +2971,7 @@ tbody tr:hover {
 }
 
 .faq-list a {
-  color: #16745e;
+  color: #5e5e5e;
   font-size: 11px;
   display: inline-block;
   margin-top: 12px;
@@ -2991,14 +2991,14 @@ tbody tr:hover {
 }
 
 .home-closing > p {
-  color: #566e64;
+  color: #686868;
   font-size: 13px;
   margin-top: 20px;
 }
 
 .home-closing .closing-note {
   font-size: 10px;
-  color: #566e64;
+  color: #686868;
   margin-top: 20px;
 }
 
@@ -3009,8 +3009,8 @@ tbody tr:hover {
   grid-template-columns: 1.4fr .8fr .9fr 1.1fr;
   gap: 48px;
   padding: 41px 10px 45px;
-  border-top: 1px solid #dce5d7;
-  color: #566e64;
+  border-top: 1px solid #e2e2e2;
+  color: #686868;
   font-size: 11px;
 }
 
@@ -3018,7 +3018,7 @@ tbody tr:hover {
   padding: 0;
   height: auto;
   width: fit-content;
-  color: #203f41;
+  color: #393939;
 }
 
 .footer-brand > p {
@@ -3030,7 +3030,7 @@ tbody tr:hover {
 .footer-brand > span {
   display: block;
   font-size: 9px;
-  color: #566e64;
+  color: #686868;
   margin-top: 13px;
   line-height: 17px;
 }
@@ -3042,7 +3042,7 @@ tbody tr:hover {
 }
 
 .site-footer strong {
-  color: #3b5b4a;
+  color: #535353;
   font-size: 10px;
   font-weight: 550;
   margin-bottom: 6px;
@@ -3057,7 +3057,7 @@ tbody tr:hover {
 .footer-note > a {
   display: inline-block;
   margin-top: 16px;
-  color: #327659;
+  color: #656565;
   font-size: 10px;
 }
 
@@ -3079,7 +3079,7 @@ tbody tr:hover {
 }
 
 .guide-heading p {
-  color: #566e64;
+  color: #686868;
   font-size: 14px;
   line-height: 23px;
   margin-top: 13px;
@@ -3104,20 +3104,20 @@ tbody tr:hover {
 .guide-toc strong {
   font-size: 11px;
   margin: 0 0 11px 11px;
-  color: #58765f;
+  color: #6e6e6e;
   font-weight: 550;
 }
 
 .guide-toc a {
   font-size: 12px;
-  color: #566e64;
+  color: #686868;
   padding: 8px 11px;
   border-radius: 6px;
 }
 
 .guide-toc a:hover {
-  color: #11735e;
-  background: #eaf2e6;
+  color: #5d5d5d;
+  background: #efefef;
   text-decoration: none;
 }
 
@@ -3145,7 +3145,7 @@ tbody tr:hover {
 .guide-section p, .guide-section li {
   font-size: 13px;
   line-height: 24px;
-  color: #5b7367;
+  color: #6d6d6d;
 }
 
 .guide-section p + p {
@@ -3162,20 +3162,20 @@ tbody tr:hover {
 }
 
 .guide-section a:not(.button) {
-  color: #137761;
+  color: #606060;
   text-decoration: underline;
   text-underline-offset: 3px;
 }
 
 .guide-callout {
-  border: 1px solid #d1e2ca;
-  background: #edf5e8;
+  border: 1px solid #dddddd;
+  background: #f2f2f2;
   border-radius: 8px;
   padding: 18px;
   margin: 20px 0;
   font-size: 12px;
   line-height: 22px;
-  color: #53744f;
+  color: #6a6a6a;
 }
 
 .guide-callout strong {
@@ -3192,7 +3192,7 @@ tbody tr:hover {
 
 .document-links a {
   padding: 14px 16px;
-  border: 1px solid #d8e5d1;
+  border: 1px solid #e1e1e1;
   border-radius: 8px;
   background: #fff;
   font-size: 12px;
@@ -3200,7 +3200,7 @@ tbody tr:hover {
 }
 
 .document-links a:hover {
-  background: #f0f6eb;
+  background: #f4f4f4;
 }
 
 @media (max-width: 1100px) {
@@ -3285,7 +3285,7 @@ tbody tr:hover {
     margin: 0;
     border-top: 0;
     padding-bottom: 12px;
-    border-left: 1px solid #cbdcc9;
+    border-left: 1px solid #d7d7d7;
     padding-left: 25px;
   }
   .demo-context .text-link {
@@ -3383,7 +3383,7 @@ tbody tr:hover {
   }
   .footer-note {
     grid-column: 1 / -1;
-    border-top: 1px solid #dce5d7;
+    border-top: 1px solid #e2e2e2;
     padding-top: 20px;
     display: flex;
     gap: 25px;
@@ -3854,7 +3854,7 @@ tbody tr:hover {
     margin: 0 0 5px;
   }
   .guide-toc a {
-    border: 1px solid #dce7d3;
+    border: 1px solid #e3e3e3;
     padding: 5px 8px;
     font-size: 10px;
   }

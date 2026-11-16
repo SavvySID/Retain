@@ -62,6 +62,8 @@ def compare_reference(base_url: str) -> dict:
             }""")
             data["text_contrast"] = contrast(rgb(data["bodyColor"]), rgb(data["bodyBackground"]))
             data["button_contrast"] = contrast(rgb(data["buttonColor"]), rgb(data["buttonBackground"]))
+            assert rgb(data["buttonBackground"]) == (23, 23, 23), data
+            assert len(set(rgb(data["bodyColor"]))) == 1, data
             assert data["text_contrast"] >= 4.5, data
             assert data["button_contrast"] >= 4.5, data
             assert data["documentWidth"] <= data["width"], data

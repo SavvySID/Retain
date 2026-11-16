@@ -480,19 +480,19 @@ function renderCohort(data) {
   const y = (value) => bottom - value * (bottom - top);
   const svg = svgElement("svg", { viewBox: `0 0 ${width} ${height}`, role: "group", "aria-label": "Held-out observed churn and mean model probability by tenure group in months. Not a chronological forecast." });
   const defs = svgElement("defs");
-  [["observed-fill", "#087f70", ".26"], ["predicted-fill", "#668991", ".09"]].forEach(([id, color, opacity]) => {
+  [["observed-fill", "#171717", ".26"], ["predicted-fill", "#8c8c8c", ".09"]].forEach(([id, color, opacity]) => {
     const gradient = svgElement("linearGradient", { id, x1: "0", y1: "0", x2: "0", y2: "1" });
     gradient.append(svgElement("stop", { offset: "0%", "stop-color": color, "stop-opacity": opacity }), svgElement("stop", { offset: "100%", "stop-color": color, "stop-opacity": ".02" }));
     defs.append(gradient);
   });
   svg.append(defs);
   [0, .25, .5, .75, 1].forEach((value) => {
-    svg.append(svgElement("line", { x1: left, x2: right, y1: y(value), y2: y(value), stroke: "#eaf0eb", "stroke-width": 1 }));
+    svg.append(svgElement("line", { x1: left, x2: right, y1: y(value), y2: y(value), stroke: "#eeeeee", "stroke-width": 1 }));
     const label = svgElement("text", { x: left - 7, y: y(value) + 4, "text-anchor": "end" });
     label.textContent = `${value * 100}%`; svg.append(label);
   });
   // Missing cohorts split the path; a missing rate is never drawn as a zero.
-  [["mean_probability", "predicted-fill", "#668991", "4 3"], ["churn_rate", "observed-fill", "#087f70", ""]].forEach(([key, fill, stroke, dash]) => {
+  [["mean_probability", "predicted-fill", "#8c8c8c", "4 3"], ["churn_rate", "observed-fill", "#171717", ""]].forEach(([key, fill, stroke, dash]) => {
     const segments = []; let points = [];
     data.bins.forEach((bin, index) => {
       if (Number.isFinite(bin[key])) points.push([x(index), y(bin[key])]);

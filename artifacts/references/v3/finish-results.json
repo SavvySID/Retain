@@ -8,12 +8,12 @@
     {
       "page": "home",
       "viewport": "1440x1000",
-      "bodyColor": "rgb(20, 45, 55)",
-      "bodyBackground": "rgb(248, 249, 245)",
+      "bodyColor": "rgb(23, 23, 23)",
+      "bodyBackground": "rgb(248, 248, 248)",
       "font": "Geist, Arial, sans-serif",
       "headingSize": 74,
       "buttonColor": "rgb(255, 255, 255)",
-      "buttonBackground": "rgb(8, 127, 112)",
+      "buttonBackground": "rgb(23, 23, 23)",
       "width": 1440,
       "documentWidth": 1440,
       "fonts": [
@@ -22,18 +22,18 @@
           "status": "loaded"
         }
       ],
-      "text_contrast": 13.600315559160322,
-      "button_contrast": 4.906491677013904
+      "text_contrast": 16.880952190705944,
+      "button_contrast": 17.9278402530276
     },
     {
       "page": "overview",
       "viewport": "1440x1000",
-      "bodyColor": "rgb(20, 45, 55)",
-      "bodyBackground": "rgb(246, 247, 243)",
+      "bodyColor": "rgb(23, 23, 23)",
+      "bodyBackground": "rgb(246, 246, 246)",
       "font": "Geist, Arial, sans-serif",
       "headingSize": 16,
       "buttonColor": "rgb(255, 255, 255)",
-      "buttonBackground": "rgb(8, 127, 112)",
+      "buttonBackground": "rgb(23, 23, 23)",
       "width": 1440,
       "documentWidth": 1440,
       "fonts": [
@@ -42,8 +42,8 @@
           "status": "loaded"
         }
       ],
-      "text_contrast": 13.365430855611752,
-      "button_contrast": 4.906491677013904
+      "text_contrast": 16.588918392456534,
+      "button_contrast": 17.9278402530276
     }
   ]
 }

@@ -4,7 +4,7 @@ Revision 3 responds to the request for a stronger product home/hero and fixes ac
 
 ## References and decisions
 
-[Related-product research](UI_RESEARCH_V3.md) records desktop/mobile captures of Attio, Vitally, ChurnZero and Planhat, including five rendered public pages. Attio informs the editorial hero and substantial product preview. Vitally reporting informs account-health and investigation flows. These patterns are adapted to Retain's own warm paper, navy and restrained teal palette, existing Geist font and local research workflow.
+[Related-product research](UI_RESEARCH_V3.md) records desktop/mobile captures of Attio, Vitally, ChurnZero and Planhat, including five rendered public pages. Attio informs the editorial hero and substantial product preview. Vitally reporting informs account-health and investigation flows. These patterns are adapted to Retain's own black accent with white and neutral-gray surfaces (the user's later explicit preference), existing Geist font and local research workflow.
 
 No reference branding, screenshots, customer identities, commercial claims or invented metrics are website content. The home preview uses actual held-out customer, score, cohort values and signed explanation factors. SHAP remains an association-based explanation rather than a causal claim.
 

@@ -9,7 +9,7 @@ Date: 16 November 2026. Scope: this local Windows college demonstrator. Results 
 | `uv sync --python 3.12` | Environment created and dependencies locked |
 | `uv lock --check` | Passed |
 | `uv run python scripts/train.py` | Training and artifact export completed |
-| `uv run pytest -q` | **54 passed in 4.67 seconds** in the UI revision 3 run |
+| `uv run pytest -q` | **54 passed in 4.46 seconds** in the UI revision 3 run |
 | `uv run ruff check .` | All checks passed |
 | `node --check static/app.js` and `static/home.js` | Both exit 0 |
 | `uv run python app.py --port 5050` | Waitress served app; health reported ready |
@@ -44,7 +44,7 @@ The current UI revision passed 13 recorded workflow groups against native localh
 
 New home checks reconcile cohort counts, the displayed probability and each preview SHAP factor with actual API results, verify clearing stale preview values while changing customers, follow a specific record into analysis, and exercise the native FAQ. Independent review found incorrect history restoration of customer IDs and an obsolete lookup error appearing under a newer customer. Both were fixed, and a permanent browser regression exercises them. Pending customer lookups clear the previous score. See [UI_V3_REVIEW.md](UI_V3_REVIEW.md).
 
-Current reference work renders Attio, Vitally, ChurnZero and Planhat, then captures the actual local home and overview at 1440 by 1000 and 390 by 844. The local Geist font loaded and no page overflow was measured. Body text contrast was 13.60:1 on home and 13.37:1 on overview; white primary-button text on teal measured 4.91:1. These are computed samples, not a complete accessibility certification. Desktop and phone screenshots were visually inspected. The V3 [comparison board and captures](UI_MATCH.md) record intentional adaptation of related-product hierarchy. The old nine geometry checks belong only to [historical V2](UI_MATCH_V2.md).
+Current reference work renders Attio, Vitally, ChurnZero and Planhat, then captures the actual local home and overview at 1440 by 1000 and 390 by 844. The local Geist font loaded and no page overflow was measured. After the requested black-accent follow-up, body text contrast measured 16.88:1 on home and 16.59:1 on overview; white primary-button text on black measured 17.93:1. These are computed samples, not a complete accessibility certification. Desktop and phone screenshots were visually inspected. The V3 [comparison board and captures](UI_MATCH.md) record intentional adaptation of related-product hierarchy. The old nine geometry checks belong only to [historical V2](UI_MATCH_V2.md).
 
 Real Chromium checks exercised overview statistics, customer search, empty results, contract/risk filters, pagination, real-row inspection, all SHAP factors, edited scenarios, service consistency, sample CSV download, scoring/download and invalid-upload feedback.
 
@@ -65,3 +65,10 @@ Tests cover invalid/missing/unknown fields, non-finite/oversized numbers, contra
 ## Limits
 
 No external/temporal validation, causal intervention study, fairness certification, production hosting, multi-user load test, full assistive-technology audit, competing-repository benchmark or exhaustive dependency legal audit was performed. Non-selected models' SHAP paths were inspected but not forced into service during independent review. These sample results do not establish future telecom performance.
+
+
+## Black accent follow-up
+
+The user requested black instead of teal. The existing layout now uses black, white and neutral grays throughout UI surfaces, navigation, controls, dynamic charts, factor bars and favicon. Observed/model chart series retain solid/dashed strokes; signed factor labels retain their meaning. Model artifacts and evaluation plots were not regenerated for this styling change.
+
+The actual follow-up run passed 54 tests in 4.46 seconds, Ruff, both JavaScript syntax checks and all 13 native Chromium workflow groups with zero unexpected console errors. The finish checks assert the black primary button and neutral body text, verify contrast, font loading and viewport fit, and refresh the current desktop/mobile screenshots. A source scan found only neutral colors in the four edited UI assets. The independent V3 review above predates this color-only follow-up; its original palette/contrast observations describe that earlier snapshot. No Docker rebuild, hosting or full accessibility audit was repeated. The user's localhost server remains running after their explicit `npm run dev` request.

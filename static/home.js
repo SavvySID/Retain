@@ -167,13 +167,13 @@ function renderHomeCohort(data) {
   const svg = homeSvg("svg", { viewBox: `0 0 ${width} ${height}`, role: "group", "aria-label": "Actual held-out churn and mean probability across tenure groups. Not a timeline." });
   const defs = homeSvg("defs");
   const gradient = homeSvg("linearGradient", { id: "home-cohort-gradient", x1: "0", y1: "0", x2: "0", y2: "1" });
-  gradient.append(homeSvg("stop", { offset: "0%", "stop-color": "#087f70", "stop-opacity": ".24" }), homeSvg("stop", { offset: "100%", "stop-color": "#087f70", "stop-opacity": ".02" }));
+  gradient.append(homeSvg("stop", { offset: "0%", "stop-color": "#171717", "stop-opacity": ".24" }), homeSvg("stop", { offset: "100%", "stop-color": "#171717", "stop-opacity": ".02" }));
   defs.append(gradient); svg.append(defs);
   [0, .25, .5, .75, 1].forEach((value) => {
-    svg.append(homeSvg("line", { x1: left, x2: right, y1: y(value), y2: y(value), stroke: "#e7eeea", "stroke-width": 1 }));
+    svg.append(homeSvg("line", { x1: left, x2: right, y1: y(value), y2: y(value), stroke: "#ececec", "stroke-width": 1 }));
     const label = homeSvg("text", { x: left - 7, y: y(value) + 4, "text-anchor": "end" }); label.textContent = `${value * 100}%`; svg.append(label);
   });
-  [["churn_rate", "#087f70", ""], ["mean_probability", "#668991", "5 4"]].forEach(([key, color, dash]) => {
+  [["churn_rate", "#171717", ""], ["mean_probability", "#8c8c8c", "5 4"]].forEach(([key, color, dash]) => {
     const segments = []; let points = [];
     data.bins.forEach((bin, index) => {
       if (Number.isFinite(bin[key])) points.push([x(index), y(bin[key])]);

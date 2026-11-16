@@ -31,3 +31,8 @@
 - Warm off-white, navy and restrained teal, the local Geist font, a live actual-data product preview, purposeful sections and FAQs are reasonable design choices made without further questions.
 - Additional plugins are permitted but optional. Keep the existing stack when it can deliver the experience without new dependencies.
 - Research examples may inform layout and interaction; they do not supply Retain's model results, customer identities, business benefits or operational capabilities.
+
+
+## Black accent preference
+
+- The user explicitly requests a single black accent instead of the teal/navy palette. Keep the current layouts and use black, white and neutral grays across navigation, controls, cards, diagrams and dynamic charts. Distinguish chart series with solid/dashed strokes and retain signed factor labels.
