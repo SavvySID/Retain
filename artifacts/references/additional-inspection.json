@@ -1,0 +1,30 @@
+[
+  {
+    "name": "tremor-overview",
+    "url": "https://overview.tremor.so/support",
+    "status": 200,
+    "title": "Overview",
+    "text": "Your Company\nES\nSupport\nRetention\nWorkflow\nAgents\nSupport Dashboard\n\nReal-time monitoring of support metrics with AI-powered insights\n\nCreate Ticket\nCurrent Tickets\n247\n82%\nResolved\n13%\nIn Progress\n5%\nEscalated\nSLA Performance\nWithin SLA\n83.3%\nSLA Breached\n16.7%\nCall Volume Trends\nToday\n573\nYesterday\n451\n0:00 AM\n11:59 AM\nCreated at\tDescription\tPolicy Info\tContact Type\tDuration\tAssessed Priority\n31/10/2024, 12:14\tFraudulent policy report\tBIZ-50908850\t\nBilling\n\t\n20m\n\t\nHigh\n31/10/2024, 11:59\tAgent conduct complaint\tHOME-30070782\t\nCoverage\n\t\n50m\n\t\nLow\n30/10/2024, 11:40\tHome insurance quote request\tHOME-64158242\t\nCoverage\n\t\n1h 51m\n\t\nHigh\n28/10/2024, 11:11\tAgent conduct complaint\tUMB-16291908\t\nCoverage\n\t\n1h 2m\n\t\nMedium\n28/10/2024, 09:50\tSuspicious claim activity\tUMB-95757245\t\nFnol\n\t\n1h 10m\n\t\nHigh\n28/10/2024, 03:40\tLife insurance quote\tBIZ-34577851\t\nPolicy\n\t\n1h 7m\n\t\nHigh\n26/10/2024, 11:24\tPremi"
+  },
+  {
+    "name": "tremor-insights",
+    "url": "https://insights.tremor.so/reports",
+    "status": 200,
+    "title": "Insights",
+    "text": "Acme Corp.\nPlatform\nReports\nTransactions\nSettings\nSetup\nOnboarding\nES\nEmma Stone\nReports\n\nLast refresh: 16/11/2026, 03:54\n\nDate Range\nLast 180 Days\nLocations\nSelected Locations\n0\nExpense Status\nAll\nTransaction Amount\n$0 - $12,000\nReset\nTotal Transaction Amount\n\n$0\n\nTransaction Count\n\n0\n\nTop 5 Categories by Transaction Amount\n\n$0\n\nTop 5 Merchants by Transaction Amount\n\n$0"
+  },
+  {
+    "name": "tremor-dashboard",
+    "url": "https://dashboard.tremor.so/overview",
+    "status": 200,
+    "title": "Dashboard",
+    "text": "RA\n\nRetail analytics\n\nMember\n\nOverview\nDetails\nSettings\nShortcuts\nAdd new user\nWorkspace usage\nCost spend control\nOverview \u2013 Rows written\nES\nEmma Stone\nCurrent billing cycle\nUsage\n+0.2%\n68.1%\nof allowed capacity\n\nRows read\n48.1/100M\n\nRows written\n78.3/100M\n\nStorage\n5.2/20GB\n\nMonthly usage resets in 12 days. Manage plan.\n\nWorkspace\n+2.9%\n21.7%\nweekly active users\n\nWeekly active users\n21.7/100%\n\nTotal users\n28/40\n\nUptime\n98.3/100%\n\nAdd up to 20 members in free plan. Invite users.\n\nCosts\n-1.4%\n\n$293.5\ncurrent billing cycle\n\nCurrent costs\n\nBase tier\n($200 / 68.1%)\nOn-demand charges\n($61.1 / 20.8%)\nCaching\n($31.9 / 11.1%)\n\nSet hard caps in cost spend management.\n\nOverview\n16 Apr, 2024 - 16 May, 2024\ncompared to\nLast year\nEdit\nRows read\n+4.4%\n643,015\nfrom 615,752\n16/04/2024\n16/05/2024\nRows written\n-3.9%\n83,197\nfrom 86,580\n16/04/2024\n16/05/2024\nQueries\n-0.9%\n14,447\nfrom 14,573\n16/04/2024\n16/05/"
+  },
+  {
+    "name": "shap-waterfall",
+    "url": "https://shap.readthedocs.io/en/latest/example_notebooks/api_examples/plots/waterfall.html",
+    "status": 200,
+    "title": "waterfall plot \u2014 SHAP latest documentation",
+    "text": "latest\nstable\n \n\nINTRODUCTION\n\nTopical overviews\n\nEXAMPLES\n\nTabular examples\nText examples\nImage examples\nGenomic examples\n\nREFERENCE\n\nAPI reference\nAPI examples\nMigrating to the new \u201cExplanation\u201d API\nexplainers\nmaskers\nmodels\nplots\nbar plot\nbeeswarm plot\ndecision plot\nheatmap plot\nimage plot\nscatter plot\ntext plot\nviolin summary plot\nwaterfall plot\nBenchmarks\n\nDEVELOPMENT\n\nRelease notes\nContributing guide\n API Examples waterfall plot\nView page source\nwaterfall plot\uf0c1\n\nThis notebook is designed to demonstrate (and so document) how to use the shap.plots.waterfall function. It uses an XGBoost model trained on the classic UCI adult income dataset (which is a classification task to predict if people made over \\$50k in the 90s).\n\n[1]:\n\nimport xgboost\n\nimport shap\n\n# train XGBoost model\nX, y = shap.datasets.adult(n_points=2000)\nmodel = xgboost.XGBClassifier().fit(X, y)\n\n# compute SHAP values\nex"
+  }
+]

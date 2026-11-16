@@ -9,6 +9,8 @@ Probabilities/metrics are fractions [0,1]. UI formats percentages. Never hard-co
 - `uv run python scripts/train.py` downloads if needed and saves artifacts/summary.json, customers.json, model.joblib, splits.json and plots/*.png. scripts/download_data.py has bounded HTTPS timeout and GitHub contents API fallback. Additional provenance files allowed. ML tests: tests/test_model.py.
 
 ## Browser endpoints (parent owner)
+- GET /, /overview, /analysis, /batch, /models, /guide: home, workspace views and guide as refreshable HTML pages.
+- GET /api/cohorts?contract=: actual held-out tenure bins, `{population:"held-out test",count,contract,bins:[{label,min_tenure,max_tenure,count,churn_rate,mean_probability}]}`. Empty-bin rates are null; contract uses source categories.
 - GET /api/health: `{status:"ready"|"unavailable", model?:string,error?:string}`; unavailable=503.
 - GET /api/schema: `{fields:FIELDS,excluded_features:["customerID","Churn","gender","SeniorCitizen"]}`.
 - GET /api/summary: summary below.

@@ -16,3 +16,11 @@
 - Validate bounded uploads in memory. Do not persist or send them to third parties.
 - A single local analyst needs no authentication or database. Multi-user production hosting is outside this college demo.
 - Research compares a documented bounded set of public repositories and UI references. It cannot enumerate every repository or prove an absolute best implementation.
+
+## Website revision
+
+- The later request expands delivery to a full localhost website with packaging for a future deployment. No publication is requested now.
+- Official shadcn/ui dashboard-01 is the primary rendered reference: light sidebar, inset white workspace, neutral cards, large chart and compact table. Keep Retain branding and real data.
+- Home, overview, analysis, batch, model lab and guide get refreshable URLs; retain legacy hash links where practical.
+- No dated events exist in the benchmark. The reference visitor chart becomes measured held-out churn/probability by tenure cohort, with sample counts and contract filters. It is not an individual or temporal forecast.
+- Preserve the existing Flask/Python model; UI work does not justify changing measured results or adding another framework.

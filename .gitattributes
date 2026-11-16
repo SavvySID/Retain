@@ -2,3 +2,6 @@
 * text=auto eol=lf
 *.png binary
 *.joblib binary
+*.woff2 binary
+# Preserve the upstream license bytes, including its original trailing space.
+static/fonts/OFL.txt -text whitespace=-blank-at-eol

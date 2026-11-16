@@ -1,7 +1,7 @@
 "use strict";
 
 // API values remain numeric until display; customer-provided strings use textContent.
-const state = { summary: null, fields: [], page: 1, pageSize: 8, total: 0, customers: [], selected: null, scenario: false, request: 0, exampleIndex: 0, revision: 0, predictionRequest: 0 };
+const state = { summary: null, fields: [], page: 1, pageSize: 8, total: 0, customers: [], selected: null, scenario: false, request: 0, exampleIndex: 0, revision: 0, predictionRequest: 0, cohortRequest: 0, cohortData: null };
 const $ = (selector) => document.querySelector(selector);
 const number = new Intl.NumberFormat("en-US");
 const money = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 2 });
@@ -41,7 +41,9 @@ async function api(path, options = {}) {
 
 function showGlobalError(message) { $("#global-error").textContent = message; $("#global-error").hidden = false; }
 function setView() {
-  const requested = location.hash.slice(1) || "overview";
+  const legacy = location.hash.slice(1);
+  if (["overview", "analysis", "batch", "models"].includes(legacy)) history.replaceState({}, "", `/${legacy}`);
+  const requested = location.pathname.split("/")[1] || "overview";
   const view = ["overview", "analysis", "batch", "models"].includes(requested) ? requested : "overview";
   const titles = { overview: "Overview", analysis: "Customer analysis", batch: "Batch scoring", models: "Model lab" };
   document.querySelectorAll(".view").forEach((node) => { node.hidden = node.id !== `view-${view}`; });
@@ -55,18 +57,27 @@ function setView() {
   if (view === "analysis" && state.fields.length && !state.selected) loadExample();
 }
 
+function navigate(view) {
+  if (location.pathname !== `/${view}` || location.hash) history.pushState({}, "", `/${view}`);
+  setView();
+  closeDrawer();
+  $("#main").focus({ preventScroll: true });
+  window.scrollTo({ top: 0 });
+  $("#main").focus({ preventScroll: true });
+}
+
 function renderOverview() {
   const { dataset, test_metrics: metrics, model } = state.summary;
   const kpis = [
-    ["Customers in sample", formatNumber(dataset.rows), "◈", "Source records · descriptive cohort"],
-    ["Observed churn rate", percent(dataset.churn_rate), "↗", `${formatNumber(dataset.churned)} customers departed`],
-    ["Avg. monthly charge", money.format(dataset.avg_monthly_charges), "$", "USD · source sample average"],
-    ["Model ROC AUC", decimal(metrics.roc_auc), "◎", "Evaluated on held-out test data"],
+    ["Customers in sample", formatNumber(dataset.rows), "Source", "IBM Telco source cohort", "Descriptive benchmark data"],
+    ["Observed churn rate", percent(dataset.churn_rate), "Observed", `${formatNumber(dataset.churned)} recorded departures`, "Source's last-month churn label"],
+    ["Avg. monthly charge", money.format(dataset.avg_monthly_charges), "USD", "Average across the source sample", "Charges in source currency"],
+    ["Model ROC AUC", decimal(metrics.roc_auc), "Held-out", model.name, "Final held-out test evaluation"],
   ];
   const grid = clear($("#kpi-grid"));
-  kpis.forEach(([title, value, icon, note]) => {
+  kpis.forEach(([title, value, badge, footer, note]) => {
     const card = element("article", "card kpi-card");
-    append(card, append(element("div", "kpi-top"), element("span", "", title), element("span", "kpi-icon", icon)), element("div", "kpi-value", value), element("div", "kpi-note", note));
+    append(card, append(element("div", "kpi-top"), element("span", "", title), element("span", "kpi-badge", badge)), element("div", "kpi-value", value), element("div", "kpi-footer", footer), element("div", "kpi-note", note));
     grid.append(card);
   });
   const segment = state.summary.segments.find((item) => item.name === "Contract") || state.summary.segments[0];
@@ -205,7 +216,7 @@ async function openCustomer(customer) {
   updateServiceConsistency();
   $("#profile-label").textContent = customer.customer_id;
   clear($("#analysis-source")).append(element("span", "source-icon", "◈"), element("span", "", `Held-out customer ${customer.customer_id} · Actual source record · Observed outcome: ${customer.actual_churn ? "departed" : "stayed"}. Editing creates a user scenario.`));
-  if (location.hash !== "#analysis") location.hash = "analysis";
+  if (location.pathname !== "/analysis") navigate("analysis");
   await predict();
 }
 
@@ -353,8 +364,168 @@ async function scoreBatch(event) {
   finally { button.disabled = false; button.textContent = original; }
 }
 
+function closeDrawer() {
+  document.body.classList.remove("mobile-sidebar-open");
+  $("#sidebar-backdrop").hidden = true;
+  $(".shell").inert = false;
+  const mobile = window.matchMedia("(max-width: 767px)").matches;
+  $("#sidebar").inert = mobile;
+  $("#sidebar").removeAttribute("aria-modal");
+  $("#sidebar").removeAttribute("role");
+  $("#sidebar").setAttribute("aria-hidden", String(mobile));
+  $("#sidebar-toggle").setAttribute("aria-expanded", String(!mobile && !document.body.classList.contains("sidebar-collapsed")));
+}
+
+function bindSidebar() {
+  const sidebar = $("#sidebar");
+  const toggle = $("#sidebar-toggle");
+  const mobile = window.matchMedia("(max-width: 767px)");
+  sidebar.querySelectorAll("a").forEach((link) => {
+    link.setAttribute("aria-label", link.getAttribute("aria-label") || link.textContent.trim());
+    link.title = link.getAttribute("aria-label");
+  });
+  const close = element("button", "icon-button drawer-close", "×");
+  close.id = "sidebar-close"; close.type = "button";
+  close.setAttribute("aria-label", "Close navigation");
+  close.addEventListener("click", () => { closeDrawer(); toggle.focus(); });
+  sidebar.prepend(close);
+  toggle.addEventListener("click", () => {
+    if (!mobile.matches) {
+      document.body.classList.toggle("sidebar-collapsed");
+      toggle.setAttribute("aria-expanded", String(!document.body.classList.contains("sidebar-collapsed")));
+      return;
+    }
+    if (document.body.classList.contains("mobile-sidebar-open")) { closeDrawer(); return; }
+    document.body.classList.add("mobile-sidebar-open");
+    sidebar.inert = false; sidebar.setAttribute("aria-hidden", "false");
+    sidebar.setAttribute("role", "dialog"); sidebar.setAttribute("aria-modal", "true");
+    $("#sidebar-backdrop").hidden = false;
+    $(".shell").inert = true;
+    toggle.setAttribute("aria-expanded", "true");
+    close.focus();
+  });
+  $("#sidebar-backdrop").addEventListener("click", () => { closeDrawer(); toggle.focus(); });
+  document.addEventListener("keydown", (event) => {
+    if (!document.body.classList.contains("mobile-sidebar-open")) return;
+    if (event.key === "Escape") { closeDrawer(); toggle.focus(); return; }
+    if (event.key === "Tab") {
+      const focusable = [...sidebar.querySelectorAll("a[href],button")].filter((node) => node.offsetParent !== null);
+      const first = focusable[0]; const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) { event.preventDefault(); last.focus(); }
+      else if (!event.shiftKey && document.activeElement === last) { event.preventDefault(); first.focus(); }
+    }
+  });
+  mobile.addEventListener("change", closeDrawer);
+  closeDrawer();
+}
+
+async function loadCohort(contract = "") {
+  const request = ++state.cohortRequest;
+  state.cohortData = null;
+  clear($("#cohort-chart")).append(element("p", "chart-loading", "Loading held-out tenure cohorts…"));
+  clear($("#cohort-data"));
+  $("#cohort-count").textContent = "Loading cohort…";
+  $("#cohort-chart").setAttribute("aria-busy", "true");
+  document.querySelectorAll("#cohort-filters button").forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.contract === contract)));
+  try {
+    const data = await (await api(`/api/cohorts?${new URLSearchParams({ contract })}`)).json();
+    if (request !== state.cohortRequest) return;
+    state.cohortData = data;
+    renderCohort(data);
+    const rows = clear($("#cohort-data"));
+    data.bins.forEach((bin) => {
+      const row = element("tr");
+      [bin.label, formatNumber(bin.count), percent(bin.churn_rate), percent(bin.mean_probability)].forEach((value) => row.append(element("td", "", value)));
+      rows.append(row);
+    });
+    $("#cohort-count").textContent = `${formatNumber(data.count)} held-out customers`;
+  } catch (error) {
+    if (request === state.cohortRequest) {
+      clear($("#cohort-chart")).append(element("p", "chart-loading", `Chart unavailable: ${error.message}`));
+      $("#cohort-count").textContent = "Cohort data unavailable";
+    }
+  } finally { if (request === state.cohortRequest) $("#cohort-chart").removeAttribute("aria-busy"); }
+}
+
+function svgElement(tag, attributes = {}) {
+  const node = document.createElementNS("http://www.w3.org/2000/svg", tag);
+  Object.entries(attributes).forEach(([name, value]) => node.setAttribute(name, value));
+  return node;
+}
+
+function renderCohort(data) {
+  const container = clear($("#cohort-chart"));
+  const width = container.clientWidth;
+  if (!width) return;
+  const height = container.clientHeight;
+  const left = 32, right = width - 10, top = 12, bottom = height - 30;
+  const x = (index) => left + index / Math.max(data.bins.length - 1, 1) * (right - left);
+  const y = (value) => bottom - value * (bottom - top);
+  const svg = svgElement("svg", { viewBox: `0 0 ${width} ${height}`, role: "group", "aria-label": "Held-out observed churn and mean model probability by tenure group in months. Not a chronological forecast." });
+  const defs = svgElement("defs");
+  [["observed-fill", "#525252", ".43"], ["predicted-fill", "#a3a3a3", ".2"]].forEach(([id, color, opacity]) => {
+    const gradient = svgElement("linearGradient", { id, x1: "0", y1: "0", x2: "0", y2: "1" });
+    gradient.append(svgElement("stop", { offset: "0%", "stop-color": color, "stop-opacity": opacity }), svgElement("stop", { offset: "100%", "stop-color": color, "stop-opacity": ".02" }));
+    defs.append(gradient);
+  });
+  svg.append(defs);
+  [0, .25, .5, .75, 1].forEach((value) => {
+    svg.append(svgElement("line", { x1: left, x2: right, y1: y(value), y2: y(value), stroke: "#f0f0f0", "stroke-width": 1 }));
+    const label = svgElement("text", { x: left - 7, y: y(value) + 4, "text-anchor": "end" });
+    label.textContent = `${value * 100}%`; svg.append(label);
+  });
+  // Missing cohorts split the path; a missing rate is never drawn as a zero.
+  [["mean_probability", "predicted-fill", "#8c8c8c", "4 3"], ["churn_rate", "observed-fill", "#333333", ""]].forEach(([key, fill, stroke, dash]) => {
+    const segments = []; let points = [];
+    data.bins.forEach((bin, index) => {
+      if (Number.isFinite(bin[key])) points.push([x(index), y(bin[key])]);
+      else if (points.length) { segments.push(points); points = []; }
+    });
+    if (points.length) segments.push(points);
+    segments.forEach((segment) => {
+      const line = segment.map(([px, py], index) => `${index ? "L" : "M"}${px},${py}`).join(" ");
+      const area = `${line} L${segment[segment.length - 1][0]},${bottom} L${segment[0][0]},${bottom} Z`;
+      svg.append(svgElement("path", { d: area, fill: `url(#${fill})`, stroke: "none" }));
+      svg.append(svgElement("path", { d: line, fill: "none", stroke, "stroke-width": 1.5, "stroke-dasharray": dash }));
+    });
+  });
+  const tooltip = element("div", "cohort-tooltip"); tooltip.hidden = true;
+  const labelStep = width < 360 ? 3 : width < 650 ? 2 : 1;
+  data.bins.forEach((bin, index) => {
+    const last = data.bins.length - 1;
+    if (index === last || (index % labelStep === 0 && last - index >= labelStep)) {
+      const label = svgElement("text", { x: x(index), y: height - 7, "text-anchor": index === 0 ? "start" : index === data.bins.length - 1 ? "end" : "middle" });
+      label.textContent = bin.label; svg.append(label);
+    }
+    const step = (right - left) / Math.max(data.bins.length - 1, 1);
+    const hit = svgElement("rect", { x: Math.max(left, x(index) - step / 2), y: top, width: index === 0 || index === data.bins.length - 1 ? step / 2 : step, height: bottom - top, fill: "transparent", tabindex: "0", role: "img", "aria-label": `${bin.label} months: ${bin.count} customers, observed churn ${percent(bin.churn_rate)}, mean probability ${percent(bin.mean_probability)}` });
+    const show = () => {
+      clear(tooltip).append(element("strong", "", `${bin.label} months`));
+      [["Customers", formatNumber(bin.count)], ["Observed churn", percent(bin.churn_rate)], ["Mean probability", percent(bin.mean_probability)]].forEach(([label, value]) => tooltip.append(append(element("div"), element("span", "", label), element("span", "", value))));
+      tooltip.style.left = `${Math.max(0, Math.min(width - 212, x(index) - 106))}px`;
+      tooltip.style.top = "8px"; tooltip.hidden = false;
+    };
+    hit.addEventListener("mouseenter", show); hit.addEventListener("focus", show);
+    hit.addEventListener("mouseleave", () => { tooltip.hidden = true; }); hit.addEventListener("blur", () => { tooltip.hidden = true; });
+    svg.append(hit);
+  });
+  container.append(svg, tooltip);
+}
+
 function bindEvents() {
-  window.addEventListener("hashchange", () => { setView(); window.scrollTo({ top: 0 }); });
+  window.addEventListener("hashchange", setView);
+  window.addEventListener("popstate", () => { setView(); closeDrawer(); });
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("a[href]");
+    if (!link || event.button !== 0 || event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || link.target) return;
+    const url = new URL(link.href, location.href);
+    if (url.origin === location.origin && ["/overview", "/analysis", "/batch", "/models"].includes(url.pathname)) {
+      event.preventDefault(); navigate(url.pathname.slice(1));
+    }
+  });
+  bindSidebar();
+  document.querySelectorAll("#cohort-filters button").forEach((button) => button.addEventListener("click", () => loadCohort(button.dataset.contract)));
+  new ResizeObserver(() => { if (state.cohortData && $("#cohort-chart").clientWidth > 0) renderCohort(state.cohortData); }).observe($("#cohort-chart"));
   let searchTimer;
   $("#customer-search").addEventListener("input", () => { clearTimeout(searchTimer); searchTimer = setTimeout(() => { state.page = 1; loadCustomers(); }, 250); });
   ["#contract-filter", "#risk-filter"].forEach((selector) => $(selector).addEventListener("change", () => { state.page = 1; loadCustomers(); }));
@@ -374,7 +545,7 @@ async function initialize() {
     state.summary = await summaryResponse.json();
     renderForm(); renderOverview(); renderModelLab();
     $("#model-status").textContent = "Model ready";
-    await loadCustomers();
+    await Promise.all([loadCustomers(), loadCohort()]);
     setView();
   } catch (error) {
     $("#model-status").textContent = "Model unavailable"; $("#model-status").classList.add("unavailable");

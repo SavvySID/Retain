@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Predict telecom churn and inspect the factors behind each model score. A transparent, reproducible college research project.">
+  <title>Retain · Explainable telecom churn</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script src="/static/home.js" defer></script>
+</head>
+<body class="site-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="/" aria-label="Retain home"><span class="brand-mark" aria-hidden="true">r</span><span>Retain</span></a><nav class="site-nav" aria-label="Main navigation"><a href="#features">Features</a><a href="/guide">Project guide</a><a class="button button-primary" href="/overview">Open workspace ↗</a></nav></header>
+  <main id="main" class="site-main" tabindex="-1">
+    <section id="home-hero" class="home-hero" aria-labelledby="home-title">
+      <div><span class="home-kicker">Telecom churn · Interpretable machine learning</span><h1 id="home-title">Predict customer churn.<br>See what shapes<br>the score.</h1><p>A focused workspace for exploring customer risk, understanding model predictions and inspecting the evidence behind them.</p><div class="hero-actions"><a class="button button-primary" href="/overview">Open the workspace <span aria-hidden="true">→</span></a><a class="button" href="/guide">Read the project guide</a></div><p class="hero-footnote">Runs locally. No paid API. Built on the IBM Telco sample.</p></div>
+      <div class="preview-window" aria-label="Live benchmark preview"><div class="preview-topbar"><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i><span>Actual local model results</span></div><div class="preview-content"><h2>Benchmark at a glance</h2><div class="preview-metrics"><div class="preview-metric"><span>Source customers</span><strong id="home-customers">—</strong></div><div class="preview-metric"><span>Held-out ROC AUC</span><strong id="home-auc">—</strong></div><div class="preview-metric"><span>Observed churn</span><strong id="home-churn">—</strong></div><div class="preview-metric"><span>Test average precision</span><strong id="home-ap">—</strong></div></div><div class="preview-customer"><div><strong id="home-customer-id">Loading held-out example…</strong><span id="home-probability">—</span></div><div class="preview-track"><span id="home-risk-bar"></span></div><p id="home-customer-note" class="preview-note">A real test-set record, not an invented customer.</p></div><p id="home-preview-status" class="small-note" role="status">Loading the recorded benchmark run…</p></div></div>
+    </section>
+    <section id="features" class="home-section" aria-labelledby="features-title"><div class="section-intro"><h2 id="features-title">From a prediction to an explanation.</h2><p>Explore the cohort, inspect one customer or score a file. Every view uses the same validated model and input schema.</p></div><div class="feature-grid"><article class="card"><span class="feature-number">01</span><h3>Explore the customer cohort</h3><p>Compare observed churn and average model scores by tenure and contract. Inspect the full held-out customer queue.</p><a href="/overview">Explore the overview →</a></article><article class="card"><span class="feature-number">02</span><h3>Explain an individual score</h3><p>See signed SHAP contributions, feature values and the baseline calculation. Edit a profile to evaluate a clearly labelled scenario.</p><a href="/analysis">Analyze a customer →</a></article><article class="card"><span class="feature-number">03</span><h3>Score a customer file</h3><p>Validate an entire CSV before scoring, then download probabilities and predicted classes. Your upload is processed in memory.</p><a href="/batch">Open batch scoring →</a></article></div></section>
+    <section class="home-section" aria-labelledby="evidence-title"><div class="home-evidence"><div><h2 id="evidence-title">An inspectable project, from data to decision.</h2><p>Compare the trained models, review held-out metrics and trace the source hash, split membership and evaluation protocol. No fabricated performance claims or financial uplift.</p></div><a class="button" href="/models">Inspect the model lab ↗</a></div></section>
+    <section class="home-section" aria-labelledby="home-limitations"><div class="section-intro"><h2 id="home-limitations">Know what the model can tell you.</h2><p>This is a fictional-company research benchmark. SHAP explains model associations, not causal reasons for departure. Results on new telecom customers require fresh validation.</p><div class="hero-actions"><a class="button button-primary" href="/overview">Start exploring →</a><a class="button" href="/guide#limitations">Read the limitations</a></div></div></section>
+  </main>
+  <footer class="site-footer"><span>Retain · Telecom Customer Churn Prediction with Explainability</span><a href="/guide">College research project · Documentation ↗</a></footer>
+</body>
+</html>

@@ -1,0 +1,30 @@
+{
+  "base_url": "http://127.0.0.1:5050",
+  "checks": [
+    "home, guide and workspace routes support direct entry and refresh",
+    "overview shows actual API statistics and held-out records",
+    "real cohort chart/filter counts and browser history navigation",
+    "search, empty state, contract/risk filters and pagination",
+    "held-out prediction, all SHAP factors, scenario state and service consistency",
+    "delayed real responses cannot retain old scores or overwrite newer inputs/customers",
+    "sample download, real batch export and invalid CSV error",
+    "comparison, confusion matrix, actual plot images and documentation links",
+    "four views fit 1440/1024/768/390/320 pixel viewports",
+    "product home and guide fit narrow mobile screens; legacy root links redirect",
+    "keyboard skip link and focus target"
+  ],
+  "unexpected_console_errors": [],
+  "mobile_geometry": {
+    "height": 1885,
+    "body": 1884.5,
+    "y": 0
+  },
+  "screenshots": [
+    "home-desktop.png",
+    "overview-desktop.png",
+    "analysis-desktop.png",
+    "overview-mobile.png",
+    "home-mobile.png",
+    "guide-mobile.png"
+  ]
+}

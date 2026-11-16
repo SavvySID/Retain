@@ -101,6 +101,14 @@ The raw-data hash, saved split membership, dependency lockfile, fixed randomness
 
 A fictional-company benchmark, a single random split, no verified prospective time window, no external validation, no completed fairness audit and no tested retention intervention. The local app also lacks production authentication and monitoring.
 
+### How does the redesigned chart avoid fake trends?
+
+It groups actual held-out customers by account tenure and contract, then computes observed churn fractions and mean model scores. Tenure is not an observation date. Empty groups have no rate; the chart exposes counts and a data table. The API aggregation tests reconcile every bin against saved customer records.
+
+### Can the website be deployed later?
+
+Yes. The deployment entry uses the existing Flask factory and a production WSGI server. A tested Linux Docker image installs locked dependencies, rebuilds the model inside Linux, checks readiness and runs without root privileges. Public hosting still needs platform TLS, appropriate access/resource controls and validation for its intended population. See the deployment guide for what was actually tested.
+
 ## Files to know before the viva
 
 Read the shared schema, training pipeline, inference code, Flask routes and their tests. Then follow [METHODOLOGY.md](METHODOLOGY.md), [MODEL_CARD.md](MODEL_CARD.md), [DATA_CARD.md](DATA_CARD.md), the [research comparison](RESEARCH_ML.md) and [VERIFICATION.md](VERIFICATION.md). Be able to trace a displayed metric back to the actual saved labels and probabilities.

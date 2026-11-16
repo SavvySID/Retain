@@ -2,6 +2,8 @@
 
 A local college project that scores telecom customer accounts, explains individual predictions with SHAP, and reports reproducible held-out evaluation. The Flask dashboard supports customer search, an editable prediction form, CSV scoring and a model lab. It uses IBM's sample dataset and requires no cloud account or paid API.
 
+The full website has a product home, overview, customer analysis, batch scoring, model lab and an in-site guide. Each has a refreshable URL. The interface follows the rendered [official shadcn dashboard-01](https://ui.shadcn.com/view/new-york-v4/dashboard-01) reference, adapted to actual telecom data rather than copied demo statistics.
+
 The output estimates the sample's historical churn label. It is not a proven next-month forecast or evidence that a retention suggestion will work.
 
 ## Run on Windows
@@ -17,9 +19,13 @@ uv run python app.py --host 127.0.0.1 --port 5050
 
 Open **http://127.0.0.1:5050**. Training downloads and integrity-checks the canonical dataset if needed, then generates the model and evaluation artifacts. Internet access is needed for the first dependency/data download. Existing verified data and installed dependencies support later local runs.
 
+Use **Open workspace** on the home page or visit `/overview` directly. Individual pages are `/analysis`, `/batch`, `/models` and `/guide`.
+
 After setup and training, `uv run python app.py` is sufficient to start the app. The project also includes `start.ps1` as a Windows launcher. If the model is unavailable, train it before expecting predictions; the app must not invent fallback scores.
 
 ## What to try
+
+The overview's interactive chart compares observed churn and mean model probability across actual held-out tenure groups. Contract controls change the population. These are tenure cohorts, not invented calendar history or a prospective forecast; the accessible data table exposes counts and rates.
 
 1. **Overview:** inspect real dataset summaries and search/filter the held-out customer queue.
 2. **Customer analysis:** load a real test customer, inspect its score and signed SHAP factors, then edit fields to explore a clearly labelled manual scenario.
@@ -103,6 +109,10 @@ The candidate models are a dummy baseline, logistic regression, random forest an
 - [API contract](docs/API_CONTRACT.md), [verification record](docs/VERIFICATION.md).
 
 ## Attribution and limits
+
+For the reference research and screenshots, see [UI research revision 2](docs/UI_REFERENCE_RESEARCH_V2.md). [Deployment instructions](docs/DEPLOYMENT.md) cover the tested `serve.py` entry point, HOST/PORT configuration, Linux Docker build, health checks and later hosting. No cloud publication is required for localhost use.
+
+[UI match evidence](docs/UI_MATCH.md) links the actual side-by-side reference comparison. Run `uv run python scripts/reference_check.py` while the server is running to regenerate the capture and measured checks.
 
 Data: [IBM/telco-customer-churn-on-icp4d](https://github.com/IBM/telco-customer-churn-on-icp4d), whose source repository supplies an [Apache-2.0 license](https://github.com/IBM/telco-customer-churn-on-icp4d/blob/master/LICENSE). The comparison research is documented separately; this app does not claim to reproduce competing repositories' scores.
 

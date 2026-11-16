@@ -97,8 +97,21 @@ def create_app(project_root: Path | None = None) -> Flask:
 
     @application.get("/")
     def index() -> str:
-        """Serve the dashboard shell."""
+        """Introduce the product, with live source-backed previews in the browser."""
+        return render_template("home.html")
+
+    @application.get("/overview")
+    @application.get("/analysis")
+    @application.get("/batch")
+    @application.get("/models")
+    def workspace() -> str:
+        """Serve refreshable workspace URLs using the shared shell."""
         return render_template("index.html")
+
+    @application.get("/guide")
+    def guide() -> str:
+        """Present workflows and model limits as a readable website page."""
+        return render_template("guide.html")
 
     @application.get("/api/health")
     def health() -> Response | tuple[Response, int]:
@@ -116,6 +129,24 @@ def create_app(project_root: Path | None = None) -> Flask:
     def summary() -> Response:
         """Return recorded metrics and source-derived statistics."""
         return jsonify(service().summary)
+
+    @application.get("/api/cohorts")
+    def cohorts() -> Response:
+        """Aggregate actual test rows by tenure without inventing a dated timeline."""
+        contract = request.args.get("contract", "")
+        contracts = next(field["options"] for field in FIELDS if field["name"] == "Contract")
+        if contract not in ["", *contracts]:
+            raise BadRequest("Unknown contract filter.")
+        rows = [row for row in service().customers if not contract or row["features"]["Contract"] == contract]
+        bins = []
+        for lower, upper in [(0, 6), *[(start, start + 5) for start in range(7, 73, 6)]]:
+            members = [row for row in rows if lower <= row["features"]["tenure"] <= upper]
+            count = len(members)
+            bins.append({"label": f"{lower}\u2013{upper}", "min_tenure": lower, "max_tenure": upper,
+                         "count": count,
+                         "churn_rate": sum(row["actual_churn"] for row in members) / count if count else None,
+                         "mean_probability": sum(row["probability"] for row in members) / count if count else None})
+        return jsonify(population="held-out test", count=len(rows), contract=contract, bins=bins)
 
     @application.get("/api/customers")
     def customers() -> Response:
@@ -231,4 +262,5 @@ if __name__ == "__main__":
     parser.add_argument("--port", type=int, default=5050)
     args = parser.parse_args()
     print(f"Telecom churn dashboard: http://{args.host}:{args.port}", flush=True)
-    serve(create_app(), host=args.host, port=args.port, threads=4)
+    serve(create_app(), host=args.host, port=args.port, threads=4,
+          max_request_body_size=MAX_UPLOAD + 65536, inbuf_overflow=MAX_UPLOAD + 65536)

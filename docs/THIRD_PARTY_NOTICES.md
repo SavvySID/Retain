@@ -24,6 +24,10 @@ The raw CSV is preserved. Numeric conversion, preprocessing, dataset splits, mod
 
 ## Related projects and independent implementation
 
+The primary visual reference is official [shadcn/ui dashboard-01](https://ui.shadcn.com/view/new-york-v4/dashboard-01). Its captures/measurements are research evidence under `artifacts/references/`, not runtime page assets or model outputs. Retain uses its own brand, content and native HTML/CSS/JavaScript. See [UI_REFERENCE_RESEARCH_V2.md](UI_REFERENCE_RESEARCH_V2.md).
+
+The site self-hosts original Geist variable font bytes from Vercel's official repository under SIL Open Font License 1.1. The retained [license](../static/fonts/OFL.txt) and [pinned provenance](FONT_PROVENANCE.md) accompany the font. No external font service is required.
+
 [RESEARCH_ML.md](RESEARCH_ML.md) records repositories consulted for architecture, methodology and presentation ideas. Their application and training source code has not been copied into this project. Repository scores, screenshots and plots are not represented as this project's experiment results. Their authors retain rights in their respective work. Any later source-code reuse requires checking that source's actual license and carrying the required notices.
 
 ## Direct dependency license pointers

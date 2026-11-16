@@ -6,6 +6,7 @@ import argparse
 import csv
 import io
 import json
+from itertools import pairwise
 from pathlib import Path
 from typing import Any
 
@@ -24,6 +25,22 @@ def assert_no_overflow(page: Page) -> None:
         overflow:getComputedStyle(el).overflowX})).slice(0,15)})""")
 
 
+def navigate(page: Page, view: str) -> None:
+    """Navigate through the real sidebar, opening the mobile drawer if needed."""
+    link = page.locator(f".nav-link[data-view='{view}']")
+    # Wait for the breakpoint handler before deciding whether the drawer needs opening.
+    page.wait_for_function("""() => {
+      const mobile=matchMedia('(max-width:767px)').matches;
+      const sidebar=document.querySelector('#sidebar');
+      return mobile ? sidebar.inert || document.body.classList.contains('mobile-sidebar-open') : !sidebar.inert;
+    }""")
+    needs_drawer = page.evaluate("matchMedia('(max-width:767px)').matches && !document.body.classList.contains('mobile-sidebar-open')")
+    if needs_drawer:
+        page.locator("#sidebar-toggle").click()
+    link.click()
+    expect(page.locator(f"#view-{view}")).to_be_visible()
+
+
 def check_dashboard(base_url: str) -> dict[str, Any]:
     """Check actual API data, prediction and export workflows, and responsive layouts."""
     output = ROOT / "artifacts" / "browser"
@@ -36,8 +53,16 @@ def check_dashboard(base_url: str) -> dict[str, Any]:
         # Delay real responses for race checks; payloads and metrics are never mocked.
         context.add_init_script("""const originalFetch = window.fetch;
           window.__predictionDelays = [];
+          window.__cohortDelays = [];
+          window.__failNextCohort = false;
           window.fetch = async (...args) => {
-            const delay = String(args[0]).endsWith('/api/predict') ? (window.__predictionDelays.shift() || 0) : 0;
+            const url = String(args[0]);
+            if (url.includes('/api/cohorts') && window.__failNextCohort) {
+              window.__failNextCohort = false;
+              throw new Error('Deliberate browser regression transport failure');
+            }
+            const delay = url.endsWith('/api/predict') ? (window.__predictionDelays.shift() || 0) :
+              url.includes('/api/cohorts') ? (window.__cohortDelays.shift() || 0) : 0;
             const response = await originalFetch(...args);
             if (delay) await new Promise(resolve => setTimeout(resolve, delay));
             return response;
@@ -45,7 +70,24 @@ def check_dashboard(base_url: str) -> dict[str, Any]:
         page = context.new_page()
         page.on("pageerror", lambda error: errors.append(str(error)))
         page.on("console", lambda message: errors.append(message.text) if message.type == "error" else None)
-        page.goto(base_url, wait_until="networkidle")
+        page.goto(f"{base_url}/", wait_until="networkidle")
+        expect(page.locator("#home-hero")).to_be_visible()
+        assert page.locator("a[href='/overview']").count() > 0
+        assert_no_overflow(page)
+        page.screenshot(path=str(output / "home-desktop.png"), full_page=True)
+        page.goto(f"{base_url}/guide", wait_until="networkidle")
+        expect(page.get_by_role("heading", level=1)).to_be_visible()
+        assert_no_overflow(page)
+        for path in ("overview", "analysis", "batch", "models"):
+            page.goto(f"{base_url}/{path}", wait_until="networkidle")
+            expect(page.locator(f"#view-{path}")).to_be_visible()
+            page.reload(wait_until="networkidle")
+            expect(page.locator(f"#view-{path}")).to_be_visible()
+        checks.append("home, guide and workspace routes support direct entry and refresh")
+        page.goto(f"{base_url}/#analysis")
+        page.wait_for_url("**/analysis")
+        expect(page.locator("#view-analysis")).to_be_visible()
+        page.goto(f"{base_url}/overview", wait_until="networkidle")
         expect(page.locator("#model-status")).to_have_text("Model ready")
         summary = page.request.get(f"{base_url}/api/summary").json()
         expect(page.locator(".kpi-value").first).to_have_text(f"{summary['dataset']['rows']:,}")
@@ -53,6 +95,33 @@ def check_dashboard(base_url: str) -> dict[str, Any]:
         assert_no_overflow(page)
         page.screenshot(path=str(output / "overview-desktop.png"), full_page=True)
         checks.append("overview shows actual API statistics and held-out records")
+
+        expect(page.locator("#cohort-chart svg")).to_be_visible()
+        cohort = page.request.get(f"{base_url}/api/cohorts").json()
+        expect(page.locator("#cohort-count")).to_contain_text(f"{cohort['count']:,}")
+        page.locator("#cohort-filters button[data-contract='Two year']").click()
+        filtered = page.request.get(f"{base_url}/api/cohorts?contract=Two%20year").json()
+        expect(page.locator("#cohort-count")).to_contain_text(f"{filtered['count']:,}")
+        page.locator("#cohort-filters button[data-contract='']").click()
+        expect(page.locator("#cohort-count")).to_contain_text(f"{cohort['count']:,}")
+        page.evaluate("window.__cohortDelays = [600, 0]")
+        page.locator("#cohort-filters button[data-contract='Month-to-month']").click()
+        page.locator("#cohort-filters button[data-contract='']").click()
+        page.wait_for_timeout(700)
+        expect(page.locator("#cohort-count")).to_contain_text(f"{cohort['count']:,}")
+        page.evaluate("window.__failNextCohort = true")
+        page.locator("#cohort-filters button[data-contract='Two year']").click()
+        expect(page.locator("#cohort-chart")).to_contain_text("Chart unavailable")
+        page.set_viewport_size({"width": 1400, "height": 1100})
+        expect(page.locator("#cohort-chart svg")).to_have_count(0)
+        expect(page.locator("#cohort-data tr")).to_have_count(0)
+        page.set_viewport_size({"width": 1440, "height": 1100})
+        page.locator("#cohort-filters button[data-contract='']").click()
+        expect(page.locator("#cohort-chart svg")).to_be_visible()
+        navigate(page, "analysis")
+        page.go_back()
+        expect(page.locator("#view-overview")).to_be_visible()
+        checks.append("real cohort chart/filter counts and browser history navigation")
 
         first_id = page.locator("#customer-rows .customer-id").first.inner_text()
         page.locator("#customer-search").fill(first_id)
@@ -105,7 +174,7 @@ def check_dashboard(base_url: str) -> dict[str, Any]:
         page.locator("#load-example").click()
         expect(page.locator("#predict-button")).to_be_disabled()
         expect(page.locator(".score-number")).to_have_count(0)
-        page.locator(".nav-link[data-view='overview']").click()
+        navigate(page, "overview")
         next_id = page.locator("#customer-rows .customer-id").first.inner_text()
         page.locator("#customer-rows .inspect-button").first.click()
         expect(page.locator(".score-number")).to_be_visible()
@@ -115,7 +184,7 @@ def check_dashboard(base_url: str) -> dict[str, Any]:
         expect(page.locator(".score-number")).to_have_text(f"{customer['probability'] * 100:.1f}%")
         checks.append("delayed real responses cannot retain old scores or overwrite newer inputs/customers")
 
-        page.locator(".nav-link[data-view='batch']").click()
+        navigate(page, "batch")
         with page.expect_download() as sample_download:
             page.get_by_role("link", name="Download sample CSV").click()
         sample_path = output / "sample.csv"
@@ -137,7 +206,7 @@ def check_dashboard(base_url: str) -> dict[str, Any]:
         expect(page.locator("#batch-button")).to_be_enabled()
         checks.append("sample download, real batch export and invalid CSV error")
 
-        page.locator(".nav-link[data-view='models']").click()
+        navigate(page, "models")
         expect(page.locator("#model-comparison tr")).to_have_count(len(summary["models"]))
         comparison = page.locator("#model-comparison").locator("xpath=ancestor::table")
         assert comparison.locator("thead th").count() == comparison.locator("tbody tr").first.locator("td").count()
@@ -157,18 +226,39 @@ def check_dashboard(base_url: str) -> dict[str, Any]:
         for width in (1440, 1024, 768, 390, 320):
             page.set_viewport_size({"width": width, "height": 950})
             for view in ("overview", "analysis", "batch", "models"):
-                page.locator(f".nav-link[data-view='{view}']").click()
+                navigate(page, view)
                 expect(page.locator(f"#view-{view}")).to_be_visible()
                 assert_no_overflow(page)
+                if view == "overview" and width < 600:
+                    page.wait_for_function("""() => {
+                      const chart=document.querySelector('#cohort-chart');
+                      return chart.querySelector('svg')?.viewBox.baseVal.width === chart.clientWidth;
+                    }""")
+                    labels = page.locator("#cohort-chart svg text").evaluate_all("""nodes => nodes
+                      .filter(n=>n.textContent.includes('–')).map(n=>{
+                        const r=n.getBoundingClientRect(); return {left:r.left,right:r.right};
+                      })""")
+                    assert all(a["right"] <= b["left"] for a, b in pairwise(labels)), labels
             if width == 390:
-                page.locator(".nav-link[data-view='overview']").click()
+                navigate(page, "overview")
+                page.wait_for_function("() => document.querySelector('#sidebar').getBoundingClientRect().right <= 1")
                 page.evaluate("new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))")
                 mobile_geometry = page.evaluate("({height:document.documentElement.scrollHeight, body:document.body.getBoundingClientRect().height, y:scrollY})")
                 page.screenshot(path=str(output / "overview-mobile.png"), full_page=True)
         checks.append("four views fit 1440/1024/768/390/320 pixel viewports")
 
+        for width in (390, 320):
+            page.set_viewport_size({"width": width, "height": 950})
+            for path in ("", "guide"):
+                page.goto(f"{base_url}/{path}", wait_until="networkidle")
+                assert_no_overflow(page)
+                if width == 390:
+                    filename = "guide-mobile.png" if path else "home-mobile.png"
+                    page.screenshot(path=str(output / filename), full_page=True)
+        checks.append("product home and guide fit narrow mobile screens; legacy root links redirect")
+
         page.set_viewport_size({"width": 1440, "height": 1000})
-        page.goto(base_url)
+        page.goto(f"{base_url}/overview")
         page.keyboard.press("Tab")
         expect(page.locator(".skip-link")).to_be_focused()
         page.keyboard.press("Enter")
@@ -180,7 +270,8 @@ def check_dashboard(base_url: str) -> dict[str, Any]:
         browser.close()
     result = {"base_url": base_url, "checks": checks, "unexpected_console_errors": unexpected,
               "mobile_geometry": mobile_geometry,
-              "screenshots": ["overview-desktop.png", "analysis-desktop.png", "overview-mobile.png"]}
+              "screenshots": ["home-desktop.png", "overview-desktop.png", "analysis-desktop.png",
+                              "overview-mobile.png", "home-mobile.png", "guide-mobile.png"]}
     (output / "results.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
     return result
 

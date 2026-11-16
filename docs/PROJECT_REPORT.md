@@ -67,6 +67,10 @@ A positive attribution increases that model's explained output for the selected 
 
 ## Implemented application
 
+The website revision adds a product home and guide, refreshable `/overview`, `/analysis`, `/batch` and `/models` URLs, and a reference-led interface based on rendered shadcn dashboard measurements. The overview's contract-filtered tenure chart aggregates genuine held-out records. It does not invent a calendar churn history. The [reference research](UI_REFERENCE_RESEARCH_V2.md) records selected and rejected patterns.
+
+A portable Waitress entry point and tested Linux container packaging support later deployment. The image regenerates native model artifacts during its build and runs as a non-root user. This local container check is distinct from a hosted deployment; see [DEPLOYMENT.md](DEPLOYMENT.md).
+
 | Component | Purpose |
 |---|---|
 | Overview | Source-derived descriptive statistics, contract segments and held-out customer queue |

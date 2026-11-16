@@ -9,7 +9,7 @@ Date: 16 November 2026. Scope: this local Windows college demonstrator. Results 
 | `uv sync --python 3.12` | Environment created and dependencies locked |
 | `uv lock --check` | Passed |
 | `uv run python scripts/train.py` | Training and artifact export completed |
-| `uv run pytest -q` | **30 passed in 12.44 seconds** in final combined Python run |
+| `uv run pytest -q` | **52 passed in 6.25 seconds** in the combined website revision run |
 | `uv run ruff check .` | All checks passed |
 | `node --check static/app.js` | Exit 0 |
 | `uv run python app.py --port 5050` | Waitress served app; health reported ready |
@@ -17,8 +17,10 @@ Date: 16 November 2026. Scope: this local Windows college demonstrator. Results 
 | `uv run python scripts/browser_check.py` | Workflow results saved in `artifacts/browser/results.json` |
 | Independent review | Four findings corrected/rechecked; see [REVIEW.md](REVIEW.md) |
 | Local Markdown links | No missing file targets |
+| `uv run python scripts/reference_check.py` | Nine measured layout checks within one CSS pixel; local Geist loaded |
+| Final Linux website image | Build passed; non-root UID10001; healthy; all 11 browser workflow groups passed against port8080 |
 
-The review's earlier test count reflects its own snapshot. Two later regression/evidence tests increased the final count to 30.
+The first implementation finished with 30 tests. The website revision adds route/cohort and deployment checks, bringing the combined run to 52. Earlier review counts reflect their own snapshots.
 
 The test servers are stopped after verification. Start the app with `.\start.ps1` from the project directory; its default address is `http://127.0.0.1:5050`.
 
@@ -33,6 +35,12 @@ Held-out ROC-AUC: `0.8324730682786947`; average precision: `0.6242117062478064`.
 Saved held-out IDs, labels and predictors match the original source. Probabilities reconcile with measured metrics. Fitted scaler means equal training-only means. SHAP background IDs belong to training; global-importance sample IDs belong to validation. Source-code hashes match the executed files. SHAP output/probability reconstruction passed on actual low/middle/high scoring rows. Corrupt artifacts fail integrity checks before deserialization.
 
 ## Browser and upload checks
+
+The completed website revision passed 11 recorded workflow groups with zero unexpected console errors. Direct entry and refresh work for home, overview, analysis, batch, model lab and guide. Browser history and old root hash links work. The four workspace views were checked at 1440, 1024, 768, 390 and 320 pixels; home/guide were also checked at narrow phone widths. Source-derived cohort filters, delayed-response races, a deliberately failed chart request followed by resize, and non-overlapping phone axis labels have permanent browser checks. No dataset values or model responses were replaced with invented values during these checks.
+
+The full workflow suite passed both the native localhost app and the final Linux container. The latest `artifacts/browser/results.json` records container port8080; `artifacts/browser-native/results.json` retains the native port5050 run. The exact image and executed checks are recorded in [DEPLOYMENT.md](DEPLOYMENT.md).
+
+The primary reference and actual implementation were captured at the same 1440 × 1000 viewport. Nine geometry/type quantities matched within one CSS pixel. The locally served Geist font loaded. [UI_MATCH.md](UI_MATCH.md) links the side-by-side board, raw captures, machine-readable measurements and intentional adaptations. Desktop/home/analysis/mobile screenshots were visually inspected. Independent review is recorded in [WEBSITE_REVIEW.md](WEBSITE_REVIEW.md).
 
 Real Chromium checks exercised overview statistics, customer search, empty results, contract/risk filters, pagination, real-row inspection, all SHAP factors, edited scenarios, service consistency, sample CSV download, scoring/download and invalid-upload feedback.
 
