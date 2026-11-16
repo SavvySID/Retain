@@ -23,6 +23,8 @@ Use **Open workspace** on the home page or visit `/overview` directly. Individua
 
 After setup and training, `uv run python app.py` is sufficient to start the app. The project also includes `start.ps1` as a Windows launcher. If the model is unavailable, train it before expecting predictions; the app must not invent fallback scores.
 
+On Windows, `npm run dev` calls the same `start.ps1` launcher. It adds no JavaScript dependencies and does not require `npm install`.
+
 ## What to try
 
 The overview's interactive chart compares observed churn and mean model probability across actual held-out tenure groups. Contract controls change the population. These are tenure cohorts, not invented calendar history or a prospective forecast; the accessible data table exposes counts and rates.

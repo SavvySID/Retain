@@ -1,0 +1,7 @@
+{
+  "name": "retain-telecom-churn",
+  "private": true,
+  "scripts": {
+    "dev": "powershell -NoProfile -File ./start.ps1"
+  }
+}
