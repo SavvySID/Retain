@@ -67,9 +67,9 @@ A positive attribution increases that model's explained output for the selected 
 
 ## Implemented application
 
-The website revision adds a product home and guide, refreshable `/overview`, `/analysis`, `/batch` and `/models` URLs, and a reference-led interface based on rendered shadcn dashboard measurements. The overview's contract-filtered tenure chart aggregates genuine held-out records. It does not invent a calendar churn history. The [reference research](UI_REFERENCE_RESEARCH_V2.md) records selected and rejected patterns.
+The website includes a product home and guide, refreshable `/overview`, `/analysis`, `/batch` and `/models` URLs, and a related-product reference-led interface. The current design uses the user's requested black accent and neutral surfaces; [current UI evidence](UI_MATCH.md) supersedes the historical shadcn measurements. The overview's contract-filtered tenure chart aggregates genuine held-out records. It does not invent a calendar churn history.
 
-A portable Waitress entry point and tested Linux container packaging support later deployment. The image regenerates native model artifacts during its build and runs as a non-root user. This local container check is distinct from a hosted deployment; see [DEPLOYMENT.md](DEPLOYMENT.md).
+A portable Waitress entry point and Docker packaging support later deployment. An earlier Linux image was tested; the latest UI image rebuild remains unverified because of registry/engine availability. The Dockerfile regenerates native model artifacts during its build and specifies a non-root user. No public hosting is claimed; see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 | Component | Purpose |
 |---|---|
@@ -83,6 +83,8 @@ A portable Waitress entry point and tested Linux container packaging support lat
 The API rejects invalid or contradictory inputs. Batch validation finishes before scoring, so a bad row does not quietly produce a partial output. Downloaded identifiers are protected against spreadsheet formula execution. Missing models return an unavailable state rather than substitute probabilities.
 
 ## Results and verification
+
+The [eight-point status update](PROJECT_STATUS.md) maps the college reporting requirements to current evidence. The [standalone EDA report](EDA_REPORT.md), added after the original model was frozen, now records source quality and training-only class balance, numeric distributions, categorical associations, IQR diagnostics and correlations. Reproduce it with `uv run python scripts/eda.py`; it does not retune the model or explore held-out labels.
 
 The executed run uses `7,043` sample customers, with `4,225` training, `1,409` validation and `1,409` test rows. Logistic regression was selected by validation average precision (`0.676589`), narrowly ahead of random forest (`0.676530`) and XGBoost (`0.676298`). This near tie is not evidence of meaningful universal superiority.
 

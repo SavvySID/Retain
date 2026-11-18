@@ -36,3 +36,9 @@
 ## Black accent preference
 
 - The user explicitly requests a single black accent instead of the teal/navy palette. Keep the current layouts and use black, white and neutral grays across navigation, controls, cards, diagrams and dynamic charts. Distinguish chart series with solid/dashed strokes and retain signed factor labels.
+
+
+## Eight-point college status audit
+
+- Treat the faculty checklist as a request to audit and complete evidence for the existing project, not to replace the model or claim public hosting. Add a reproducible standalone EDA report and consolidated status update.
+- New EDA is descriptive follow-up after model freezing. Use the saved training partition for feature/target relationships; use the full source only for quality checks. Preserve model artifacts, thresholds and held-out evaluation.

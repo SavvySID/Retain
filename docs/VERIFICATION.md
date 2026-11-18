@@ -2,7 +2,22 @@
 
 Date: 16 November 2026. Scope: this local Windows college demonstrator. Results below came from executed commands, actual source records and browser interactions.
 
-## Final checks
+## Latest checklist audit: 18 November 2026
+
+The [eight-point college status](PROJECT_STATUS.md) maps every requested stage to code and evidence. The missing standalone EDA was added and executed with `uv run python scripts/eda.py`, exporting `docs/EDA_REPORT.md`, `artifacts/eda/summary.json` and four measured PNG figures. This is descriptive follow-up after model freezing: source quality uses the full canonical CSV; distributions and feature/target relationships use only the saved training partition. No model source, selected threshold or trained artifact was changed.
+
+Executed during this audit:
+
+- Full Python suite: **56 passed in 4.78 seconds**, including two EDA checks for training membership, held-out-label isolation and invalid training IDs.
+- Ruff: all checks passed. Both application/home JavaScript syntax checks exited 0.
+- Native Chromium: all **13** workflow groups passed with zero unexpected console errors, including all six routes, actual predictions/SHAP, CSV scoring and responsive layouts.
+- Both new reports are linked from Guide and their HTTP document URLs return 200. Local Markdown/image links resolve.
+- The EDA script/split hashes match its recorded provenance. All saved model artifact hashes still match the existing manifest. Four new figures were opened and visually inspected.
+- Docker engine check failed because the installed Linux engine pipe was unavailable. No current container or public deployment is claimed.
+
+The initial EDA CLI exposed a local script-import path error; the entry point was corrected and the export then completed successfully. The temporary native test server was started only for this audit and stopped afterward. Earlier verification entries below describe their own dated snapshots, including the original 54-test UI run. Current stage and unresolved deployment work are explicit in [PROJECT_STATUS.md](PROJECT_STATUS.md).
+
+## Earlier model and UI checks
 
 | Check | Executed result |
 |---|---|

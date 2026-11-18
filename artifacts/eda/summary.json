@@ -1,0 +1,463 @@
+{
+  "scope": "Source quality: full CSV. Distributions and associations: saved training rows only.",
+  "source_quality": {
+    "rows": 7043,
+    "columns": 21,
+    "unique_customer_ids": 7043,
+    "duplicate_rows": 0,
+    "duplicate_profiles_excluding_id": 22,
+    "missing_or_blank_before": {
+      "customerID": 0,
+      "gender": 0,
+      "SeniorCitizen": 0,
+      "Partner": 0,
+      "Dependents": 0,
+      "tenure": 0,
+      "PhoneService": 0,
+      "MultipleLines": 0,
+      "InternetService": 0,
+      "OnlineSecurity": 0,
+      "OnlineBackup": 0,
+      "DeviceProtection": 0,
+      "TechSupport": 0,
+      "StreamingTV": 0,
+      "StreamingMovies": 0,
+      "Contract": 0,
+      "PaperlessBilling": 0,
+      "PaymentMethod": 0,
+      "MonthlyCharges": 0,
+      "TotalCharges": 11,
+      "Churn": 0
+    },
+    "missing_after": {
+      "customerID": 0,
+      "gender": 0,
+      "SeniorCitizen": 0,
+      "Partner": 0,
+      "Dependents": 0,
+      "tenure": 0,
+      "PhoneService": 0,
+      "MultipleLines": 0,
+      "InternetService": 0,
+      "OnlineSecurity": 0,
+      "OnlineBackup": 0,
+      "DeviceProtection": 0,
+      "TechSupport": 0,
+      "StreamingTV": 0,
+      "StreamingMovies": 0,
+      "Contract": 0,
+      "PaperlessBilling": 0,
+      "PaymentMethod": 0,
+      "MonthlyCharges": 0,
+      "TotalCharges": 0,
+      "Churn": 0
+    },
+    "raw_dtypes": {
+      "customerID": "object",
+      "gender": "object",
+      "SeniorCitizen": "int64",
+      "Partner": "object",
+      "Dependents": "object",
+      "tenure": "int64",
+      "PhoneService": "object",
+      "MultipleLines": "object",
+      "InternetService": "object",
+      "OnlineSecurity": "object",
+      "OnlineBackup": "object",
+      "DeviceProtection": "object",
+      "TechSupport": "object",
+      "StreamingTV": "object",
+      "StreamingMovies": "object",
+      "Contract": "object",
+      "PaperlessBilling": "object",
+      "PaymentMethod": "object",
+      "MonthlyCharges": "float64",
+      "TotalCharges": "object",
+      "Churn": "object"
+    },
+    "clean_dtypes": {
+      "customerID": "object",
+      "gender": "object",
+      "SeniorCitizen": "int64",
+      "Partner": "object",
+      "Dependents": "object",
+      "tenure": "int64",
+      "PhoneService": "object",
+      "MultipleLines": "object",
+      "InternetService": "object",
+      "OnlineSecurity": "object",
+      "OnlineBackup": "object",
+      "DeviceProtection": "object",
+      "TechSupport": "object",
+      "StreamingTV": "object",
+      "StreamingMovies": "object",
+      "Contract": "object",
+      "PaperlessBilling": "object",
+      "PaymentMethod": "object",
+      "MonthlyCharges": "float64",
+      "TotalCharges": "float64",
+      "Churn": "object"
+    },
+    "cleaning": {
+      "zero_tenure_total_charges_filled": 11,
+      "rows_dropped": 0,
+      "duplicate_customer_ids": 0,
+      "rule": "Blank TotalCharges is zero only when tenure is zero; all other missing values are rejected."
+    }
+  },
+  "training_rows": 4225,
+  "class_counts": {
+    "No": 3104,
+    "Yes": 1121
+  },
+  "training_churn_rate": 0.26532544378698225,
+  "numeric_statistics": {
+    "tenure": {
+      "count": 4225.0,
+      "mean": 32.44284023668639,
+      "std": 24.62918383699712,
+      "min": 0.0,
+      "25%": 9.0,
+      "50%": 29.0,
+      "75%": 55.0,
+      "max": 72.0
+    },
+    "MonthlyCharges": {
+      "count": 4225.0,
+      "mean": 64.89450887573965,
+      "std": 30.326002157668775,
+      "min": 18.4,
+      "25%": 35.4,
+      "50%": 70.55,
+      "75%": 90.1,
+      "max": 118.75
+    },
+    "TotalCharges": {
+      "count": 4225.0,
+      "mean": 2295.4894082840237,
+      "std": 2287.797684256494,
+      "min": 0.0,
+      "25%": 399.6,
+      "50%": 1372.45,
+      "75%": 3862.55,
+      "max": 8684.8
+    }
+  },
+  "iqr_diagnostics": {
+    "tenure": {
+      "lower_fence": -60.0,
+      "upper_fence": 124.0,
+      "outside_fences": 0
+    },
+    "MonthlyCharges": {
+      "lower_fence": -46.65,
+      "upper_fence": 172.14999999999998,
+      "outside_fences": 0
+    },
+    "TotalCharges": {
+      "lower_fence": -4794.825,
+      "upper_fence": 9056.975,
+      "outside_fences": 0
+    }
+  },
+  "categorical_segments": {
+    "Partner": [
+      {
+        "category": "No",
+        "count": 2190,
+        "churned": 722,
+        "churn_rate": 0.32968036529680367
+      },
+      {
+        "category": "Yes",
+        "count": 2035,
+        "churned": 399,
+        "churn_rate": 0.19606879606879607
+      }
+    ],
+    "Dependents": [
+      {
+        "category": "No",
+        "count": 2965,
+        "churned": 935,
+        "churn_rate": 0.31534569983136596
+      },
+      {
+        "category": "Yes",
+        "count": 1260,
+        "churned": 186,
+        "churn_rate": 0.14761904761904762
+      }
+    ],
+    "PhoneService": [
+      {
+        "category": "No",
+        "count": 414,
+        "churned": 97,
+        "churn_rate": 0.23429951690821257
+      },
+      {
+        "category": "Yes",
+        "count": 3811,
+        "churned": 1024,
+        "churn_rate": 0.26869588034636577
+      }
+    ],
+    "MultipleLines": [
+      {
+        "category": "No",
+        "count": 2026,
+        "churned": 510,
+        "churn_rate": 0.25172754195459035
+      },
+      {
+        "category": "No phone service",
+        "count": 414,
+        "churned": 97,
+        "churn_rate": 0.23429951690821257
+      },
+      {
+        "category": "Yes",
+        "count": 1785,
+        "churned": 514,
+        "churn_rate": 0.2879551820728291
+      }
+    ],
+    "InternetService": [
+      {
+        "category": "DSL",
+        "count": 1436,
+        "churned": 274,
+        "churn_rate": 0.19080779944289694
+      },
+      {
+        "category": "Fiber optic",
+        "count": 1859,
+        "churned": 779,
+        "churn_rate": 0.4190424959655729
+      },
+      {
+        "category": "No",
+        "count": 930,
+        "churned": 68,
+        "churn_rate": 0.07311827956989247
+      }
+    ],
+    "OnlineSecurity": [
+      {
+        "category": "No",
+        "count": 2073,
+        "churned": 873,
+        "churn_rate": 0.4211287988422576
+      },
+      {
+        "category": "No internet service",
+        "count": 930,
+        "churned": 68,
+        "churn_rate": 0.07311827956989247
+      },
+      {
+        "category": "Yes",
+        "count": 1222,
+        "churned": 180,
+        "churn_rate": 0.14729950900163666
+      }
+    ],
+    "OnlineBackup": [
+      {
+        "category": "No",
+        "count": 1822,
+        "churned": 736,
+        "churn_rate": 0.4039517014270033
+      },
+      {
+        "category": "No internet service",
+        "count": 930,
+        "churned": 68,
+        "churn_rate": 0.07311827956989247
+      },
+      {
+        "category": "Yes",
+        "count": 1473,
+        "churned": 317,
+        "churn_rate": 0.2152070604209097
+      }
+    ],
+    "DeviceProtection": [
+      {
+        "category": "No",
+        "count": 1820,
+        "churned": 708,
+        "churn_rate": 0.389010989010989
+      },
+      {
+        "category": "No internet service",
+        "count": 930,
+        "churned": 68,
+        "churn_rate": 0.07311827956989247
+      },
+      {
+        "category": "Yes",
+        "count": 1475,
+        "churned": 345,
+        "churn_rate": 0.23389830508474577
+      }
+    ],
+    "TechSupport": [
+      {
+        "category": "No",
+        "count": 2040,
+        "churned": 865,
+        "churn_rate": 0.42401960784313725
+      },
+      {
+        "category": "No internet service",
+        "count": 930,
+        "churned": 68,
+        "churn_rate": 0.07311827956989247
+      },
+      {
+        "category": "Yes",
+        "count": 1255,
+        "churned": 188,
+        "churn_rate": 0.149800796812749
+      }
+    ],
+    "StreamingTV": [
+      {
+        "category": "No",
+        "count": 1622,
+        "churned": 548,
+        "churn_rate": 0.33785450061652283
+      },
+      {
+        "category": "No internet service",
+        "count": 930,
+        "churned": 68,
+        "churn_rate": 0.07311827956989247
+      },
+      {
+        "category": "Yes",
+        "count": 1673,
+        "churned": 505,
+        "churn_rate": 0.30185295875672447
+      }
+    ],
+    "StreamingMovies": [
+      {
+        "category": "No",
+        "count": 1645,
+        "churned": 557,
+        "churn_rate": 0.3386018237082067
+      },
+      {
+        "category": "No internet service",
+        "count": 930,
+        "churned": 68,
+        "churn_rate": 0.07311827956989247
+      },
+      {
+        "category": "Yes",
+        "count": 1650,
+        "churned": 496,
+        "churn_rate": 0.3006060606060606
+      }
+    ],
+    "Contract": [
+      {
+        "category": "Month-to-month",
+        "count": 2304,
+        "churned": 992,
+        "churn_rate": 0.4305555555555556
+      },
+      {
+        "category": "One year",
+        "count": 896,
+        "churned": 99,
+        "churn_rate": 0.11049107142857142
+      },
+      {
+        "category": "Two year",
+        "count": 1025,
+        "churned": 30,
+        "churn_rate": 0.02926829268292683
+      }
+    ],
+    "PaperlessBilling": [
+      {
+        "category": "No",
+        "count": 1754,
+        "churned": 279,
+        "churn_rate": 0.15906499429874574
+      },
+      {
+        "category": "Yes",
+        "count": 2471,
+        "churned": 842,
+        "churn_rate": 0.34075273168757586
+      }
+    ],
+    "PaymentMethod": [
+      {
+        "category": "Bank transfer (automatic)",
+        "count": 933,
+        "churned": 151,
+        "churn_rate": 0.16184351554126475
+      },
+      {
+        "category": "Credit card (automatic)",
+        "count": 915,
+        "churned": 137,
+        "churn_rate": 0.14972677595628414
+      },
+      {
+        "category": "Electronic check",
+        "count": 1410,
+        "churned": 643,
+        "churn_rate": 0.45602836879432623
+      },
+      {
+        "category": "Mailed check",
+        "count": 967,
+        "churned": 190,
+        "churn_rate": 0.19648397104446744
+      }
+    ]
+  },
+  "pearson_correlation": {
+    "tenure": {
+      "tenure": 1.0,
+      "MonthlyCharges": 0.2531733807652515,
+      "TotalCharges": 0.8278433640015457,
+      "Churn": -0.3447642772860347
+    },
+    "MonthlyCharges": {
+      "tenure": 0.2531733807652515,
+      "MonthlyCharges": 1.0,
+      "TotalCharges": 0.6533467230499604,
+      "Churn": 0.19760063242420528
+    },
+    "TotalCharges": {
+      "tenure": 0.8278433640015457,
+      "MonthlyCharges": 0.6533467230499604,
+      "TotalCharges": 1.0,
+      "Churn": -0.19146870590727233
+    },
+    "Churn": {
+      "tenure": -0.3447642772860347,
+      "MonthlyCharges": 0.19760063242420528,
+      "TotalCharges": -0.19146870590727233,
+      "Churn": 1.0
+    }
+  },
+  "generated_at_utc": "2026-11-18T18:21:09.628596+00:00",
+  "source_sha256": "16320c9c1ec72448db59aa0a26a0b95401046bef5d02fd3aeb906448e3055e91",
+  "split_sha256": "b81a63e7985c82f122aa5a97f2c348427ec2b06cd396babdf3644a6b132e8ced",
+  "script_sha256": "2d8c35cd4389ea2c3fd6bd529b974de7b89f59d66e054c3f7c1c2850b93027f9",
+  "plots": [
+    "class_balance.png",
+    "numeric_distributions.png",
+    "categorical_churn.png",
+    "correlation.png"
+  ]
+}

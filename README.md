@@ -43,6 +43,7 @@ CSV scoring is limited to 1,000 rows and 2 MiB. Invalid headers, values or servi
 | `uv sync --frozen --python 3.12` | Install the locked environment |
 | `uv run python scripts/download_data.py` | Fetch/check only the canonical source data |
 | `uv run python scripts/train.py` | Rebuild training and evaluation artifacts |
+| `uv run python scripts/eda.py` | Generate source-quality checks and training-only EDA report/figures |
 | `uv run pytest` | Run the project's tests after training |
 | `uv run ruff check .` | Check Python code |
 | `uv run python app.py --port 5050` | Serve the local application |
@@ -104,6 +105,8 @@ The candidate models are a dummy baseline, logistic regression, random forest an
 
 ## Read for the college submission
 
+- [Eight-point project status](docs/PROJECT_STATUS.md): current stage, requirement audit, challenges and next steps.
+- [EDA report](docs/EDA_REPORT.md): executed training-only distributions, associations, quality checks and figures.
 - [Project report](docs/PROJECT_REPORT.md): problem, architecture, implemented scope and actual results.
 - [Viva guide](docs/VIVA_GUIDE.md): a demo script and questions with explainable answers.
 - [Methodology](docs/METHODOLOGY.md), [model card](docs/MODEL_CARD.md), [data card](docs/DATA_CARD.md).
