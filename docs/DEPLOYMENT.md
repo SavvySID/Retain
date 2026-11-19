@@ -1,6 +1,37 @@
-# Local serving and later deployment
+# Local serving and deployment
 
 This project is a Flask website with a real Python inference backend, not a static export. Keep the browser and API on the same origin. The deployment entry point reuses `app.create_app()` and the trained artifacts; it does not change model selection or invent fallback predictions.
+
+## Vercel
+
+The repository now contains a Flask deployment configuration:
+
+- `.python-version` selects Python 3.12; `uv.lock` pins the model's dependency versions.
+- `pyproject.toml` declares `wsgi:app` as the Vercel entrypoint. `wsgi.py` reuses the existing factory and fails startup if the model cannot load.
+- `vercel.json` selects Flask, runs `python scripts/build.py`, excludes development/training inputs from the function, and allows requests up to 60 seconds. No catch-all rewrite or static-only output setting is needed.
+- The build checks the artifact hashes, real predictions, SHAP reconstruction, CSV results, pages and evaluation plots. It copies `static/` to generated `public/static/`, preserving all current asset URLs while letting Vercel serve them from its CDN.
+- Only inside Vercel's disposable build environment (`VERCEL=1`), the build removes NumPy, pandas, SciPy and scikit-learn dependency `tests/` directories and bytecode caches. These fixtures/caches are not needed for inference. Runtime source modules remain installed, and real model/SHAP/CSV checks run after cleanup. Vercel controls any subsequent bytecode precompilation. Local developer packages are not pruned.
+- The trusted `artifacts/model.joblib` is deliberately included in Git. Keep it together with its matching manifest, summary, customers, splits and plots. The build fails on missing/corrupt model artifacts; it never returns fabricated fallback predictions.
+- Vercel's production install excludes the `dev` group. XGBoost and matplotlib belong to the `training` group, which local development includes through `dev`; they are not needed to serve the current logistic regression model. If a future training run selects XGBoost, restore that runtime dependency before deployment.
+
+### Deploy from Git
+
+1. From this project directory, run `npm run build`. Local Node/npm, Python and uv are required. The npm command is a real model/application verification build, not a JavaScript bundle.
+2. Commit and push the complete project, including `artifacts/model.joblib`. Do not push `.venv`, `.env`, private customer CSVs or generated browser captures.
+3. Import the repository in Vercel. If this folder sits inside a larger repository, set **Root Directory** to this folder.
+4. Select **Flask**. Leave **Install Command** and **Output Directory** at their defaults, and allow the repository's `python scripts/build.py` build command. Do not override it with a static export or the Windows-only `npm run dev` command. Python dependency installation is automatic.
+5. Deploy. No database, model API key, API base URL or extra environment variable is required for this benchmark demo.
+6. Open `/api/health`; it must return `{"status":"ready","model":"Logistic regression"}`. Then open `/analysis`, load a sample customer and predict, and download/upload the sample CSV from `/batch`. Check `/models` plots and refresh each direct page URL.
+
+For the full browser workflow check against your deployed URL, run `uv run python scripts/browser_check.py --url https://YOUR-PROJECT.vercel.app`. A protected preview may require browser access first; the anonymous production demo should be reachable without a Vercel login. Never claim successful publication from a local build alone.
+
+### Runtime behavior and limits
+
+Inference uses the saved preprocessing pipeline and classifier in Python, with real SHAP explanations. Model artifacts are read from the deployment bundle. Uploaded CSVs stay in bounded memory; requests do not train models, download data or write customer files. The current limits remain 1,000 rows and 2 MiB per CSV, within Vercel's documented 4.5 MB function request/response limit. New instances need time to import scientific libraries and load the model; cold starts and usage limits still apply.
+
+The standard Python function bundle limit is 500 MB uncompressed. Heavy training/GPU packages are excluded rather than requiring the large-functions beta. A future change to dependencies/model type requires a fresh bundle check. This is an anonymous college demonstration, not an authenticated customer-management service.
+
+References: [Vercel Flask deployment](https://vercel.com/docs/frameworks/backend/flask), [Python runtime and packaging](https://vercel.com/docs/functions/runtimes/python), [function limits](https://vercel.com/docs/functions/limitations). See [VERIFICATION.md](VERIFICATION.md) for executed checks and the remaining hosted verification limit.
 
 ## Localhost
 

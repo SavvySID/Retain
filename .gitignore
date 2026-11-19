@@ -6,9 +6,13 @@ __pycache__/
 *.pyc
 .env
 artifacts/*.joblib
+!artifacts/model.joblib
 artifacts/*.log
 artifacts/browser/
 artifacts/browser-native/
 data/raw/*.csv
 data/raw/*.part
 *.zip
+.vercel/
+node_modules/
+public/

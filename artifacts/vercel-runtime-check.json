@@ -1,0 +1,11 @@
+{
+    "cold_import_seconds":  53.91833129700001,
+    "predictions_and_shap_checked":  1409,
+    "maximum_probability_difference":  2.2204460492503131E-16,
+    "batch_rows":  1000,
+    "batch_seconds":  3.810868518999996,
+    "root":  "/tools/retain-vercel-bundle",
+    "readonly_filesystem":  true,
+    "python_site_packages_disabled":  true,
+    "timing_context":  "Docker Linux; function files read from a Windows bind mount. Not Vercel latency."
+}

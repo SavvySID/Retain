@@ -648,40 +648,48 @@ source = { editable = "." }
 dependencies = [
     { name = "flask" },
     { name = "joblib" },
-    { name = "matplotlib" },
     { name = "numpy" },
     { name = "pandas" },
     { name = "scikit-learn" },
     { name = "shap" },
     { name = "waitress" },
-    { name = "xgboost" },
 ]
 
 [package.dev-dependencies]
 dev = [
+    { name = "matplotlib" },
     { name = "playwright" },
     { name = "pytest" },
     { name = "ruff" },
+    { name = "xgboost" },
+]
+training = [
+    { name = "matplotlib" },
+    { name = "xgboost" },
 ]
 
 [package.metadata]
 requires-dist = [
     { name = "flask", specifier = ">=3.1,<4" },
     { name = "joblib", specifier = ">=1.4,<2" },
-    { name = "matplotlib", specifier = ">=3.9,<4" },
     { name = "numpy", specifier = ">=2,<3" },
     { name = "pandas", specifier = ">=2.2,<3" },
     { name = "scikit-learn", specifier = ">=1.6,<2" },
     { name = "shap", specifier = ">=0.48,<1" },
     { name = "waitress", specifier = ">=3,<4" },
-    { name = "xgboost", specifier = ">=3,<4" },
 ]
 
 [package.metadata.requires-dev]
 dev = [
+    { name = "matplotlib", specifier = ">=3.9,<4" },
     { name = "playwright", specifier = ">=1.50,<2" },
     { name = "pytest", specifier = ">=8,<10" },
     { name = "ruff", specifier = ">=0.11,<1" },
+    { name = "xgboost", specifier = ">=3,<4" },
+]
+training = [
+    { name = "matplotlib", specifier = ">=3.9,<4" },
+    { name = "xgboost", specifier = ">=3,<4" },
 ]
 
 [[package]]

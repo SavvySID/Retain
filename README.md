@@ -25,6 +25,14 @@ After setup and training, `uv run python app.py` is sufficient to start the app.
 
 On Windows, `npm run dev` calls the same `start.ps1` launcher. It adds no JavaScript dependencies and does not require `npm install`.
 
+## Deploy on Vercel
+
+Run `npm run build` first. This executes real model/SHAP/CSV smoke checks and copies website assets to `public/static/`; it does not retrain or alter the model results. Python and uv must be installed locally.
+
+Push the complete project, including `artifacts/model.joblib`, to Git. Import the repository in Vercel, set the root to this project directory, choose the **Flask** preset, and leave the output directory and install command at their defaults. The checked-in `vercel.json` supplies `python scripts/build.py` as the build command; `.python-version` selects Python 3.12. No API keys or database are needed. Do not choose a static/Vite/Next.js preset.
+
+The Python function performs real inference and SHAP explanations using the frozen model. Training-only XGBoost/matplotlib dependencies stay out of the hosted runtime. After deployment, check `/api/health` reports `ready`, then test prediction and upload the downloadable sample CSV. See [deployment details and verification limits](docs/DEPLOYMENT.md).
+
 ## What to try
 
 The overview's interactive chart compares observed churn and mean model probability across actual held-out tenure groups. Contract controls change the population. These are tenure cohorts, not invented calendar history or a prospective forecast; the accessible data table exposes counts and rates.
@@ -121,4 +129,4 @@ For current references and screenshots, see [UI research revision 3](docs/UI_RES
 
 Data: [IBM/telco-customer-churn-on-icp4d](https://github.com/IBM/telco-customer-churn-on-icp4d), whose source repository supplies an [Apache-2.0 license](https://github.com/IBM/telco-customer-churn-on-icp4d/blob/master/LICENSE). The comparison research is documented separately; this app does not claim to reproduce competing repositories' scores.
 
-This fictional-company benchmark does not establish future-period, Indian-operator or production performance. Removing demographic predictors does not prove fairness. SHAP explains model associations, not causal effects. No campaign uplift, savings or guaranteed retention is claimed. The server is intended for loopback use; authentication, production hosting and operational monitoring are outside this demo.
+This fictional-company benchmark does not establish future-period, Indian-operator or production performance. Removing demographic predictors does not prove fairness. SHAP explains model associations, not causal effects. No campaign uplift, savings or guaranteed retention is claimed. Local serving defaults to loopback. Vercel configuration supports a public benchmark demo; private customer accounts, authentication and production monitoring are outside this demo.

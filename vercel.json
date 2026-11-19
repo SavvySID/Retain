@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "flask",
+  "buildCommand": "python scripts/build.py",
+  "functions": {
+    "wsgi.py": {
+      "maxDuration": 60,
+      "excludeFiles": "{.venv/**,.git/**,node_modules/**,.env,.env.*,.pytest_cache/**,.ruff_cache/**,tests/**,scripts/**,static/**,public/**,data/raw/**,artifacts/browser*/**,**/__pycache__/**}"
+    }
+  },
+  "headers": [
+    {
+      "source": "/static/(.*)",
+      "headers": [{"key": "X-Content-Type-Options", "value": "nosniff"}]
+    }
+  ]
+}

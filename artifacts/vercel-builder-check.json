@@ -1,0 +1,34 @@
+{
+  "routes": [
+    {
+      "handle": "filesystem"
+    },
+    {
+      "handle": "rewrite"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/flask",
+      "transforms": [
+        {
+          "type": "request.path",
+          "op": "set",
+          "args": "/$1"
+        }
+      ]
+    }
+  ],
+  "functions": [
+    {
+      "name": "flask",
+      "runtime": "python3.12",
+      "handler": "vc__handler__python.vc_handler",
+      "environment": {
+        "PYTHONPATH": "_vendor",
+        "PYTHONDONTWRITEBYTECODE": "1"
+      },
+      "bytes": 216180445,
+      "fileCount": 4243
+    }
+  ]
+}

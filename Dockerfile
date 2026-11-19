@@ -6,9 +6,9 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 COPY pyproject.toml uv.lock ./
-RUN uv sync --frozen --no-dev --no-install-project
+RUN uv sync --frozen --no-dev --group training --no-install-project
 COPY . .
-RUN uv sync --locked --no-dev --no-editable \
+RUN uv sync --locked --no-dev --group training --no-editable \
     && .venv/bin/python scripts/train.py
 
 FROM python:3.12-slim-bookworm AS runtime

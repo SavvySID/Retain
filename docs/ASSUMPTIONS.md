@@ -42,3 +42,11 @@
 
 - Treat the faculty checklist as a request to audit and complete evidence for the existing project, not to replace the model or claim public hosting. Add a reproducible standalone EDA report and consolidated status update.
 - New EDA is descriptive follow-up after model freezing. Use the saved training partition for feature/target relationships; use the full source only for quality checks. Preserve model artifacts, thresholds and held-out evaluation.
+
+## Vercel deployment
+
+- Deploy the existing Flask website and real Python model together on one origin, using Vercel's Flask preset and Python 3.12. Preserve the current design, routes, selected model, SHAP implementation and recorded evaluation.
+- Ship the existing project-generated `artifacts/model.joblib` with its matching integrity manifest, summary, examples, splits and plots. Do not download models from third parties or train during requests/builds. Check Linux compatibility against the frozen model before claiming readiness.
+- The build checks genuine predictions, explanations and CSV scoring, then copies `static/` into generated `public/static/` for Vercel's CDN. Local serving continues to use `static/`.
+- Move XGBoost and matplotlib to the training dependency group. Default local development includes training tools; Vercel installs only runtime dependencies. This deployment serves the frozen logistic regression model. If future model selection chooses XGBoost, restore its serving dependency and check bundle size again.
+- Treat this as a public college demonstrator with the existing fictional-company benchmark examples. No customer database, authentication, private data retention, paid service, or custom domain is added. The user intends to perform the final Vercel publication.
