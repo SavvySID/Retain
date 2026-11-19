@@ -7,3 +7,4 @@ artifacts/*.json -text whitespace=cr-at-eol
 *.woff2 binary
 # Preserve the upstream license bytes, including its original trailing space.
 static/fonts/OFL.txt -text whitespace=-blank-at-eol
+public/static/fonts/OFL.txt -text whitespace=-blank-at-eol

@@ -15,4 +15,3 @@ data/raw/*.part
 *.zip
 .vercel/
 node_modules/
-public/
