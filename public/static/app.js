@@ -278,12 +278,23 @@ function renderPrediction(prediction) {
   result.append(score);
   const explanation = prediction.explanation;
   if (explanation) {
+    const contributions = [...explanation.contributions].sort((a, b) => Math.abs(b.contribution) - Math.abs(a.contribution));
+    const describe = (items) => items.map((item) => `${labelFor(item.feature)} (${item.value})`).join(" and ");
+    const higher = contributions.filter((item) => item.contribution > 0).slice(0, 2);
+    const lower = contributions.filter((item) => item.contribution < 0).slice(0, 2);
+    const summary = element("article", "card plain-explanation");
+    summary.append(element("p", "eyebrow", "IN PLAIN ENGLISH"), element("h2", "", "Why this score?"));
+    summary.append(element("p", "", `The model estimates a ${percent(prediction.probability)} chance of churn and labels this profile ${high ? "higher" : "lower"} risk.`));
+    if (higher.length) summary.append(element("p", "", `The strongest factors pushing the model's score higher are ${describe(higher)}.`));
+    if (lower.length) summary.append(element("p", "", `The strongest factors pushing the model's score lower are ${describe(lower)}.`));
+    if (!higher.length && !lower.length) summary.append(element("p", "", "No individual factor moved the model's score away from its reference value."));
+    summary.append(element("p", "small-note", "These factors explain the model's prediction, not proven reasons a customer will leave."));
+    result.append(summary);
     const card = element("article", "card");
     append(card, append(element("div", "card-heading"), append(element("div"), element("p", "eyebrow", "LOCAL SHAP EXPLANATION"), element("h2", "", "What shaped this score")), element("span", "subtle-tag", explanation.units)));
     card.append(element("p", "card-description", "Signed feature contributions to the model output. These describe associations, not causes."));
     const legend = element("div", "factor-legend");
     legend.append(append(element("span"), element("i"), document.createTextNode("Raises model score")), append(element("span"), element("i", "negative"), document.createTextNode("Lowers model score"))); card.append(legend);
-    const contributions = [...explanation.contributions].sort((a, b) => Math.abs(b.contribution) - Math.abs(a.contribution));
     const max = Math.max(...contributions.map((item) => Math.abs(item.contribution)), Number.EPSILON);
     contributions.forEach((item) => {
       const label = append(element("div", "factor-label", labelFor(item.feature)), element("small", "", String(item.value)));

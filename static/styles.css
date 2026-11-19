@@ -1181,6 +1181,11 @@ tbody tr:hover {
   color: #626262;
 }
 
+.plain-explanation p:not(.eyebrow) {
+  margin: 12px 0 0;
+  line-height: 1.6;
+}
+
 .explanation-reconciliation {
   padding: 12px;
   background: #f4f4f4;

@@ -214,11 +214,23 @@ def check_dashboard(base_url: str) -> dict[str, Any]:
         expect(page.locator(".factor-row")).to_have_count(len(schema["fields"]))
         expect(page.locator("#analysis-source")).to_contain_text("Held-out customer")
         expect(page.locator(".explanation-reconciliation")).to_contain_text("Reconstructed probability")
+        customer_id = page.locator("#profile-label").inner_text()
+        customer = page.request.get(f"{base_url}/api/customers/{customer_id}").json()
+        prediction = page.request.post(f"{base_url}/api/predict", data=customer["features"]).json()
+        labels = {field["name"]: field["label"] for field in schema["fields"]}
+        contributions = sorted(prediction["explanation"]["contributions"], key=lambda item: abs(item["contribution"]), reverse=True)
+        explanation = page.locator(".plain-explanation")
+        expect(explanation).to_contain_text("Why this score?")
+        for direction in (1, -1):
+            for item in [item for item in contributions if item["contribution"] * direction > 0][:2]:
+                expect(explanation).to_contain_text(f"{labels[item['feature']]} ({item['value']})")
+        expect(explanation).to_contain_text("not proven reasons")
         assert_no_overflow(page)
         page.screenshot(path=str(output / "analysis-desktop.png"), full_page=True)
         page.locator("#field-MonthlyCharges").fill("80")
         expect(page.locator("#profile-label")).to_have_text("User scenario")
         expect(page.locator("#prediction-result")).to_contain_text("Inputs changed.")
+        expect(page.locator(".plain-explanation")).to_have_count(0)
         page.locator("#field-InternetService").select_option("No")
         for name in ("OnlineSecurity", "OnlineBackup", "DeviceProtection", "TechSupport", "StreamingTV", "StreamingMovies"):
             expect(page.locator(f"#field-{name}")).to_have_value("No internet service")
@@ -228,6 +240,7 @@ def check_dashboard(base_url: str) -> dict[str, Any]:
         page.locator("#predict-button").click()
         expect(page.locator(".score-number")).to_be_visible()
         expect(page.locator(".score-caption")).to_contain_text("User scenario")
+        expect(page.locator(".plain-explanation")).to_be_visible()
         expect(page.locator("#prediction-error")).to_be_hidden()
         checks.append("held-out prediction, all SHAP factors, scenario state and service consistency")
 

@@ -50,3 +50,7 @@
 - The build checks genuine predictions, explanations and CSV scoring, then copies `static/` into generated `public/static/` for Vercel's CDN. Local serving continues to use `static/`.
 - Move XGBoost and matplotlib to the training dependency group. Default local development includes training tools; Vercel installs only runtime dependencies. This deployment serves the frozen logistic regression model. If future model selection chooses XGBoost, restore its serving dependency and check bundle size again.
 - Treat this as a public college demonstrator with the existing fictional-company benchmark examples. No customer database, authentication, private data retention, paid service, or custom domain is added. The user intends to perform the final Vercel publication.
+
+## Plain-English prediction explanation
+
+- Show a short summary above the detailed SHAP bars for every individual prediction, including edited scenarios. Use the strongest positive and negative SHAP contributions and their actual input values; describe model score direction rather than claiming causes. Do not change the model or its predictions.
