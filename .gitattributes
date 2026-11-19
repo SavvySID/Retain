@@ -2,6 +2,8 @@
 * text=auto eol=lf
 *.png binary
 *.joblib binary
+# These JSON bytes are verified by manifest.json; never normalize their line endings.
+artifacts/*.json -text whitespace=cr-at-eol
 *.woff2 binary
 # Preserve the upstream license bytes, including its original trailing space.
 static/fonts/OFL.txt -text whitespace=-blank-at-eol
